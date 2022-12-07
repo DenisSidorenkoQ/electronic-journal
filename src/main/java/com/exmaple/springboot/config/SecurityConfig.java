@@ -26,7 +26,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(requests -> requests
                         .antMatchers("/api/auth", "/api/register").permitAll()
-                        .antMatchers("/api/students/*", "/api/teacher/*").hasAnyRole("student")
+                        .antMatchers("/api/students/*", "/api/teacher/*").hasAnyRole("student", "teacher")
+                        .antMatchers("/api/mark/add/*", "/api/mark/delete/*").hasAnyRole("teacher")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
