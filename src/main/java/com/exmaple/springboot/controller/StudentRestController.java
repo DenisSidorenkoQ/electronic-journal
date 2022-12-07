@@ -16,7 +16,6 @@ import java.util.*;
 @RequiredArgsConstructor
 public class StudentRestController {
     private final StudentService studentService;
-    private final StudentConverter studentConverter;
 
     @GetMapping("/api/students/{groupId}")
     protected List<Student> getStudentsByGroupId(@PathVariable int groupId) {

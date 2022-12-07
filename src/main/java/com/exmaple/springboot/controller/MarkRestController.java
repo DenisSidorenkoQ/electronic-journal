@@ -13,7 +13,7 @@ public class MarkRestController {
     private final MarkService markService;
 
     @PostMapping("/api/mark/add/{studentId}/{subjectId}")
-    protected void getMarkBySubjectAndStudentId(@PathVariable int studentId,
+    protected void insertMarkBySubjectAndStudentId(@PathVariable int studentId,
                                         @PathVariable int subjectId,
                                         @RequestParam Integer mark,
                                         @RequestParam(required = false) Date date) {

@@ -5,6 +5,8 @@ spring:
     password: postgres
     url: jdbc:postgresql://localhost:35432/electronic-journal
 
+salt: SALT
+
 management:
   endpoints:
     web:
