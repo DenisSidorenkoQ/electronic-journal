@@ -27,7 +27,10 @@ public interface MarkRepository extends Repository<Mark, Long> {
                                            @Param("date") Date date,
                                            @Param("number") int number);
 
-    @Query("delete from mark where student_id=:studentId and subject_id=:subjectId and date=:date and number=:number")
+    @Query("delete from mark " +
+            "where mark_id " +
+            "in (select mark_id from mark " +
+            "where student_id=:studentId and subject_id=:subjectId and date=:date and number=:number limit 1)")
     @Modifying
     void delMarkBySubjectIdStudentIdAndDate(@Param("studentId") int studentId,
                                             @Param("subjectId") int subjectId,
