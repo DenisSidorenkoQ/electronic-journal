@@ -1,9 +1,9 @@
 package com.example.user.controller;
 
 import com.example.user.converter.UserConverter;
-import com.example.user.dto.GetUserByLoginRequest;
-import com.example.user.dto.SaveUserRequest;
-import com.example.user.dto.UserResponse;
+import com.example.user.dto.user.GetUserByLoginRequest;
+import com.example.user.dto.user.SaveUserRequest;
+import com.example.user.dto.user.UserResponse;
 import com.example.user.facade.UserFacade;
 import com.example.user.model.User;
 import java.util.Optional;
@@ -22,11 +22,12 @@ public class UserController {
 
     @PostMapping
     ResponseEntity save(@RequestBody SaveUserRequest request, HttpServletResponse response) {
-        Optional<User> savedUser = userFacade.save(request);
+        User userFromRequest = converter.fromDto(request);
+        Optional<User> savedUser = userFacade.save(userFromRequest);
 
         return savedUser
                 .map(user -> new ResponseEntity(user, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.FORBIDDEN));
+                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
     @GetMapping("{userId}")
