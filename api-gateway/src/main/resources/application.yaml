@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: "e2b2be9462f45a280533"
+            client-secret: "b9b42d39853952dc129f881be5461714d743bdef"
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+feign:
+  client:
+    config:
+      user:
+        connect-timeout: 50000
+        read-timeout: 30000
+
+security:
+  secret: "SECRET"
+  session-duration-minutes: 86400
+  success-redirect-url: "http://localhost:3000/dashboard"
+  allowed-origin: "http://localhost:3000"
+
+services:
+  user:
+    url: 'http://localhost:8081'
