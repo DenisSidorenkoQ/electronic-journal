@@ -16,8 +16,8 @@ public class DepartmentService {
         return departmentRepository.getDepartmentByName(name);
     }
 
-    public Department save(final String name) {
-        return departmentRepository.save(name);
+    public Department save(final Department department) {
+        return departmentRepository.save(department.getName());
     }
 
     public Optional<Department> getById(final Long departmentId) {

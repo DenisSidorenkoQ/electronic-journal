@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 public class DepartmentFacade {
     private final DepartmentService departmentService;
 
-    public Department save(final String name) {
-        return departmentService.getDepartmentByName(name)
-                .orElseGet(() -> departmentService.save(name));
+    public Department save(final Department department) {
+        return departmentService.getDepartmentByName(department.getName())
+                .orElseGet(() -> departmentService.save(department));
     }
 
     public Optional<Department> getById(final Long departmentId) {

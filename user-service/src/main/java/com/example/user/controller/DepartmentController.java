@@ -20,8 +20,10 @@ public class DepartmentController {
     private final DepartmentConverter converter;
 
     @PostMapping
-    DepartmentResponse save(@RequestBody SaveDepartmentRequest request) {
-        return converter.toDto(departmentFacade.save(request.getName()));
+    DepartmentResponse saveOrGet(@RequestBody SaveDepartmentRequest request) {
+        Department department = converter.fromDto(request);
+
+        return converter.toDto(departmentFacade.save(department));
     }
 
     @GetMapping("{departmentId}")
