@@ -22,6 +22,6 @@ public class TeacherController {
     TeacherResponse save(@RequestBody SaveTeacherRequest request) {
         Teacher teacher = converter.fromDto(request);
 
-        return converter.toDto(teacherFacade.save(teacher));
+        return converter.toDto(teacherFacade.saveOrGet(teacher));
     }
 }
