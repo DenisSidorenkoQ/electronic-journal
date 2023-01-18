@@ -1,5 +1,7 @@
 package com.example.user.controller;
 
+import com.example.user.converter.AdminConverter;
+import com.example.user.dto.admin.AdminResponse;
 import com.example.user.dto.admin.GetAdminByUserIdRequest;
 import com.example.user.dto.admin.SaveAdminRequest;
 import com.example.user.facade.AdminFacade;
@@ -15,10 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminFacade adminFacade;
+    private final AdminConverter converter;
 
     @PostMapping
-    Admin save(@RequestBody SaveAdminRequest request) {
-        return adminFacade.save(request.getUserId(), request.getFio());
+    AdminResponse save(@RequestBody SaveAdminRequest request) {
+        return converter.toDto(adminFacade.save(request.getUserId(), request.getFio()));
     }
 
     @GetMapping
@@ -26,7 +29,7 @@ public class AdminController {
         Optional<Admin> admin = adminFacade.getAdminByUserId(request.getUserId());
 
         return admin
-                .map(value -> new ResponseEntity(value, HttpStatus.OK))
+                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
@@ -35,7 +38,7 @@ public class AdminController {
         Optional<Admin> admin = adminFacade.getAdminById(adminId);
 
         return admin
-                .map(value -> new ResponseEntity(value, HttpStatus.OK))
+                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 }
