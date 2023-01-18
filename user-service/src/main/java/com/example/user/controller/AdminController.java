@@ -1,5 +1,7 @@
 package com.example.user.controller;
 
+import com.example.user.converter.AdminConverter;
+import com.example.user.dto.admin.AdminResponse;
 import com.example.user.dto.admin.GetAdminByUserIdRequest;
 import com.example.user.dto.admin.SaveAdminRequest;
 import com.example.user.facade.AdminFacade;
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminFacade adminFacade;
+    private final AdminConverter converter;
 
     @PostMapping
-    Admin save(@RequestBody SaveAdminRequest request) {
-        return adminFacade.save(request.getUserId(), request.getFio());
+    AdminResponse save(@RequestBody SaveAdminRequest request) {
+        Admin admin = converter.fromDto(request);
+
+        return converter.toDto(adminFacade.save(admin));
     }
 
     @GetMapping

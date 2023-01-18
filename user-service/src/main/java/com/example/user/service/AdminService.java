@@ -1,6 +1,5 @@
 package com.example.user.service;
 
-import com.example.user.dto.admin.SaveAdminRequest;
 import com.example.user.model.Admin;
 import com.example.user.repository.AdminRepository;
 import java.util.Optional;
@@ -12,8 +11,8 @@ import org.springframework.stereotype.Service;
 public class AdminService {
     private final AdminRepository adminRepository;
 
-    public Admin save(final Long userId, final String fio) {
-        return adminRepository.save(userId, fio);
+    public Admin save(final Admin admin) {
+        return adminRepository.save(admin.getUserId(), admin.getFio());
     }
 
     public Optional<Admin> getAdminByUserId(final Long userId) {
