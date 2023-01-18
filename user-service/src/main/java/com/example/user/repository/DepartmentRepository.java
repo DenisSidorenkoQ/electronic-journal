@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 public interface DepartmentRepository extends Repository<Department, Long> {
 
     @Query("SELECT * FROM department WHERE name=:name")
-    Optional<Department> getDepartmentByName(@Param("name") final String name);
+    Optional<Department> getByName(@Param("name") final String name);
 
     @Query("INSERT INTO department(name) VALUES(:name) RETURNING id, name")
     Department save(@Param("name") final String name);

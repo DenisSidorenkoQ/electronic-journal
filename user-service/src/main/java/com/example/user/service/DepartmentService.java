@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
 
-    public Optional<Department> getDepartmentByName(final String name) {
-        return departmentRepository.getDepartmentByName(name);
+    public Optional<Department> getByName(final String name) {
+        return departmentRepository.getByName(name);
     }
 
     public Department save(final Department department) {
