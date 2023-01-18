@@ -15,4 +15,12 @@ public class TeacherFacade {
         return teacherService.getByUserId(teacher.getUserId())
                 .orElseGet(() -> teacherService.save(teacher));
     }
+
+    public Optional<Teacher> getById(final Long teacherId) {
+        return teacherService.getById(teacherId);
+    }
+
+    public Optional<Teacher> getByFio(final String fio) {
+        return teacherService.getByFio(fio);
+    }
 }

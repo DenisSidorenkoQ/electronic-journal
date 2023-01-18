@@ -19,4 +19,12 @@ public class TeacherService {
     public Optional<Teacher> getByUserId(final Long userId) {
         return teacherRepository.getByUserId(userId);
     }
+
+    public Optional<Teacher> getById(final Long teacherId) {
+        return teacherRepository.getById(teacherId);
+    }
+
+    public Optional<Teacher> getByFio(final String fio) {
+        return teacherRepository.getByFio(fio);
+    }
 }
