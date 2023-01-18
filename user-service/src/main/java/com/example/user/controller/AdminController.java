@@ -20,10 +20,10 @@ public class AdminController {
     private final AdminConverter converter;
 
     @PostMapping
-    AdminResponse save(@RequestBody SaveAdminRequest request) {
+    AdminResponse saveOrGet(@RequestBody SaveAdminRequest request) {
         Admin admin = converter.fromDto(request);
 
-        return converter.toDto(adminFacade.save(admin));
+        return converter.toDto(adminFacade.saveOrGet(admin));
     }
 
     @GetMapping
@@ -31,7 +31,7 @@ public class AdminController {
         Optional<Admin> admin = adminFacade.getAdminByUserId(request.getUserId());
 
         return admin
-                .map(value -> new ResponseEntity(value, HttpStatus.OK))
+                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
@@ -40,7 +40,7 @@ public class AdminController {
         Optional<Admin> admin = adminFacade.getAdminById(adminId);
 
         return admin
-                .map(value -> new ResponseEntity(value, HttpStatus.OK))
+                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 }
