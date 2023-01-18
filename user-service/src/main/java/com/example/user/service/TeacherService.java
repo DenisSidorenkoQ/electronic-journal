@@ -12,7 +12,11 @@ import org.springframework.stereotype.Service;
 public class TeacherService {
     private final TeacherRepository teacherRepository;
 
-    public Optional<Teacher> save(Teacher teacher) {
+    public Teacher save(final Teacher teacher) {
         return teacherRepository.save(teacher.getUserId(), teacher.getDepartmentId(), teacher.getFio());
+    }
+
+    public Optional<Teacher> getByUserId(final Long userId) {
+        return teacherRepository.getByUserId(userId);
     }
 }

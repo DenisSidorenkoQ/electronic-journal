@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 public class TeacherFacade {
     private final TeacherService teacherService;
 
-    public Optional<Teacher> save(final Teacher teacher) {
-        return teacherService.save(teacher);
+    public Teacher save(final Teacher teacher) {
+        return teacherService.getByUserId(teacher.getUserId())
+                .orElseGet(() -> teacherService.save(teacher));
     }
 }
