@@ -18,4 +18,8 @@ public class GroupService {
     public Optional<Group> getByName(String name) {
         return groupRepository.getByName(name);
     }
+
+    public Optional<Group> getById(final Long groupId) {
+        return groupRepository.getById(groupId);
+    }
 }
