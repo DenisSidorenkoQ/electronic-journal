@@ -24,11 +24,11 @@ public class UserFacade {
         return Optional.empty();
     }
 
-    public User getUserById(final Long userId) {
+    public Optional<User> getById(final Long userId) {
         return userService.getUserById(userId);
     }
 
-    public Optional<User> getUserByLogin(final String login) {
+    public Optional<User> getByLogin(final String login) {
         return userService.getUserByLogin(login);
     }
 }

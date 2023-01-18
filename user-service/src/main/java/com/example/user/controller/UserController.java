@@ -31,13 +31,20 @@ public class UserController {
     }
 
     @GetMapping("{userId}")
-    UserResponse getUserById(@PathVariable("userId") final Long userId) {
-        return converter.toDto(userFacade.getUserById(userId));
+    ResponseEntity getById(@PathVariable("userId") final Long userId) {
+        Optional<User> findUser = userFacade.getById(userId);
+
+        return findUser
+                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
     @GetMapping
-    UserResponse getUserByLogin(@RequestBody GetUserByLoginRequest request) {
-        User findUser = userFacade.getUserByLogin(request.getLogin()).orElseGet(() -> User.builder().build());
-        return converter.toDto(findUser);
+    ResponseEntity  getByLogin(@RequestBody GetUserByLoginRequest request) {
+        Optional<User> findUser = userFacade.getByLogin(request.getLogin());
+
+        return findUser
+                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 }
