@@ -1,7 +1,5 @@
 package com.example.user.facade;
 
-import com.example.user.converter.UserConverter;
-import com.example.user.dto.SaveUserRequest;
 import com.example.user.model.User;
 import com.example.user.service.UserService;
 import java.util.Optional;
@@ -12,13 +10,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserFacade {
     private final UserService userService;
-    private final UserConverter converter;
 
-    public Optional<User> save(final SaveUserRequest request) {
-        Optional<User> findUser = userService.getUserByLogin(request.getLogin());
+    public Optional<User> save(final User user) {
+        Optional<User> findUser = userService.getUserByLogin(user.getLogin());
 
         if (findUser.isEmpty()) {
-            User user = converter.fromDto(request);
             User savedUser = userService.save(user);
 
             return Optional.of(savedUser);

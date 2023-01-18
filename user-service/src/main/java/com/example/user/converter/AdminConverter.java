@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface AdminConverter {
     Admin fromDto(final SaveAdminRequest admin);
-
-    AdminResponse toDto(Admin admin);
+    
+    AdminResponse toDto(final Admin admin);
 }
