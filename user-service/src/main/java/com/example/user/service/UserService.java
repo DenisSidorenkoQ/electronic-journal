@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
 
-    public User getUserById(final Long userId) {
+    public Optional<User> getUserById(final Long userId) {
         return userRepository.getByUserId(userId);
     }
 

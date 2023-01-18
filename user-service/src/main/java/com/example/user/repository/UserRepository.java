@@ -17,5 +17,5 @@ public interface UserRepository extends Repository<User, Long> {
     Optional<User> getByLogin(@Param("login") final String login);
 
     @Query("SELECT * FROM \"user\" where id=:userId")
-    User getByUserId(@Param("userId") final Long userId);
+    Optional<User> getByUserId(@Param("userId") final Long userId);
 }
