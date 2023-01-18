@@ -2,6 +2,7 @@ package com.example.user.controller;
 
 import com.example.user.converter.DepartmentConverter;
 import com.example.user.dto.department.DepartmentResponse;
+import com.example.user.dto.department.GetDepartmentByNameRequest;
 import com.example.user.dto.department.SaveDepartmentRequest;
 import com.example.user.facade.DepartmentFacade;
 import com.example.user.model.Admin;
@@ -20,13 +21,24 @@ public class DepartmentController {
     private final DepartmentConverter converter;
 
     @PostMapping
-    DepartmentResponse save(@RequestBody SaveDepartmentRequest request) {
-        return converter.toDto(departmentFacade.save(request.getName()));
+    DepartmentResponse saveOrGet(@RequestBody SaveDepartmentRequest request) {
+        Department department = converter.fromDto(request);
+
+        return converter.toDto(departmentFacade.save(department));
     }
 
     @GetMapping("{departmentId}")
     ResponseEntity getById(@PathVariable("departmentId") final Long departmentId) {
         Optional<Department> department = departmentFacade.getById(departmentId);
+
+        return department
+                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
+    }
+
+    @GetMapping
+    ResponseEntity getByName(@RequestBody GetDepartmentByNameRequest request) {
+        Optional<Department> department = departmentFacade.getByName(request.getName());
 
         return department
                 .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
