@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 public class AdminService {
     private final AdminRepository adminRepository;
 
-    public Admin save(final Long userId, final String fio) {
-        return adminRepository.save(userId, fio);
+    public Admin save(final Admin admin) {
+        return adminRepository.save(admin.getUserId(), admin.getFio());
     }
 
     public Optional<Admin> getAdminByUserId(final Long userId) {

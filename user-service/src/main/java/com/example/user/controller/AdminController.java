@@ -20,8 +20,10 @@ public class AdminController {
     private final AdminConverter converter;
 
     @PostMapping
-    AdminResponse save(@RequestBody SaveAdminRequest request) {
-        return converter.toDto(adminFacade.save(request.getUserId(), request.getFio()));
+    AdminResponse saveOrGet(@RequestBody SaveAdminRequest request) {
+        Admin admin = converter.fromDto(request);
+
+        return converter.toDto(adminFacade.saveOrGet(admin));
     }
 
     @GetMapping

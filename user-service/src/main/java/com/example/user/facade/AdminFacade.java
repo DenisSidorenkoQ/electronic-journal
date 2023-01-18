@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 public class AdminFacade {
     private final AdminService adminService;
 
-    public Admin save(final Long userId, final String fio) {
-        return adminService.getAdminByUserId(userId)
-                .orElseGet(() -> adminService.save(userId, fio));
+    public Admin saveOrGet(final Admin admin) {
+        return adminService.getAdminByUserId(admin.getUserId())
+                .orElseGet(() -> adminService.save(admin));
     }
 
 
