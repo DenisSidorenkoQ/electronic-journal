@@ -1,6 +1,5 @@
 package com.example.user.service;
 
-import com.example.user.dto.admin.SaveAdminRequest;
 import com.example.user.model.Admin;
 import com.example.user.repository.AdminRepository;
 import java.util.Optional;

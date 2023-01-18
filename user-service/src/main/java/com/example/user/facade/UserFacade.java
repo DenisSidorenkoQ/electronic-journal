@@ -1,7 +1,5 @@
 package com.example.user.facade;
 
-import com.example.user.converter.UserConverter;
-import com.example.user.dto.user.SaveUserRequest;
 import com.example.user.model.User;
 import com.example.user.service.UserService;
 import java.util.Optional;
