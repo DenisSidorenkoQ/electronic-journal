@@ -10,5 +10,6 @@ import lombok.extern.jackson.Jacksonized;
 public class SubjectResponse {
     Long id;
     String name;
+    Long timeToStudy;
     Long knowledgeTestTypeId;
 }

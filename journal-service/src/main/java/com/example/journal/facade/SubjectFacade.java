@@ -2,6 +2,7 @@ package com.example.journal.facade;
 
 import com.example.journal.model.GroupHasSubject;
 import com.example.journal.model.Subject;
+import com.example.journal.model.SubjectByGroupInfo;
 import com.example.journal.service.SubjectService;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,7 @@ public class SubjectFacade {
         return subjectService.addSubjectToTheGroup(groupHasSubject);
     }
 
-    public List<Subject> getGroupSubjects(final Long groupId) {
-        return null;
+    public List<SubjectByGroupInfo> getGroupSubjects(final Long groupId) {
+        return subjectService.getGroupSubjects(groupId);
     }
 }

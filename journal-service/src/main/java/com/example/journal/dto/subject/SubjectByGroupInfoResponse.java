@@ -7,8 +7,10 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Value
 @Jacksonized
-public class SaveSubjectRequest {
-    String name;
+public class SubjectByGroupInfoResponse {
+    Long id;
+    String subjectName;
     Long timeToStudy;
-    Long knowledgeTestTypeId;
+    String knowledgeTestTypeName;
+    String teacherFio;
 }

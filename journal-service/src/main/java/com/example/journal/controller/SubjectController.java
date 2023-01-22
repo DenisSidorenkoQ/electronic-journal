@@ -6,6 +6,8 @@ import com.example.journal.dto.subject.*;
 import com.example.journal.facade.SubjectFacade;
 import com.example.journal.model.GroupHasSubject;
 import com.example.journal.model.Subject;
+import com.example.journal.model.SubjectByGroupInfo;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +56,12 @@ public class SubjectController {
     }
 
     @GetMapping("group/{groupId}")
-    List<Subject> getGroupSubjects(@PathVariable("groupId") Long groupId) {
-        return subjectFacade.getGroupSubjects(groupId);
+    List<SubjectByGroupInfoResponse> getGroupSubjects(@PathVariable("groupId") Long groupId) {
+        List<SubjectByGroupInfo> subjectByGroupInfos = subjectFacade.getGroupSubjects(groupId);
+        List<SubjectByGroupInfoResponse> subjectByGroupInfoResponse = new ArrayList<>();
+
+        subjectByGroupInfos.forEach((subject) -> subjectByGroupInfoResponse.add(subjectConverter.toDto(subject)));
+
+        return subjectByGroupInfoResponse;
     }
 }
