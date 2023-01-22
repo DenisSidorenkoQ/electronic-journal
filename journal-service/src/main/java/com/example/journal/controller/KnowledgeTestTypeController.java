@@ -36,7 +36,7 @@ public class KnowledgeTestTypeController {
     }
 
     @GetMapping
-    ResponseEntity getAdminById(@RequestBody final GetKnowledgeTestTypeByNameRequest request) {
+    ResponseEntity getByName(@RequestBody final GetKnowledgeTestTypeByNameRequest request) {
         Optional<KnowledgeTestType> knowledgeTestType = knowledgeTestTypeFacade.getByName(request.getName());
 
         return knowledgeTestType
