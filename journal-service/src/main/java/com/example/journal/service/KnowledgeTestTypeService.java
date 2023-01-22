@@ -11,11 +11,15 @@ import org.springframework.stereotype.Service;
 public class KnowledgeTestTypeService {
     private final KnowledgeTestTypeRepository knowledgeTestTypeRepository;
 
-    public Optional<KnowledgeTestType> getByName(String name) {
+    public Optional<KnowledgeTestType> getByName(final String name) {
         return knowledgeTestTypeRepository.getByName(name);
     }
 
-    public KnowledgeTestType save(KnowledgeTestType knowledgeTestType) {
+    public KnowledgeTestType save(final KnowledgeTestType knowledgeTestType) {
         return knowledgeTestTypeRepository.save(knowledgeTestType.getName());
+    }
+
+    public Optional<KnowledgeTestType> getById(final Long testId) {
+        return knowledgeTestTypeRepository.getById(testId);
     }
 }

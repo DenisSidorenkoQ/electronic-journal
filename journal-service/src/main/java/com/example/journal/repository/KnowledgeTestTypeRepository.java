@@ -14,4 +14,7 @@ public interface KnowledgeTestTypeRepository extends Repository<KnowledgeTestTyp
 
     @Query("SELECT * FROM knowledge_test_type WHERE name=:name")
     Optional<KnowledgeTestType> getByName(@Param("name") final String name);
+
+    @Query("SELECT * FROM knowledge_test_type WHERE id=:testId")
+    Optional<KnowledgeTestType> getById(@Param("testId") Long testId);
 }
