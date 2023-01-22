@@ -1,7 +1,9 @@
 package com.example.journal.facade;
 
+import com.example.journal.model.GroupHasSubject;
 import com.example.journal.model.Subject;
 import com.example.journal.service.SubjectService;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class SubjectFacade {
     private final SubjectService subjectService;
 
-    public Subject saveOrGet(final Subject subject) {
+    public Subject saveOrGetSubject(final Subject subject) {
         return subjectService.getByName(subject.getName())
                 .orElseGet(() -> subjectService.save(subject));
     }
@@ -22,5 +24,13 @@ public class SubjectFacade {
 
     public Optional<Subject> getByName(final String name) {
         return subjectService.getByName(name);
+    }
+
+    public GroupHasSubject addSubjectToTheGroup(final GroupHasSubject groupHasSubject) {
+        return subjectService.addSubjectToTheGroup(groupHasSubject);
+    }
+
+    public List<Subject> getGroupSubjects(final Long groupId) {
+        return null;
     }
 }

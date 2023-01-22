@@ -1,12 +1,12 @@
 package com.example.journal.controller;
 
+import com.example.journal.converter.GroupHasSubjectConverter;
 import com.example.journal.converter.SubjectConverter;
-import com.example.journal.dto.subject.GetSubjectByNameRequest;
-import com.example.journal.dto.subject.SaveSubjectRequest;
-import com.example.journal.dto.subject.SubjectResponse;
+import com.example.journal.dto.subject.*;
 import com.example.journal.facade.SubjectFacade;
-import com.example.journal.model.KnowledgeTestType;
+import com.example.journal.model.GroupHasSubject;
 import com.example.journal.model.Subject;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,14 +17,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/subject")
 @RequiredArgsConstructor
 public class SubjectController {
-    private final SubjectConverter converter;
+    private final SubjectConverter subjectConverter;
+    private final GroupHasSubjectConverter groupHasSubjectConverter;
     private final SubjectFacade subjectFacade;
 
     @PostMapping
     SubjectResponse saveOrGet(@RequestBody SaveSubjectRequest request) {
-        Subject subject = converter.fromDto(request);
+        Subject subject = subjectConverter.fromDto(request);
 
-        return converter.toDto(subjectFacade.saveOrGet(subject));
+        return subjectConverter.toDto(subjectFacade.saveOrGetSubject(subject));
     }
 
     @GetMapping("{subjectId}")
@@ -32,7 +33,7 @@ public class SubjectController {
         Optional<Subject> subject = subjectFacade.getById(subjectId);
 
         return subject
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
+                .map(value -> new ResponseEntity(subjectConverter.toDto(value), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
@@ -41,7 +42,19 @@ public class SubjectController {
         Optional<Subject> subject = subjectFacade.getByName(request.getName());
 
         return subject
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
+                .map(value -> new ResponseEntity(subjectConverter.toDto(value), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
+    }
+
+    @PostMapping("group")
+    GroupHasSubjectResponse addSubjectToTheGroup(@RequestBody AddSubjectToTheGroupRequest request) {
+        GroupHasSubject groupHasSubject = groupHasSubjectConverter.fromDto(request);
+
+        return groupHasSubjectConverter.toDto(subjectFacade.addSubjectToTheGroup(groupHasSubject));
+    }
+
+    @GetMapping("group/{groupId}")
+    List<Subject> getGroupSubjects(@PathVariable("groupId") Long groupId) {
+        return subjectFacade.getGroupSubjects(groupId);
     }
 }

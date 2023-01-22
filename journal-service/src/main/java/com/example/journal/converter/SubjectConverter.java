@@ -9,6 +9,6 @@ import org.mapstruct.Mapper;
 public interface SubjectConverter {
     Subject fromDto(SaveSubjectRequest request);
 
-
     SubjectResponse toDto(Subject saveOrGet);
+
 }
