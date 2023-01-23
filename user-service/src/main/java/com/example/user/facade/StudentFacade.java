@@ -12,7 +12,7 @@ public class StudentFacade {
     private final StudentService studentService;
 
     public Student saveOrGet(final Student student) {
-        return studentService.getByFio(student.getFio())
+        return studentService.getByUserId(student.getUserId())
                 .orElseGet(() -> studentService.save(student));
     }
 
