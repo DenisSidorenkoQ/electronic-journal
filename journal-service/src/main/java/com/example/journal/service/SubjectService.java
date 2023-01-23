@@ -21,7 +21,7 @@ public class SubjectService {
     }
 
     public Subject save(Subject subject) {
-        return subjectRepository.save(subject.getName(), subject.getTimeToStudy(), subject.getKnowledgeTestTypeId());
+        return subjectRepository.save(subject);
     }
 
     public Optional<Subject> getById(final Long subjectId) {
@@ -29,11 +29,7 @@ public class SubjectService {
     }
 
     public GroupHasSubject addSubjectToTheGroup(final GroupHasSubject groupHasSubject) {
-        return groupHasSubjectRepository.save(
-                groupHasSubject.getGroupId(),
-                groupHasSubject.getTeacherId(),
-                groupHasSubject.getSubjectId()
-        );
+        return groupHasSubjectRepository.save(groupHasSubject);
     }
 
     public List<SubjectByGroupInfo> getGroupSubjects(final Long groupId) {

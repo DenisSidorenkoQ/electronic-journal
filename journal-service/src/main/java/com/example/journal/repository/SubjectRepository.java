@@ -14,8 +14,7 @@ public interface SubjectRepository extends Repository<Subject, Long> {
     @Query("SELECT * FROM subject WHERE name=:name")
     Optional<Subject> getByName(@Param("name") final String name);
 
-    @Query("INSERT INTO subject(name, time_to_study, knowledge_test_type_id) VALUES(:name, :timeToStudy, :knowledgeTestTypeId) RETURNING id, name, knowledge_test_type_id")
-    Subject save(@Param("name") String name, @Param("timeToStudy") final Long timeToStudy, @Param("knowledgeTestTypeId") final Long knowledgeTestTypeId);
+    Subject save(final Subject subject);
 
     @Query("SELECT * FROM subject WHERE id=:subjectId")
     Optional<Subject> getById(@Param("subjectId") final Long subjectId);

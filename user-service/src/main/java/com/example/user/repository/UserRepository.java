@@ -10,8 +10,8 @@ public interface UserRepository extends Repository<User, Long> {
 
     @Query("INSERT INTO \"user\" (login, password, role_id) VALUES(:login, :password, :roleId) RETURNING id, login, password, role_id")
     User save(@Param("login") final String login,
-                   @Param("password") final String password,
-                   @Param("roleId") final Integer roleId);
+              @Param("password") final String password,
+              @Param("roleId") final Integer roleId);
 
     @Query("SELECT * FROM \"user\" where login=:login")
     Optional<User> getByLogin(@Param("login") final String login);

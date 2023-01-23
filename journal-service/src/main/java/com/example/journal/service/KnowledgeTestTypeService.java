@@ -16,7 +16,7 @@ public class KnowledgeTestTypeService {
     }
 
     public KnowledgeTestType save(final KnowledgeTestType knowledgeTestType) {
-        return knowledgeTestTypeRepository.save(knowledgeTestType.getName());
+        return knowledgeTestTypeRepository.save(knowledgeTestType);
     }
 
     public Optional<KnowledgeTestType> getById(final Long testId) {

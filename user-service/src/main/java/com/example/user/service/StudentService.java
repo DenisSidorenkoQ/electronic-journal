@@ -12,7 +12,7 @@ public class StudentService {
     private final StudentRepository studentRepository;
 
     public Student save(final Student student) {
-        return studentRepository.save(student.getUserId(), student.getGroupId(), student.getFio(), student.getSex());
+        return studentRepository.save(student);
     }
 
     public Optional<Student> getByFio(String fio) {

@@ -11,8 +11,7 @@ public interface DepartmentRepository extends Repository<Department, Long> {
     @Query("SELECT * FROM department WHERE name=:name")
     Optional<Department> getByName(@Param("name") final String name);
 
-    @Query("INSERT INTO department(name) VALUES(:name) RETURNING id, name")
-    Department save(@Param("name") final String name);
+    Department save(final Department department);
 
     @Query("SELECT * FROM department WHERE id=:departmentId")
     Optional<Department> getById(@Param("departmentId") final Long departmentId);

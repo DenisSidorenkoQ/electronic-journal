@@ -7,8 +7,7 @@ import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
 public interface GroupRepository extends Repository<Group, Long> {
-    @Query("INSERT INTO \"group\"(name) VALUES(:name) RETURNING id, name")
-    Group save(@Param("name") final String name);
+    Group save(final Group group);
 
     @Query("SELECT * FROM \"group\" WHERE name=:name")
     Optional<Group> getByName(@Param("name") final String name);

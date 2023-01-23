@@ -13,7 +13,7 @@ public class TeacherService {
     private final TeacherRepository teacherRepository;
 
     public Teacher save(final Teacher teacher) {
-        return teacherRepository.save(teacher.getUserId(), teacher.getDepartmentId(), teacher.getFio());
+        return teacherRepository.save(teacher);
     }
 
     public Optional<Teacher> getByUserId(final Long userId) {
