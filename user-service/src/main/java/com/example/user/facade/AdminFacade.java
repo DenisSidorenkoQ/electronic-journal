@@ -17,11 +17,11 @@ public class AdminFacade {
     }
 
 
-    public Optional<Admin> getAdminByUserId(final Long userId) {
+    public Optional<Admin> getByUserId(final Long userId) {
         return adminService.getAdminByUserId(userId);
     }
 
-    public Optional<Admin> getAdminById(final Long adminId) {
+    public Optional<Admin> getById(final Long adminId) {
         return adminService.getAdminById(adminId);
     }
 }

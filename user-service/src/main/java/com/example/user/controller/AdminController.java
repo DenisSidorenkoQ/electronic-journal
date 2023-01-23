@@ -27,8 +27,8 @@ public class AdminController {
     }
 
     @GetMapping
-    ResponseEntity getAdminByUserId(@RequestBody final GetAdminByUserIdRequest request) {
-        Optional<Admin> admin = adminFacade.getAdminByUserId(request.getUserId());
+    ResponseEntity getByUserId(@RequestBody final GetAdminByUserIdRequest request) {
+        Optional<Admin> admin = adminFacade.getByUserId(request.getUserId());
 
         return admin
                 .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
@@ -36,8 +36,8 @@ public class AdminController {
     }
 
     @GetMapping("{adminId}")
-    ResponseEntity getAdminById(@PathVariable("adminId") final Long adminId) {
-        Optional<Admin> admin = adminFacade.getAdminById(adminId);
+    ResponseEntity getById(@PathVariable("adminId") final Long adminId) {
+        Optional<Admin> admin = adminFacade.getById(adminId);
 
         return admin
                 .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
