@@ -8,9 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface AdminRepository extends Repository<Admin, Long> {
 
-    @Query("INSERT INTO admin(user_id, fio) VALUES(:userId, :fio) RETURNING id, user_id, fio")
-    Admin save(@Param("userId") final Long userId,
-              @Param("fio") final String fio);
+    Admin save(final Admin admin);
 
     @Query("SELECT * FROM admin where user_id=:userId")
     Optional<Admin> getAdminByUserId(@Param("userId") final Long userId);

@@ -9,8 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface KnowledgeTestTypeRepository extends Repository<KnowledgeTestType, Long> {
 
-    @Query("INSERT INTO knowledge_test_type(name) VALUES(:name) RETURNING id, name")
-    KnowledgeTestType save(@Param("name") final String name);
+    KnowledgeTestType save(final KnowledgeTestType knowledgeTestType);
 
     @Query("SELECT * FROM knowledge_test_type WHERE name=:name")
     Optional<KnowledgeTestType> getByName(@Param("name") final String name);

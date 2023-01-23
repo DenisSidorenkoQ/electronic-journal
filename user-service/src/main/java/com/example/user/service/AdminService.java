@@ -12,7 +12,7 @@ public class AdminService {
     private final AdminRepository adminRepository;
 
     public Admin save(final Admin admin) {
-        return adminRepository.save(admin.getUserId(), admin.getFio());
+        return adminRepository.save(admin);
     }
 
     public Optional<Admin> getAdminByUserId(final Long userId) {

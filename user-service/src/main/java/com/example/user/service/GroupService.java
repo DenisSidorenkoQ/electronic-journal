@@ -12,7 +12,7 @@ public class GroupService {
     private final GroupRepository groupRepository;
 
     public Group save(Group group) {
-        return groupRepository.save(group.getName());
+        return groupRepository.save(group);
     }
 
     public Optional<Group> getByName(String name) {
