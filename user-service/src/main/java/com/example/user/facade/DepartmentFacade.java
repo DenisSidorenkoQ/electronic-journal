@@ -1,6 +1,5 @@
 package com.example.user.facade;
 
-import com.example.user.model.Admin;
 import com.example.user.model.Department;
 import com.example.user.service.DepartmentService;
 import java.util.Optional;
