@@ -21,7 +21,7 @@ public class UserController {
     private final UserConverter converter;
 
     @PostMapping
-    ResponseEntity save(@RequestBody SaveUserRequest request, HttpServletResponse response) {
+    ResponseEntity save(@RequestBody SaveUserRequest request) {
         User userFromRequest = converter.fromDto(request);
         Optional<User> savedUser = userFacade.save(userFromRequest);
 
