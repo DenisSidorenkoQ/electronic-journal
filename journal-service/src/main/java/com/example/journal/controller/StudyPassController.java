@@ -19,7 +19,7 @@ public class StudyPassController {
     private final StudyPassFacade markFacade;
 
     @PostMapping("study-pass")
-    StudyPassResponse saveOrGet(@RequestBody SaveStudyPassRequest request) {
+    StudyPassResponse saveOrUpdate(@RequestBody SaveStudyPassRequest request) {
         StudyPass studyPass = converter.fromDto(request);
 
         return converter.toDto(markFacade.saveOrUpdate(studyPass));
