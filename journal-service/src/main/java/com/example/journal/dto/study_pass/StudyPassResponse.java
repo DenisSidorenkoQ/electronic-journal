@@ -1,0 +1,15 @@
+package com.example.journal.dto.study_pass;
+
+import lombok.Builder;
+import lombok.Value;
+import lombok.extern.jackson.Jacksonized;
+
+@Builder
+@Value
+@Jacksonized
+public class StudyPassResponse {
+    Long id;
+    Long lessonId;
+    Long studentId;
+    Boolean pass;
+}
