@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param;
 public interface GroupRepository extends Repository<Group, Long> {
     Group save(final Group group);
 
-    @Query("SELECT * FROM \"group\" WHERE name=:name")
+    @Query("SELECT * FROM groups WHERE name=:name")
     Optional<Group> getByName(@Param("name") final String name);
 
-    @Query("SELECT * FROM \"group\" WHERE id=:groupId")
+    @Query("SELECT * FROM groups WHERE id=:groupId")
     Optional<Group> getById(@Param("groupId") final Long groupId);
 }

@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Builder
 @Value
-@Table("\"group\"")
+@Table("groups")
 public class Group {
     @Id
     Long id;

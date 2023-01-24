@@ -8,14 +8,14 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends Repository<User, Long> {
 
-    @Query("INSERT INTO \"user\" (login, password, role_id) VALUES(:login, :password, :roleId) RETURNING id, login, password, role_id")
+    @Query("INSERT INTO users (login, password, role_id) VALUES(:login, :password, :roleId) RETURNING id, login, password, role_id")
     User save(@Param("login") final String login,
               @Param("password") final String password,
               @Param("roleId") final Integer roleId);
 
-    @Query("SELECT * FROM \"user\" where login=:login")
+    @Query("SELECT * FROM users where login=:login")
     Optional<User> getByLogin(@Param("login") final String login);
 
-    @Query("SELECT * FROM \"user\" where id=:userId")
+    @Query("SELECT * FROM users where id=:userId")
     Optional<User> getByUserId(@Param("userId") final Long userId);
 }
