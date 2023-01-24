@@ -15,7 +15,11 @@ public class JournalService {
         return journalRepository.getByGroupId(groupId);
     }
 
-    public Journal save(Journal journal) {
+    public Journal save(final Journal journal) {
         return journalRepository.save(journal);
+    }
+
+    public Optional<Journal> getById(final Long journalId) {
+        return journalRepository.getById(journalId);
     }
 }
