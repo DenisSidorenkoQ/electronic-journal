@@ -4,7 +4,7 @@ create table lesson
     journal_id        BIGINT NOT NULL,
     subject_id        BIGINT NOT NULL,
     theme_name        TEXT NOT NULL,
-    date              DATE NOT NULL,
+    date              BIGINT NOT NULL,
     FOREIGN KEY (journal_id) REFERENCES journal (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (subject_id) REFERENCES subject (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
