@@ -2,6 +2,7 @@ package com.example.journal.facade;
 
 import com.example.journal.model.Journal;
 import com.example.journal.service.JournalService;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,5 +15,13 @@ public class JournalFacade {
     public Journal saveOrGet(final Journal journal) {
         return journalService.getByGroupId(journal.getGroupId())
                 .orElseGet(() -> journalService.save(journal));
+    }
+
+    public Optional<Journal> getById(final Long journalId) {
+        return journalService.getById(journalId);
+    }
+
+    public Optional<Journal> getByGroupId(final Long groupId) {
+        return journalService.getByGroupId(groupId);
     }
 }
