@@ -9,7 +9,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Value
 @Jacksonized
-public class SaveMarkRequest {
+public class SaveOrUpdateMarkRequest {
     Long lessonId;
     Long studentId;
     @Min(1)
