@@ -7,10 +7,8 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Value
 @Jacksonized
-public class LessonResponse {
+public class GetLessonByGroupIdAndSubjectIdResponse {
     Long id;
-    Long journalId;
-    Long subjectId;
     String themeName;
     Long dateTimestamp;
 }
