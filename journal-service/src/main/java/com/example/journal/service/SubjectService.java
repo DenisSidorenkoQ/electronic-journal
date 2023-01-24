@@ -2,7 +2,6 @@ package com.example.journal.service;
 
 import com.example.journal.model.GroupHasSubject;
 import com.example.journal.model.Subject;
-import com.example.journal.model.SubjectByGroupInfo;
 import com.example.journal.repository.GroupHasSubjectRepository;
 import com.example.journal.repository.SubjectRepository;
 import java.util.List;
@@ -32,7 +31,7 @@ public class SubjectService {
         return groupHasSubjectRepository.save(groupHasSubject);
     }
 
-    public List<SubjectByGroupInfo> getGroupSubjects(final Long groupId) {
+    public List<Subject> getGroupSubjects(final Long groupId) {
         return subjectRepository.getGroupListSubject(groupId);
     }
 }
