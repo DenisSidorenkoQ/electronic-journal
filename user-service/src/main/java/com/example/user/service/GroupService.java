@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 public class GroupService {
     private final GroupRepository groupRepository;
 
-    public Group save(Group group) {
+    public Group save(final Group group) {
         return groupRepository.save(group);
     }
 
-    public Optional<Group> getByName(String name) {
+    public Optional<Group> getByName(final String name) {
         return groupRepository.getByName(name);
     }
 
