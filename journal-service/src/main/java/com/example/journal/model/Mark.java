@@ -8,16 +8,13 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Builder
 @Value
-@Table("lesson")
-public class Lesson {
+@Table("mark")
+public class Mark {
     @Id
     Long id;
-    @Column("journal_id")
-    Long journalId;
-    @Column("subject_id")
-    Long subjectId;
-    @Column("theme_name")
-    String themeName;
-    @Column("date")
-    Long dateTimestamp;
+    @Column("lesson_id")
+    Long lessonId;
+    @Column("student_id")
+    Long studentId;
+    Integer number;
 }

@@ -8,7 +8,7 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
 
-public interface LessonRepository extends Repository<KnowledgeTestType, Long> {
+public interface LessonRepository extends Repository<Lesson, Long> {
 
     Lesson save(final Lesson lesson);
 
