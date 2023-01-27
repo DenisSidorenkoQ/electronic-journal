@@ -13,9 +13,12 @@ public interface UserRepository extends Repository<User, Long> {
               @Param("password") final String password,
               @Param("roleId") final Integer roleId);
 
-    @Query("SELECT * FROM users where login=:login")
+    @Query("SELECT * FROM users WHERE login=:login")
     Optional<User> getByLogin(@Param("login") final String login);
 
-    @Query("SELECT * FROM users where id=:userId")
+    @Query("SELECT * FROM users WHERE id=:userId")
     Optional<User> getByUserId(@Param("userId") final Long userId);
+
+    @Query("SELECT * FROM users WHERE login=:login AND password=:password")
+    Optional<User> getByCredentials(@Param("login") String login, @Param("password") String password);
 }

@@ -29,4 +29,8 @@ public class UserFacade {
     public Optional<User> getByLogin(final String login) {
         return userService.getUserByLogin(login);
     }
+
+    public Optional<User> getByCredentials(final User user) {
+        return userService.getByCredentials(user);
+    }
 }

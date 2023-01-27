@@ -1,5 +1,6 @@
 package com.example.user.converter;
 
+import com.example.user.dto.user.GetUserByCredentialsRequest;
 import com.example.user.dto.user.SaveUserRequest;
 import com.example.user.dto.user.UserResponse;
 import com.example.user.model.User;
@@ -11,4 +12,6 @@ public interface UserConverter {
     UserResponse toDto(final User user);
 
     User fromDto(final SaveUserRequest user);
+
+    User fromDto(final GetUserByCredentialsRequest request);
 }
