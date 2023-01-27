@@ -1,4 +1,4 @@
-package com.example.gateway.dto;
+package com.example.user.dto.user;
 
 import lombok.Builder;
 import lombok.Value;
@@ -7,8 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Value
 @Jacksonized
-public class UserResponse {
-    Long id;
+public class GetUserByCredentialsRequest {
     String login;
-    int roleId;
+    String password;
 }

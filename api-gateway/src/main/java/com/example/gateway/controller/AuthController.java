@@ -1,0 +1,56 @@
+package com.example.gateway.controller;
+
+import com.example.gateway.client.UserClient;
+import com.example.gateway.config.security.jwt.JwtProvider;
+import com.example.gateway.dto.auth.AuthorizationUserRequest;
+import com.example.gateway.dto.user.GetUserByCredentialsRequest;
+import com.example.gateway.dto.user.UserResponse;
+import feign.jackson.JacksonEncoder;
+import java.time.Duration;
+import java.util.Optional;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("authorization")
+@RequiredArgsConstructor
+public class AuthController {
+    private static final String TOKEN_NAME = "JWT";
+    private static final long EXPIRATION = Duration.ofHours(3).toSeconds();
+    private final JwtProvider jwtProvider;
+    private final UserClient userClient;
+
+    @GetMapping("/login")
+    public ResponseEntity<?> login(@RequestBody AuthorizationUserRequest request,
+                                   HttpServletResponse response) {
+        final GetUserByCredentialsRequest getUserRequest = GetUserByCredentialsRequest.builder()
+                .login(request.getLogin())
+                .password(request.getPassword())
+                .build();
+
+        Optional<UserResponse> userResponse =
+                userClient.getByCredentials(getUserRequest.getLogin(), getUserRequest.getPassword());
+        if (userResponse.isPresent()) {
+            UserResponse user = userResponse.get();
+
+            String token = jwtProvider.generateToken(
+                    user.getId(),
+                    user.getLogin(),
+                    user.getRoleId()
+            );
+            final Cookie cookie = new Cookie(TOKEN_NAME, token);
+            cookie.setPath("/");
+            cookie.setHttpOnly(true);
+            cookie.setMaxAge((int) EXPIRATION);
+            response.addCookie(cookie);
+
+            return ResponseEntity.ok().body(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+}

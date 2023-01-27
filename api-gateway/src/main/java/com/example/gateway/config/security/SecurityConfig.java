@@ -1,7 +1,6 @@
 package com.example.gateway.config.security;
 
 import com.example.gateway.config.security.filter.JwtTokenFilter;
-import com.example.gateway.config.security.handler.SuccessAuthHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,21 +14,20 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-
-    private final SuccessAuthHandler successHandler;
     private final JwtTokenFilter jwtTokenFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
-                .authorizeRequests(a -> a.antMatchers("/", "/error").permitAll()
-                        .anyRequest().authenticated())
+                .authorizeRequests(a -> a
+                        .antMatchers("/", "/error", "/authorization/login", "/api/v1/user/*").permitAll()
+                        .anyRequest().authenticated()
+                )
                 .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtTokenFilter, OAuth2LoginAuthenticationFilter.class)
                 .build();
     }
-
 }

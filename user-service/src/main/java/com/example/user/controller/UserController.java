@@ -1,14 +1,14 @@
 package com.example.user.controller;
 
 import com.example.user.converter.UserConverter;
-import com.example.user.dto.user.GetUserByLoginRequest;
+import com.example.user.dto.user.GetUserByCredentialsRequest;
 import com.example.user.dto.user.SaveUserRequest;
 import com.example.user.dto.user.UserResponse;
 import com.example.user.facade.UserFacade;
 import com.example.user.model.User;
 import java.util.Optional;
-import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.control.MappingControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,25 +26,23 @@ public class UserController {
         Optional<User> savedUser = userFacade.save(userFromRequest);
 
         return savedUser
-                .map(user -> new ResponseEntity(user, HttpStatus.OK))
+                .map(user -> new ResponseEntity(converter.toDto(user), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
     @GetMapping("{userId}")
-    ResponseEntity getById(@PathVariable("userId") final Long userId) {
-        Optional<User> findUser = userFacade.getById(userId);
+    UserResponse getById(@PathVariable("userId") final Long userId) {
+        Optional<User> foundUser = userFacade.getById(userId);
 
-        return findUser
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
+        return converter.toDto(foundUser.get());
     }
 
     @GetMapping
-    ResponseEntity  getByLogin(@RequestBody GetUserByLoginRequest request) {
-        Optional<User> findUser = userFacade.getByLogin(request.getLogin());
+    Optional<UserResponse> getByCredentials(@RequestParam("login") String login, @RequestParam("password") String password) {
+        User user = User.builder().login(login).password(password).build();
 
-        return findUser
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
+        Optional<User> foundUser = userFacade.getByCredentials(user);
+        UserResponse response = converter.toDto(foundUser.get());
+        return Optional.of(response);
     }
 }

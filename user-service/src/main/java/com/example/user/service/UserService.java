@@ -19,7 +19,11 @@ public class UserService {
         return userRepository.getByLogin(login);
     }
 
-    public User save(User user) {
+    public User save(final User user) {
         return userRepository.save(user.getLogin(), user.getPassword(), user.getRoleId());
+    }
+
+    public Optional<User> getByCredentials(final User user) {
+        return userRepository.getByCredentials(user.getLogin(), user.getPassword());
     }
 }

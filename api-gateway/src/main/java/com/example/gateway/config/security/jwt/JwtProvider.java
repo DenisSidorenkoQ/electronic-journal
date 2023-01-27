@@ -1,11 +1,18 @@
 package com.example.gateway.config.security.jwt;
 
-import io.jsonwebtoken.*;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,18 +20,19 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class JwtProvider {
+
     private String jwtSecret;
     private Long sessionDurationMinutes;
 
     public JwtProvider(
-        @Value("${security.secret}") final String jwtSecret,
-        @Value("${security.session-duration-minutes}") final Long sessionDurationMinutes
+            @Value("${security.secret}") final String jwtSecret,
+            @Value("${security.session-duration-minutes}") final Long sessionDurationMinutes
     ) {
         this.jwtSecret = jwtSecret;
         this.sessionDurationMinutes = sessionDurationMinutes;
     }
 
-    public String generateToken(final Long id, final String login) {
+    public String generateToken(final Long id, final String login, final Integer roleId) {
         final Instant instant = LocalDateTime.now()
                 .plus(Duration.ofMinutes(sessionDurationMinutes))
                 .toInstant(ZoneOffset.UTC);
@@ -32,6 +40,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject(id.toString())
                 .claim("login", login)
+                .claim("roleId", roleId)
                 .setExpiration(date)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
@@ -39,21 +48,22 @@ public class JwtProvider {
 
     public boolean validateToken(String token) {
         try {
-          Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
-          return true;
+            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            return true;
         } catch (ExpiredJwtException expEx) {
-          log.info("Token expired");
+            log.info("Token expired");
         } catch (UnsupportedJwtException unsEx) {
-          log.info("Unsupported jwt");
+            log.info("Unsupported jwt");
         } catch (MalformedJwtException mjEx) {
-          log.info("Malformed jwt");
+            log.info("Malformed jwt");
         } catch (SignatureException sEx) {
-          log.info("Invalid signature");
+            log.info("Invalid signature");
         } catch (Exception e) {
-          log.info("invalid token");
+            log.info("invalid token");
         }
         return false;
     }
+
     public Claims getTokenClaims(final String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
     }
