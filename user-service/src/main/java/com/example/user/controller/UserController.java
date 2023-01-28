@@ -1,14 +1,12 @@
 package com.example.user.controller;
 
 import com.example.user.converter.UserConverter;
-import com.example.user.dto.user.GetUserByCredentialsRequest;
 import com.example.user.dto.user.SaveUserRequest;
 import com.example.user.dto.user.UserResponse;
 import com.example.user.facade.UserFacade;
 import com.example.user.model.User;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.control.MappingControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,10 +29,12 @@ public class UserController {
     }
 
     @GetMapping("{userId}")
-    UserResponse getById(@PathVariable("userId") final Long userId) {
+    ResponseEntity getById(@PathVariable("userId") final Long userId) {
         Optional<User> foundUser = userFacade.getById(userId);
 
-        return converter.toDto(foundUser.get());
+        return foundUser
+                .map(user -> new ResponseEntity(converter.toDto(user), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
     @GetMapping
