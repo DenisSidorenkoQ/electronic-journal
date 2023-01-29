@@ -14,4 +14,7 @@ public interface UserClient {
 
     @GetMapping("{userId}")
     ResponseEntity<UserResponse> getById(@PathVariable("userId") final Long userId);
+
+    @PostMapping
+    ResponseEntity<UserResponse> save(@RequestBody SaveUserRequest request);
 }
