@@ -32,7 +32,7 @@ public class JwtProvider {
         this.sessionDurationMinutes = sessionDurationMinutes;
     }
 
-    public String generateToken(final Long id, final String login, final Integer roleId) {
+    public String generateToken(final Long id, final String login, final String roleName) {
         final Instant instant = LocalDateTime.now()
                 .plus(Duration.ofMinutes(sessionDurationMinutes))
                 .toInstant(ZoneOffset.UTC);
@@ -40,7 +40,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject(id.toString())
                 .claim("login", login)
-                .claim("roleId", roleId)
+                .claim("roleName", roleName)
                 .setExpiration(date)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
