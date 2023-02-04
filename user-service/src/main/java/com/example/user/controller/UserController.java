@@ -1,10 +1,12 @@
 package com.example.user.controller;
 
 import com.example.user.converter.UserConverter;
+import com.example.user.dto.user.GetUserByCredentialsRequest;
 import com.example.user.dto.user.SaveUserRequest;
 import com.example.user.dto.user.UserResponse;
 import com.example.user.facade.UserFacade;
 import com.example.user.model.User;
+import com.example.user.model.UserAndRole;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,18 +32,18 @@ public class UserController {
 
     @GetMapping("{userId}")
     ResponseEntity getById(@PathVariable("userId") final Long userId) {
-        Optional<User> foundUser = userFacade.getById(userId);
+        Optional<UserAndRole> foundUser = userFacade.getById(userId);
 
         return foundUser
                 .map(user -> new ResponseEntity(converter.toDto(user), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @GetMapping
-    Optional<UserResponse> getByCredentials(@RequestParam("login") String login, @RequestParam("password") String password) {
-        User user = User.builder().login(login).password(password).build();
+    @PostMapping("credentials")
+    Optional<UserResponse> getByCredentials(@RequestBody GetUserByCredentialsRequest request) {
+        User user = converter.fromDto(request);
 
-        Optional<User> foundUser = userFacade.getByCredentials(user);
+        Optional<UserAndRole> foundUser = userFacade.getByCredentials(user);
         UserResponse response = converter.toDto(foundUser.get());
         return Optional.of(response);
     }
