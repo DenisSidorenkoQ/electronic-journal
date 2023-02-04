@@ -1,6 +1,7 @@
 package com.example.user.facade;
 
 import com.example.user.model.User;
+import com.example.user.model.UserAndRole;
 import com.example.user.service.UserService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class UserFacade {
         return Optional.empty();
     }
 
-    public Optional<User> getById(final Long userId) {
+    public Optional<UserAndRole> getById(final Long userId) {
         return userService.getUserById(userId);
     }
 
@@ -30,7 +31,7 @@ public class UserFacade {
         return userService.getUserByLogin(login);
     }
 
-    public Optional<User> getByCredentials(final User user) {
+    public Optional<UserAndRole> getByCredentials(final User user) {
         return userService.getByCredentials(user);
     }
 }

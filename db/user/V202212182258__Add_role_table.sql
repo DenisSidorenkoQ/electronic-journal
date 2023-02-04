@@ -4,4 +4,4 @@ create table role
     name       TEXT UNIQUE NOT NULL
 );
 
-INSERT INTO public.role (name) VALUES ('Admin'), ('Student'), ('Teacher')
+INSERT INTO public.role (name) VALUES ('ADMIN'), ('STUDENT'), ('TEACHER')

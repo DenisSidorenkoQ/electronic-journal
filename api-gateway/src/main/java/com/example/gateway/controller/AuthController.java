@@ -5,7 +5,6 @@ import com.example.gateway.config.security.jwt.JwtProvider;
 import com.example.gateway.dto.auth.AuthorizationUserRequest;
 import com.example.gateway.dto.user.GetUserByCredentialsRequest;
 import com.example.gateway.dto.user.UserResponse;
-import feign.jackson.JacksonEncoder;
 import java.time.Duration;
 import java.util.Optional;
 import javax.servlet.http.Cookie;
@@ -16,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("authorization")
+@RequestMapping("/authorization")
 @RequiredArgsConstructor
 public class AuthController {
     private static final String TOKEN_NAME = "JWT";
@@ -24,23 +23,25 @@ public class AuthController {
     private final JwtProvider jwtProvider;
     private final UserClient userClient;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthorizationUserRequest request,
                                    HttpServletResponse response) {
-        final GetUserByCredentialsRequest getUserRequest = GetUserByCredentialsRequest.builder()
-                .login(request.getLogin())
-                .password(request.getPassword())
-                .build();
+        GetUserByCredentialsRequest getUserByCredentialsRequest =
+                GetUserByCredentialsRequest
+                        .builder()
+                        .login(request.getLogin())
+                        .password(request.getPassword())
+                        .build();
 
         Optional<UserResponse> userResponse =
-                userClient.getByCredentials(getUserRequest.getLogin(), getUserRequest.getPassword());
+                userClient.getByCredentials(getUserByCredentialsRequest);
         if (userResponse.isPresent()) {
             UserResponse user = userResponse.get();
 
             String token = jwtProvider.generateToken(
                     user.getId(),
                     user.getLogin(),
-                    user.getRoleId()
+                    user.getRoleName()
             );
             final Cookie cookie = new Cookie(TOKEN_NAME, token);
             cookie.setPath("/");

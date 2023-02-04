@@ -10,5 +10,5 @@ import lombok.extern.jackson.Jacksonized;
 public class UserResponse {
     Long id;
     String login;
-    Integer roleId;
+    String roleName;
 }

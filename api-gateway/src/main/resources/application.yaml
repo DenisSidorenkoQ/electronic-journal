@@ -6,13 +6,6 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-feign:
-  client:
-    config:
-      user:
-        connect-timeout: 50000
-        read-timeout: 30000
-
 security:
   secret: "SECRET"
   session-duration-minutes: 86400
