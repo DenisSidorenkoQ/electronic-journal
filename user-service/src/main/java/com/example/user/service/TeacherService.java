@@ -23,8 +23,4 @@ public class TeacherService {
     public Optional<Teacher> getById(final Long teacherId) {
         return teacherRepository.getById(teacherId);
     }
-
-    public Optional<Teacher> getByFio(final String fio) {
-        return teacherRepository.getByFio(fio);
-    }
 }

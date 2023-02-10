@@ -14,13 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class UserController {
     private final UserFacade userFacade;
     private final UserConverter converter;
 
-    @PostMapping
+    @PostMapping("/user")
     ResponseEntity save(@RequestBody SaveUserRequest request) {
         User userFromRequest = converter.fromDto(request);
         Optional<User> savedUser = userFacade.save(userFromRequest);
@@ -30,7 +30,7 @@ public class UserController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("/user/{userId}")
     ResponseEntity getById(@PathVariable("userId") final Long userId) {
         Optional<UserAndRole> foundUser = userFacade.getById(userId);
 
@@ -39,12 +39,16 @@ public class UserController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @PostMapping("credentials")
+    @PostMapping("/user/credentials")
     Optional<UserResponse> getByCredentials(@RequestBody GetUserByCredentialsRequest request) {
         User user = converter.fromDto(request);
 
         Optional<UserAndRole> foundUser = userFacade.getByCredentials(user);
-        UserResponse response = converter.toDto(foundUser.get());
-        return Optional.of(response);
+        if (foundUser.isPresent()) {
+            UserResponse response = converter.toDto(foundUser.get());
+            return Optional.of(response);
+        }
+
+        return Optional.empty();
     }
 }

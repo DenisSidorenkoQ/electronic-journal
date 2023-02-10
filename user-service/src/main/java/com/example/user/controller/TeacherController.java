@@ -5,6 +5,7 @@ import com.example.user.dto.teacher.GetTeacherByFioRequest;
 import com.example.user.dto.teacher.SaveTeacherRequest;
 import com.example.user.dto.teacher.TeacherResponse;
 import com.example.user.facade.TeacherFacade;
+import com.example.user.model.Student;
 import com.example.user.model.Teacher;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -13,20 +14,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/teacher")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class TeacherController {
     private final TeacherFacade teacherFacade;
     private final TeacherConverter converter;
 
-    @PostMapping
+    @PostMapping("/teacher")
     TeacherResponse saveOrGet(@RequestBody SaveTeacherRequest request) {
         Teacher teacher = converter.fromDto(request);
 
         return converter.toDto(teacherFacade.saveOrGet(teacher));
     }
 
-    @GetMapping("{teacherId}")
+    @GetMapping("/teacher/{teacherId}")
     ResponseEntity getById(@PathVariable Long teacherId) {
         Optional<Teacher> findTeacher = teacherFacade.getById(teacherId);
 
@@ -35,11 +36,11 @@ public class TeacherController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @GetMapping
-    ResponseEntity getByFio(@RequestBody GetTeacherByFioRequest request) {
-        Optional<Teacher> findTeacher = teacherFacade.getByFio(request.getFio());
+    @GetMapping("/user/{userId}/teacher")
+    ResponseEntity getByUserId(@PathVariable final Long userId) {
+        Optional<Teacher> teacher = teacherFacade.getByUserId(userId);
 
-        return findTeacher
+        return teacher
                 .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }

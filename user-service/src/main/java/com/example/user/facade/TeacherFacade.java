@@ -1,5 +1,6 @@
 package com.example.user.facade;
 
+import com.example.user.model.Student;
 import com.example.user.model.Teacher;
 import com.example.user.service.TeacherService;
 import java.util.Optional;
@@ -20,7 +21,7 @@ public class TeacherFacade {
         return teacherService.getById(teacherId);
     }
 
-    public Optional<Teacher> getByFio(final String fio) {
-        return teacherService.getByFio(fio);
+    public Optional<Teacher> getByUserId(final Long userId) {
+        return teacherService.getByUserId(userId);
     }
 }
