@@ -15,7 +15,4 @@ public interface TeacherRepository extends Repository<Teacher, Long> {
 
     @Query("SELECT * FROM teacher WHERE id=:teacherId")
     Optional<Teacher> getById(@Param("teacherId") Long teacherId);
-
-    @Query("SELECT * FROM teacher WHERE fio=:fio")
-    Optional<Teacher> getByFio(@Param("fio") String fio);
 }
