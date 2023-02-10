@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AuthorizationService from "../../service/AuthorizationService";
 import {Alert, AlertColor, AlertTitle, FormHelperText} from "@mui/material";
-import {redirect} from "react-router-dom";
+import {redirect, useNavigate} from "react-router-dom";
 
 const theme = createTheme();
 
@@ -25,6 +25,8 @@ const LoginPage = () => {
 
     const [login, setLogin] = React.useState("");
     const [password, setPassword] = React.useState("");
+
+    const navigate = useNavigate();
 
     const handleLoginChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setLogin(event.target.value);
@@ -46,7 +48,7 @@ const LoginPage = () => {
             setAlertType(successAlertType);
             setAlertTitle('Success');
             setAlertText('Ok');
-            redirect("http://localhost:3000/menu");
+            navigate('/menu');
             return;
         } else {
             setAlertType(warningAlertType);
