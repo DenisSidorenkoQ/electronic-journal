@@ -7,3 +7,5 @@ create table group_has_subject
     FOREIGN KEY (teacher_id) REFERENCES teacher (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (subject_id) REFERENCES subject (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+INSERT INTO group_has_subject (group_id, teacher_id, subject_id) VALUES (1, 1, 1)

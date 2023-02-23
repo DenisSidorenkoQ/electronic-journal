@@ -7,3 +7,5 @@ create table study_pass
     FOREIGN KEY (lesson_id) REFERENCES lesson (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+INSERT INTO study_pass (lesson_id, student_id, pass) VALUES (1, 1, false)

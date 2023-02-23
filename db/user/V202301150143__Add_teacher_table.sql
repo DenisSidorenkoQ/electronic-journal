@@ -7,3 +7,5 @@ create table teacher
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (department_id) REFERENCES department (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+INSERT INTO teacher (user_id, department_id, fio) VALUES (3, 1, 'Денис Препод')
