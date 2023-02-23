@@ -19,10 +19,7 @@ public class SessionController {
 
     @GetMapping
     public ResponseEntity<UserResponse> getCurrentUser() {
-        final DefaultOAuth2User principal = (DefaultOAuth2User) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
+        final DefaultOAuth2User principal = (DefaultOAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final Long userId = Long.valueOf(principal.getName());
         return userClient.getById(userId);
     }

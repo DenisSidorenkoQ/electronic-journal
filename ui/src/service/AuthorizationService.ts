@@ -5,7 +5,7 @@ class AuthorizationService {
         const response = await axios.post(
             'http://localhost:8080/authorization/login',
             { login: login, password: password },
-            {withCredentials: true}
+            { withCredentials: true }
         ).catch(function (error) {
             return error.response.status;
         })
