@@ -5,13 +5,11 @@ import com.example.gateway.config.security.jwt.JwtProvider;
 import com.example.gateway.dto.auth.AuthorizationUserRequest;
 import com.example.gateway.dto.user.GetUserByCredentialsRequest;
 import com.example.gateway.dto.user.UserResponse;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Optional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
