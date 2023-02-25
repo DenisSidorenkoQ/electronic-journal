@@ -8,9 +8,10 @@ import PersonIcon from '@mui/icons-material/Person';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AuthorizationService from "../../service/AuthorizationService";
 import {Alert, AlertColor, AlertTitle, FormHelperText} from "@mui/material";
-import {redirect, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {useSessionStore} from "../../store";
+import authorizationService from "../../service/AuthorizationService";
 
 const theme = createTheme();
 
@@ -28,6 +29,8 @@ const LoginPage = () => {
 
     const navigate = useNavigate();
 
+    const authorize = useSessionStore(state => state.authorize)
+
     const handleLoginChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setLogin(event.target.value);
     }
@@ -38,13 +41,15 @@ const LoginPage = () => {
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        const authorizationStatus = await AuthorizationService.login(login, password);
-
-        handleAlert(authorizationStatus);
+        const authorizationStatus = authorizationService.login(login, password);
+        console.log(authorizationStatus);
+        await handleAlert(await authorizationStatus);
     };
 
-    const handleAlert = (status :number) => {
-        if (status == 200) {
+    const handleAlert = async (status: number) => {
+        if (status === 200) {
+            await authorize({login, password});
+
             setAlertType(successAlertType);
             setAlertTitle('Success');
             setAlertText('Ok');
