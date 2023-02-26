@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Tabs, Tab, SelectChangeEvent, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {SelectChangeEvent, FormControl, InputLabel, MenuItem, Select, Grid} from "@mui/material";
 import {useSessionStore} from "../../store";
 import StudentService from "../../service/StudentService";
 import SubjectService from "../../service/SubjectService";
@@ -41,12 +41,39 @@ const StudentJournalPage = () => {
         //
         // rows.push({ studentName: 1, lastName: 'Snow', firstName: 'Jon', age: 35 })
 
+        console.log(lessonList);
     }, [lessonList]);
+
+    function getGrid() {
+        if (lessonList.length === 0) return;
+        return (
+            <DataGrid
+                id="grid"
+                // dataSource={countries}
+                keyExpr="ID"
+                columnAutoWidth={true}
+                allowColumnReordering={true}
+                showBorders={true}
+            >
+                <ColumnChooser enabled={true} />
+                <Column dataField="Student" />
+                {
+                    lessonList.map((lesson) => (
+                        <Column caption={lesson.themeName}>
+                            <Column caption="Pass">
+                                <Column caption={new Date(lesson.dateTimestamp * 1000).toLocaleDateString('ru-RU', { year: '2-digit', month: '2-digit', day: '2-digit'})}/>
+                            </Column>
+                            <Column caption="Mark">
+                            </Column>
+                        </Column>
+                    ))
+                }
+            </DataGrid>
+        )
+    }
 
     const handleSubjectChange = (event: SelectChangeEvent) => {
         const subjectId = parseInt(event.target.value);
-
-        console.log(subjectId);
 
         setSelectedSubjectId(subjectId);
     };
@@ -74,58 +101,7 @@ const StudentJournalPage = () => {
                     </FormControl>
                 </div>
             </Container>
-            <DataGrid
-                id="grid"
-                // dataSource={countries}
-                keyExpr="ID"
-                columnAutoWidth={true}
-                allowColumnReordering={true}
-                showBorders={true}
-            >
-                <ColumnChooser enabled={true} />
-                <Column dataField="Country" />
-                <Column dataField="Area" />
-                <Column caption="Population">
-                    <Column
-                        dataField="Population_Total"
-                        caption="Total"
-                        format="fixedPoint"
-                    />
-                    <Column
-                        dataField="Population_Urban"
-                        caption="Urban"
-                        format="percent"
-                    />
-                </Column>
-                <Column caption="Nominal GDP">
-                    <Column
-                        dataField="GDP_Total"
-                        caption="Total, mln $"
-                        format="fixedPoint"
-                        sortOrder="desc"
-                    />
-                    <Column caption="By Sector">
-                        <Column
-                            dataField="GDP_Agriculture"
-                            caption="Agriculture"
-                            // format={gdpFormat}
-                            width={95}
-                        />
-                        <Column
-                            dataField="GDP_Industry"
-                            caption="Industry"
-                            // format={gdpFormat}
-                            width={80}
-                        />
-                        <Column
-                            dataField="GDP_Services"
-                            caption="Services"
-                            // format={gdpFormat}
-                            width={85}
-                        />
-                    </Column>
-                </Column>
-            </DataGrid>
+                {getGrid()}
         </ThemeProvider>
     );
 };
