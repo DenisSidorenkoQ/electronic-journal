@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {SelectChangeEvent, FormControl, InputLabel, MenuItem, Select, Grid} from "@mui/material";
+import {SelectChangeEvent, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {useSessionStore} from "../../store";
 import StudentService from "../../service/StudentService";
 import SubjectService from "../../service/SubjectService";
@@ -9,16 +9,38 @@ import {Subject} from "../../model/SubjectState";
 import {useEffect} from "react";
 import LessonService from "../../service/LessonService";
 import {Lesson} from "../../model/LessonState";
-import DataGrid, { Column, ColumnChooser } from 'devextreme-react/data-grid';
+import studentService from "../../service/StudentService";
+import {Student} from "../../model/StudentState";
+import markService from "../../service/MarkService";
+import {Mark} from "../../model/MarkState";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Table from 'react-bootstrap/Table';
+import {StudyPass} from "../../model/StudyPassState";
+import studyPassService from "../../service/StudyPassService";
 
 const theme = createTheme();
 
-const StudentJournalPage = () => {
+function getDateFromTimestamp (timestamp: number ) {
+    return new Date(timestamp * 1000).toLocaleDateString('ru-RU',
+        { year: '2-digit', month: '2-digit', day: '2-digit'});
+}
 
+function studyPassConverter ( pass: boolean ) {
+    if (pass) {
+        return "н";
+    } else {
+        return "";
+    }
+}
+
+const StudentJournalPage = () => {
     const [selectedSubjectId, setSelectedSubjectId] = React.useState(0);
     const [groupId, setGroupId] = React.useState(0);
     const [subjectList, setSubjectList] = React.useState<Subject[]>([]);
     const [lessonList, setLessonList] = React.useState<Lesson[]>([]);
+    const [studentList, setStudentList] = React.useState<Student[]>([]);
+    const [markList, setMarkList] = React.useState<Mark[]>([]);
+    const [passList, setPassList] = React.useState<StudyPass[]>([]);
     let user = useSessionStore(state => state.user);
 
     useEffect(() => {
@@ -34,41 +56,111 @@ const StudentJournalPage = () => {
     }, [selectedSubjectId]);
 
     useEffect(() => {
-        // columns.push({ field: `studentName`, headerName: `student`, width: 70 })
-        // lessonList.forEach(lesson => {
-        //     columns.push({ field: `${lesson.id}`, headerName: `${lesson.themeName}`, width: 70 });
-        // })
-        //
-        // rows.push({ studentName: 1, lastName: 'Snow', firstName: 'Jon', age: 35 })
+        studentService.getStudentsByGroupId(groupId).then(students => setStudentList(students));
 
-        console.log(lessonList);
+        markService.getMarkBySubjectIdAndGroupId(selectedSubjectId, groupId).then(marks => {
+            setMarkList(marks);
+        });
+
+        studyPassService.getStudyPassBySubjectIdAndGroupId(selectedSubjectId, groupId).then(pass => {
+            setPassList(pass);
+        })
     }, [lessonList]);
+
 
     function getGrid() {
         if (lessonList.length === 0) return;
         return (
-            <DataGrid
-                id="grid"
-                // dataSource={countries}
-                keyExpr="ID"
-                columnAutoWidth={true}
-                allowColumnReordering={true}
-                showBorders={true}
-            >
-                <ColumnChooser enabled={true} />
-                <Column dataField="Student" />
+            <Table bordered size="sm">
+                <thead>
+                    <tr>
+                        <th rowSpan={2} colSpan={1}>
+                            Students
+                        </th>
+                            {
+                                lessonList.map(lesson => {
+                                return (
+                                    <th rowSpan={1} colSpan={2}>
+                                        {
+                                            lesson.themeName + "\t" + getDateFromTimestamp(lesson.dateTimestamp)
+                                        }
+                                    </th>
+                                )
+                            })
+                            }
+                    </tr>
+                    <tr>
+                        {
+                            lessonList.map(lesson => {
+                                return (
+                                    <>
+                                        <th>Mark</th>
+                                        <th>Pass</th>
+                                    </>
+                                )
+                            })
+                        }
+                    </tr>
+                </thead>
+                <tbody>
                 {
-                    lessonList.map((lesson) => (
-                        <Column caption={lesson.themeName}>
-                            <Column caption="Pass">
-                                <Column caption={new Date(lesson.dateTimestamp * 1000).toLocaleDateString('ru-RU', { year: '2-digit', month: '2-digit', day: '2-digit'})}/>
-                            </Column>
-                            <Column caption="Mark">
-                            </Column>
-                        </Column>
-                    ))
+                    studentList.map(student => {
+                        return (
+                            <tr>
+                                <td>{student.fio}</td>
+                                {
+                                    lessonList.map(lesson => {
+                                        let lessonMark: Mark | undefined;
+                                        let lessonPass: StudyPass | undefined;
+
+                                        lessonMark = markList.find(mark => {
+                                            return mark.studentId === student.id && mark.lessonId === lesson.id;
+                                        })
+
+                                        lessonPass = passList.find(pass => {
+                                            return pass.studentId === student.id && pass.lessonId === lesson.id;
+                                        })
+
+                                        if (lessonMark !== undefined && lessonPass !== undefined) {
+                                            return (
+                                                <React.Fragment>
+                                                    <td>{lessonMark.number}</td>
+                                                    <td>{studyPassConverter(lessonPass.pass)}</td>
+                                                </React.Fragment>
+                                            )
+                                        } if (lessonMark !== undefined && lessonPass === undefined) {
+                                            return (
+                                                <React.Fragment>
+                                                    <td>{lessonMark.number}</td>
+                                                    <td></td>
+                                                </React.Fragment>
+                                            )
+                                        } if (lessonPass !== undefined && lessonMark === undefined) {
+                                            return (
+                                                <React.Fragment>
+                                                    <td></td>
+                                                    <td>
+                                                        {studyPassConverter(lessonPass.pass)}
+                                                    </td>
+                                                </React.Fragment>
+                                            )
+                                        } if (lessonPass === undefined && lessonMark === undefined) {
+                                            return (
+                                                <React.Fragment>
+                                                    <td></td>
+                                                    <td></td>
+                                                </React.Fragment>
+                                            )
+                                        }
+                                    })
+                                }
+                            </tr>
+                        )
+                    })
+
                 }
-            </DataGrid>
+                </tbody>
+            </Table>
         )
     }
 
@@ -101,7 +193,7 @@ const StudentJournalPage = () => {
                     </FormControl>
                 </div>
             </Container>
-                {getGrid()}
+                { getGrid() }
         </ThemeProvider>
     );
 };

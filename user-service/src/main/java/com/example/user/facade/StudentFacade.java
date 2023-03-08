@@ -3,6 +3,7 @@ package com.example.user.facade;
 import com.example.user.model.Admin;
 import com.example.user.model.Student;
 import com.example.user.service.StudentService;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,5 +24,9 @@ public class StudentFacade {
 
     public Optional<Student> getByUserId(Long userId) {
         return studentService.getByUserId(userId);
+    }
+
+    public List<Student> getAllStudentsByGroup(Long groupId) {
+        return studentService.getAllStudentsByGroup(groupId);
     }
 }

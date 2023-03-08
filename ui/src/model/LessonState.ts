@@ -1,7 +1,6 @@
-import {Student} from "./StudentState";
 
 export interface Lesson {
-    id: bigint;
+    id: number;
     themeName: string;
     dateTimestamp: number;
 }

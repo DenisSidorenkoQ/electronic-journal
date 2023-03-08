@@ -5,7 +5,10 @@ import com.example.user.dto.student.SaveStudentRequest;
 import com.example.user.dto.student.StudentResponse;
 import com.example.user.facade.StudentFacade;
 import com.example.user.model.Student;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +44,15 @@ public class StudentController {
         return findStudent
                 .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
+    }
+
+    @GetMapping("/group/{groupId}/students")
+    List<StudentResponse> getAllStudentsByGroup(@PathVariable Long groupId) {
+        List<Student> studentList = studentFacade.getAllStudentsByGroup(groupId);
+
+        if (studentList.size() > 0) {
+            return studentList.stream().map(converter::toDto).collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 }

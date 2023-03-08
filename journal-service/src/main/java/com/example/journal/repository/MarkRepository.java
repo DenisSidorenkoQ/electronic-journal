@@ -20,4 +20,14 @@ public interface MarkRepository extends Repository<Mark, Long> {
 
     @Query("SELECT * FROM mark WHERE lesson_id=:lessonId")
     List<Mark> getMarksByLessonId(@Param("lessonId") Long lessonId);
+
+    @Query("SELECT * FROM mark WHERE student_id=:studentId AND lesson_id=:lessonId")
+    Mark getMarkByStudentIdAndLessonId(@Param("studentId") Long studentId, @Param("lessonId") Long lessonId);
+
+    @Query("SELECT mark.id, mark.student_id, mark.lesson_id, mark.number FROM mark " +
+            "JOIN student s on s.id = mark.student_id " +
+            "JOIN groups g on g.id = s.group_id " +
+            "JOIN group_has_subject ghs on g.id = ghs.group_id " +
+            "WHERE g.id=:groupId AND ghs.subject_id=:subjectId")
+    List<Mark> getMarksBySubjectIdAndGroupId(@Param("groupId") Long groupId, @Param("subjectId") Long subjectId);
 }

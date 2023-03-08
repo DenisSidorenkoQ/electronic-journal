@@ -9,6 +9,14 @@ class StudentService {
          );
          return resp.data;
      }
+
+    getStudentsByGroupId = async (id: number | undefined) => {
+        const resp = await axios.get<Student[]>(
+            `http://localhost:8080/api/v1/group/${id}/students`,
+            {withCredentials: true}
+        );
+        return resp.data;
+    }
 }
 
 export default new StudentService();

@@ -7,7 +7,10 @@ import com.example.gateway.dto.user.SaveUserRequest;
 import com.example.gateway.dto.user.SaveUserResponse;
 import com.example.gateway.dto.user.UserResponse;
 import feign.Headers;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,4 +37,7 @@ public interface UserClient {
 
     @GetMapping("/student/{studentId}")
     ResponseEntity<StudentResponse> getStudentById(@PathVariable("studentId") Long studentId);
+
+    @GetMapping("/group/{groupId}/students")
+    List<StudentResponse> getAllStudentsByGroup(@PathVariable("groupId") Long groupId);
 }
