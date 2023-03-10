@@ -7,3 +7,5 @@ create table mark
     FOREIGN KEY (lesson_id) REFERENCES lesson (id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+INSERT INTO mark (lesson_id, student_id, number) VALUES (1, 1, 5)

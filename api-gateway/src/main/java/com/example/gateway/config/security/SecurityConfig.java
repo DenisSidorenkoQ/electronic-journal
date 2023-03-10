@@ -22,6 +22,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeRequests(a -> a
                         .antMatchers("/", "/error", "/authorization/login").permitAll()
+                        .antMatchers("/api/v1/sessions/*").authenticated()
 //                        .antMatchers("/api/v1/user/*").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )

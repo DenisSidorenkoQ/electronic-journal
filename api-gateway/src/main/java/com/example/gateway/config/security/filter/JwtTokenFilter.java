@@ -48,7 +48,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + claims.get("roleName")));
 
             final OAuth2AuthenticationToken auth = new OAuth2AuthenticationToken(
-                    oAuth2User, authorities, "google");
+                    oAuth2User, authorities, "application");
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
         filterChain.doFilter(request, response);

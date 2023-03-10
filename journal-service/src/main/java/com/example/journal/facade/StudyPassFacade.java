@@ -1,5 +1,6 @@
 package com.example.journal.facade;
 
+import com.example.journal.dto.study_pass.StudyPassResponse;
 import com.example.journal.model.Mark;
 import com.example.journal.model.StudyPass;
 import com.example.journal.service.StudyPassService;
@@ -25,5 +26,9 @@ public class StudyPassFacade {
 
     public List<StudyPass> getAllPassByLessonId(final Long lessonId) {
         return studyPassService.getAllPassByLessonId(lessonId);
+    }
+
+    public List<StudyPass> getBySubjectIdAndGroupId(Long groupId, Long subjectId) {
+        return studyPassService.getBySubjectIdAndGroupId(groupId, subjectId);
     }
 }

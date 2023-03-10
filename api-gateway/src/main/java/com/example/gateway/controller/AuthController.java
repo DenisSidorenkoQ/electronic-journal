@@ -5,38 +5,28 @@ import com.example.gateway.config.security.jwt.JwtProvider;
 import com.example.gateway.dto.auth.AuthorizationUserRequest;
 import com.example.gateway.dto.user.GetUserByCredentialsRequest;
 import com.example.gateway.dto.user.UserResponse;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Optional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/authorization")
+@RequiredArgsConstructor
 public class AuthController {
     private static final String TOKEN_NAME = "JWT";
     private static final long EXPIRATION = Duration.ofHours(3).toSeconds();
     private final JwtProvider jwtProvider;
     private final UserClient userClient;
-    private final String redirectUrl;
-
-    public AuthController(JwtProvider jwtProvider,
-                          UserClient userClient,
-                          @Value("${security.success-redirect-url}") String redirectUrl
-    ) {
-        this.jwtProvider = jwtProvider;
-        this.userClient = userClient;
-        this.redirectUrl = redirectUrl;
-    }
 
     @PostMapping("/login")
     public void login(
             @RequestBody AuthorizationUserRequest request,
             HttpServletResponse response
-    ) throws IOException {
+    ) {
         GetUserByCredentialsRequest getUserByCredentialsRequest =
                 GetUserByCredentialsRequest
                         .builder()

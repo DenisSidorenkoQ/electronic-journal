@@ -9,6 +9,7 @@ import com.example.journal.model.Subject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,10 +58,7 @@ public class SubjectController {
     @GetMapping("group/{groupId}/subjects")
     List<SubjectResponse> getGroupSubjects(@PathVariable("groupId") Long groupId) {
         List<Subject> subjectByGroupInfos = subjectFacade.getGroupSubjects(groupId);
-        List<SubjectResponse> subjectsResponse = new ArrayList<>();
 
-        subjectByGroupInfos.forEach((subject) -> subjectsResponse.add(subjectConverter.toDto(subject)));
-
-        return subjectsResponse;
+        return subjectByGroupInfos.stream().map(subject -> subjectConverter.toDto(subject)).collect(Collectors.toList());
     }
 }

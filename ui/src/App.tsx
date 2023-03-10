@@ -1,11 +1,12 @@
+import 'devextreme/dist/css/dx.light.css';
 import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/LoginPage/LoginPage';
-import StudentJournalPage from './pages/JournalPage/StudentJournalPage';
 import JournalLayout from "./components/JournalLayout";
 import MenuPage from "./pages/MenuPage/MenuPage";
 import {useSessionStore} from "./store";
 import LoadingScreen from "./components/LoadingScreen";
+import StudentJournalPage from "./pages/JournalPage/StudentJournalPage";
 
 function App() {
     const user = useSessionStore(state => state.user);
@@ -21,7 +22,7 @@ function App() {
         return <LoadingScreen />;
     }
 
-    if (user) {
+    if (user?.roleName === 'STUDENT') {
         return (
             <JournalLayout>
                 <Routes>

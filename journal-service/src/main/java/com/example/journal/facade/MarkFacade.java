@@ -25,4 +25,12 @@ public class MarkFacade {
     public List<Mark> getMarksByLessonId(final Long lessonId) {
         return markService.getMarksByLessonId(lessonId);
     }
+
+    public Mark getMarkByStudentIdAndLessonId(Long studentId, Long lessonId) {
+        return markService.getMarkByStudentIdAndLessonId(studentId, lessonId);
+    }
+
+    public List<Mark> getMarksBySubjectIdAndGroupId(Long groupId, Long subjectId) {
+        return markService.getMarksBySubjectIdAndGroupId(groupId, subjectId);
+    }
 }

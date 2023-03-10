@@ -9,6 +9,7 @@ import com.example.journal.model.Mark;
 import com.example.journal.model.StudyPass;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +30,14 @@ public class StudyPassController {
     @GetMapping("lesson/{lessonId}/study-pass")
     List<StudyPassResponse> getAllPassByLessonId(@PathVariable Long lessonId) {
         List<StudyPass> studyPasses = studyPassFacade.getAllPassByLessonId(lessonId);
-        List<StudyPassResponse> studyPassResponse = new ArrayList<>();
 
-        studyPasses.forEach(studyPass -> {studyPassResponse.add(converter.toDto(studyPass));});
-        return studyPassResponse;
+        return studyPasses.stream().map(converter::toDto).collect(Collectors.toList());
+    }
+
+    @GetMapping("group/{groupId}/subject/{subjectId}/pass")
+    List<StudyPassResponse> getBySubjectIdAndGroupId(@PathVariable Long groupId, @PathVariable Long subjectId) {
+        List<StudyPass> passList = studyPassFacade.getBySubjectIdAndGroupId(groupId, subjectId);
+
+        return passList.stream().map((converter::toDto)).collect(Collectors.toList());
     }
 }

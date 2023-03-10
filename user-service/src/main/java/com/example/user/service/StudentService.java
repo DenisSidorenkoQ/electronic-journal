@@ -2,6 +2,7 @@ package com.example.user.service;
 
 import com.example.user.model.Student;
 import com.example.user.repository.StudentRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,9 @@ public class StudentService {
 
     public Optional<Student> getByUserId(final Long userId) {
         return studentRepository.getByUserId(userId);
+    }
+
+    public List<Student> getAllStudentsByGroup(Long groupId) {
+        return studentRepository.getAllStudentsByGroup(groupId);
     }
 }

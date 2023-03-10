@@ -27,4 +27,12 @@ public class MarkService {
     public List<Mark> getMarksByLessonId(final Long lessonId) {
         return markRepository.getMarksByLessonId(lessonId);
     }
+
+    public Mark getMarkByStudentIdAndLessonId(Long studentId, Long lessonId) {
+        return markRepository.getMarkByStudentIdAndLessonId(studentId, lessonId);
+    }
+
+    public List<Mark> getMarksBySubjectIdAndGroupId(Long groupId, Long subjectId) {
+        return markRepository.getMarksBySubjectIdAndGroupId(groupId, subjectId);
+    }
 }

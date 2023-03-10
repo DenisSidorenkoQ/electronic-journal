@@ -28,4 +28,14 @@ public class MarkController {
     List<Mark> getMarksByLessonId(@PathVariable Long lessonId) {
         return markFacade.getMarksByLessonId(lessonId);
     }
+
+    @GetMapping("group/{groupId}/subject/{subjectId}/marks")
+    List<Mark> getMarksBySubjectIdAndGroupId(@PathVariable Long groupId, @PathVariable Long subjectId) {
+        return markFacade.getMarksBySubjectIdAndGroupId(groupId, subjectId);
+    }
+
+    @GetMapping("student/{studentId}/lesson/{lessonId}/mark")
+    MarkResponse getMarkByStudentIdAndLessonId(@PathVariable Long studentId, @PathVariable Long lessonId) {
+        return converter.toDto(markFacade.getMarkByStudentIdAndLessonId(studentId, lessonId));
+    }
 }
