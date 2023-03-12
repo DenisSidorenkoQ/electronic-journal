@@ -16,8 +16,8 @@ public class LessonController {
     private final JournalClient journalClient;
 
     @PostMapping("lesson")
-    LessonResponse saveOrGet(@RequestBody SaveLessonRequest request) {
-        return journalClient.saveOrGetLesson(request);
+    LessonResponse save(@RequestBody SaveLessonRequest request) {
+        return journalClient.saveLesson(request);
     }
 
     @GetMapping("lesson/{lessonId}")

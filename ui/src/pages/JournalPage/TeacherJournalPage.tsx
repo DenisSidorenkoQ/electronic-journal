@@ -1,7 +1,16 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {SelectChangeEvent, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {
+    SelectChangeEvent,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    Select,
+    IconButton,
+    useMediaQuery, Dialog, DialogTitle, DialogContent, DialogActions
+} from "@mui/material";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {useSessionStore} from "../../store";
 import SubjectService from "../../service/SubjectService";
 import {GroupHasSubject, Subject} from "../../model/SubjectState";
@@ -22,6 +31,10 @@ import studentService from "../../service/StudentService";
 import markService from "../../service/MarkService";
 import studyPassService from "../../service/StudyPassService";
 import {Student} from "../../model/StudentState";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import journalService from "../../service/JournalService";
+import {Journal} from "../../model/JournalState";
 
 const theme = createTheme();
 
@@ -50,6 +63,11 @@ const TeacherJournalPage = () => {
     const [studentList, setStudentList] = React.useState<Student[]>([]);
     const [markList, setMarkList] = React.useState<Mark[]>([]);
     const [passList, setPassList] = React.useState<StudyPass[]>([]);
+    const [journal, setJournal] = React.useState<Journal>();
+    const [lessonTitle, setLessonTitle] = React.useState("");
+
+    const [open, setOpen] = React.useState(false);
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     let user = useSessionStore(state => state.user);
 
@@ -87,7 +105,7 @@ const TeacherJournalPage = () => {
 
     useEffect(() => {
         lessonService.getAllLessonsByGroupIdAndSubjectId(selectedGroupId, selectedSubjectId).then(lessons => setLessonList(lessons));
-    }, [selectedSubjectId]);
+    }, [selectedSubjectId, journal]);
 
     useEffect(() => {
         studentService.getStudentsByGroupId(selectedGroupId).then(students => setStudentList(students));
@@ -113,7 +131,28 @@ const TeacherJournalPage = () => {
         setSelectedSubjectId(subjectId);
     };
 
-    function printSubjectSelect() {
+    const handleOpenAddLessonDialogButton = () => {
+        setOpen(true);
+    };
+
+    const handleCloseAddLessonDialog = () => {
+        setOpen(false);
+    };
+
+    const handleSaveLessonButton = async () => {
+        if (lessonTitle === "") return;
+
+        const currentTimestamp = Math.floor(Date.now() / 1000);
+        setJournal(await journalService.getJournalByGroupId(selectedGroupId));
+        await lessonService.saveLesson(journal?.id, selectedSubjectId, lessonTitle, currentTimestamp);
+        setOpen(false);
+    };
+
+    const handleLessonTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+        setLessonTitle(event.target.value);
+    }
+
+    function subjectSelect() {
         if (subjectList.length === 0) return;
         return (
             <div>
@@ -138,99 +177,134 @@ const TeacherJournalPage = () => {
         )
     }
 
-    function getGrid() {
+    function addLessonDialog() {
+        return (
+            <>
+                <IconButton aria-label="add new lesson" size="large" onClick={handleOpenAddLessonDialogButton}>
+                    <AddCircleOutlineIcon fontSize="inherit"/>
+                </IconButton>
+                <div>
+                    <Dialog
+                        fullScreen={fullScreen}
+                        open={open}
+                        onClose={handleCloseAddLessonDialog}
+                        aria-labelledby="dialog-title"
+                    >
+                        <DialogTitle id="dialog-title">
+                            {"Creating a new lesson"}
+                        </DialogTitle>
+                        <DialogContent>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="lessonTitle"
+                                label="lesson title"
+                                name="lessonTitle"
+                                value={lessonTitle}
+                                onChange={handleLessonTitleChange}/>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleSaveLessonButton}>
+                                Save
+                            </Button>
+                            <Button onClick={handleCloseAddLessonDialog} autoFocus>
+                                Cancel
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                </div>
+            </>
+        )
+    }
+
+    function grid() {
         if (lessonList.length === 0) return;
         return (
-            <Table className="table w-auto text-xsmall" bordered size="sm">
-                <thead>
-                <tr>
-                    <th rowSpan={2} colSpan={1}>
-                        Students
-                    </th>
-                    {
-                        lessonList.map(lesson => {
+            <>
+                {addLessonDialog()}
+                <Table className="table w-auto text-xsmall" bordered size="sm">
+                    <thead>
+                    <tr>
+                        <th rowSpan={2} colSpan={1}>
+                            Students
+                        </th>
+                        {lessonList.map(lesson => {
                             return (
                                 <th rowSpan={1} colSpan={2}>
-                                    {
-                                        lesson.themeName + "\t" + getDateFromTimestamp(lesson.dateTimestamp)
-                                    }
+                                    {lesson.themeName + "\t" + getDateFromTimestamp(lesson.dateTimestamp)}
                                 </th>
-                            )
-                        })
-                    }
-                </tr>
-                <tr>
-                    {
-                        lessonList.map(lesson => {
+                            );
+                        })}
+                    </tr>
+                    <tr>
+                        {lessonList.map(lesson => {
                             return (
                                 <>
                                     <th>Mark</th>
                                     <th>Pass</th>
                                 </>
-                            )
-                        })
-                    }
-                </tr>
-                </thead>
-                <tbody>
-                {
-                    studentList.map(student => {
+                            );
+                        })}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {studentList.map(student => {
                         return (
                             <tr>
                                 <td>{student.fio}</td>
-                                {
-                                    lessonList.map(lesson => {
-                                        let lessonMark: Mark | undefined;
-                                        let lessonPass: StudyPass | undefined;
+                                {lessonList.map(lesson => {
+                                    let lessonMark: Mark | undefined;
+                                    let lessonPass: StudyPass | undefined;
 
-                                        lessonMark = markList.find(mark => {
-                                            return mark.studentId === student.id && mark.lessonId === lesson.id;
-                                        })
+                                    lessonMark = markList.find(mark => {
+                                        return mark.studentId === student.id && mark.lessonId === lesson.id;
+                                    });
 
-                                        lessonPass = passList.find(pass => {
-                                            return pass.studentId === student.id && pass.lessonId === lesson.id;
-                                        })
+                                    lessonPass = passList.find(pass => {
+                                        return pass.studentId === student.id && pass.lessonId === lesson.id;
+                                    });
 
-                                        if (lessonMark !== undefined && lessonPass !== undefined) {
-                                            return (
-                                                <React.Fragment>
-                                                    <td contentEditable={true}>{lessonMark.number}</td>
-                                                    <td contentEditable={true}>{studyPassConverter(lessonPass.pass)}</td>
-                                                </React.Fragment>
-                                            )
-                                        } if (lessonMark !== undefined && lessonPass === undefined) {
-                                            return (
-                                                <React.Fragment>
-                                                    <td contentEditable={true}>{lessonMark.number}</td>
-                                                    <td contentEditable={true}></td>
-                                                </React.Fragment>
-                                            )
-                                        } if (lessonPass !== undefined && lessonMark === undefined) {
-                                            return (
-                                                <React.Fragment>
-                                                    <td contentEditable={true}></td>
-                                                    <td contentEditable={true}>
-                                                        {studyPassConverter(lessonPass.pass)}
-                                                    </td>
-                                                </React.Fragment>
-                                            )
-                                        } if (lessonPass === undefined && lessonMark === undefined) {
-                                            return (
-                                                <React.Fragment>
-                                                    <td contentEditable={true}></td>
-                                                    <td contentEditable={true}></td>
-                                                </React.Fragment>
-                                            )
-                                        }
-                                    })
-                                }
+                                    if (lessonMark !== undefined && lessonPass !== undefined) {
+                                        return (
+                                            <React.Fragment>
+                                                <td contentEditable={true}>{lessonMark.number}</td>
+                                                <td contentEditable={true}>{studyPassConverter(lessonPass.pass)}</td>
+                                            </React.Fragment>
+                                        );
+                                    }
+                                    if (lessonMark !== undefined && lessonPass === undefined) {
+                                        return (
+                                            <React.Fragment>
+                                                <td contentEditable={true}>{lessonMark.number}</td>
+                                                <td contentEditable={true}></td>
+                                            </React.Fragment>
+                                        );
+                                    }
+                                    if (lessonPass !== undefined && lessonMark === undefined) {
+                                        return (
+                                            <React.Fragment>
+                                                <td contentEditable={true}></td>
+                                                <td contentEditable={true}>
+                                                    {studyPassConverter(lessonPass.pass)}
+                                                </td>
+                                            </React.Fragment>
+                                        );
+                                    }
+                                    if (lessonPass === undefined && lessonMark === undefined) {
+                                        return (
+                                            <React.Fragment>
+                                                <td contentEditable={true}></td>
+                                                <td contentEditable={true}></td>
+                                            </React.Fragment>
+                                        );
+                                    }
+                                })}
                             </tr>
-                        )
-                    })
-
-                }
-                </tbody>
-            </Table>
+                        );
+                    })}
+                    </tbody>
+                </Table></>
         )
     }
 
@@ -256,9 +330,9 @@ const TeacherJournalPage = () => {
                         </Select>
                     </FormControl>
                 </div>
-                {printSubjectSelect()}
+                {subjectSelect()}
             </Container>
-            { getGrid() }
+            {grid()}
         </ThemeProvider>
     );
 };
