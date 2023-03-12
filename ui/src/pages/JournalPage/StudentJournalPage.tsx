@@ -18,6 +18,8 @@ import Table from 'react-bootstrap/Table';
 import {StudyPass} from "../../model/StudyPassState";
 import studyPassService from "../../service/StudyPassService";
 
+import './Journal.css';
+
 const theme = createTheme();
 
 function getDateFromTimestamp (timestamp: number ) {
@@ -71,7 +73,7 @@ const StudentJournalPage = () => {
     function getGrid() {
         if (lessonList.length === 0) return;
         return (
-            <Table bordered size="sm">
+            <Table className="table w-auto text-xsmall" bordered size="sm">
                 <thead>
                     <tr>
                         <th rowSpan={2} colSpan={1}>
@@ -175,10 +177,10 @@ const StudentJournalPage = () => {
             <Container component="main" maxWidth="xs">
                 <div>
                     <FormControl sx={{m: 1, minWidth: 80}}>
-                        <InputLabel id="lessonsLabel">Subject</InputLabel>
+                        <InputLabel id="subjectsLabel">Subject</InputLabel>
                         <Select
-                            labelId="lessons"
-                            id="lessons"
+                            labelId="subjects"
+                            id="subjects"
                             value={selectedSubjectId.toString()}
                             onChange={handleSubjectChange}
                             label="Subject"
