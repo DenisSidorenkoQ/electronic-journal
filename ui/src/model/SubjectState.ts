@@ -4,3 +4,9 @@ export interface Subject {
     timeToStudy: number;
     knowledgeTestTypeId: number;
 }
+
+export interface GroupHasSubject {
+    groupId: number;
+    teacherId: number;
+    subjectId: number;
+}
