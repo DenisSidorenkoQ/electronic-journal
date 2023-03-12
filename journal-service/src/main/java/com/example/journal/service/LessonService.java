@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 public class LessonService {
     private final LessonRepository lessonRepository;
 
-    public Lesson save(final Lesson lesson) {
-        return lessonRepository.save(lesson);
-    }
-
     public Optional<Lesson> getById(final Long lessonId) {
         return lessonRepository.getById(lessonId);
     }
 
     public List<Lesson> getAllLessonsByGroupIdAndSubjectId(final Long groupId, final Long subjectId) {
         return lessonRepository.getAllLessonsByGroupIdAndSubjectId(groupId, subjectId);
+    }
+
+    public Lesson save(Lesson lesson) {
+        return lessonRepository.save(lesson);
     }
 }
