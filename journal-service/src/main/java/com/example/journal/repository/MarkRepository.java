@@ -9,11 +9,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface MarkRepository extends Repository<Mark, Long> {
 
-    Mark save(final Mark mark);
-
-    @Query("UPDATE mark SET number=:number WHERE lesson_id=:lessonId AND student_id=:studentId " +
+    @Query("INSERT INTO mark(lesson_id, student_id, number) VALUES (:lessonId, :studentId, :number)" +
+            "ON CONFLICT (lesson_id, student_id) " +
+            "DO UPDATE SET number=:number " +
             "RETURNING id, lesson_id, student_id, number")
-    Mark update(@Param("lessonId") final Long lessonId, @Param("studentId") final Long studentId, @Param("number") final Integer number);
+    Mark upsert(@Param("lessonId") final Long lessonId, @Param("studentId") final Long studentId, @Param("number") final Integer number);
 
     @Query("SELECT * FROM mark WHERE student_id=:studentId AND lesson_id=:lessonId")
     Optional<Mark> getByLessonIdAndStudentId(@Param("lessonId") final Long lessonId, @Param("studentId") final Long studentId);

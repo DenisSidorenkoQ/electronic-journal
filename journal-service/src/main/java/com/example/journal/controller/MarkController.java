@@ -18,10 +18,10 @@ public class MarkController {
     private final MarkFacade markFacade;
 
     @PostMapping("mark")
-    MarkResponse saveOrGet(@RequestBody @Validated SaveOrUpdateMarkRequest request) {
+    MarkResponse upsert(@RequestBody @Validated SaveOrUpdateMarkRequest request) {
         Mark mark = converter.fromDto(request);
 
-        return converter.toDto(markFacade.saveOrUpdate(mark));
+        return converter.toDto(markFacade.upsert(mark));
     }
 
     @GetMapping("lesson/{lessonId}/marks")
