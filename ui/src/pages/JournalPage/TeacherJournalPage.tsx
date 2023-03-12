@@ -14,7 +14,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {useSessionStore} from "../../store";
 import SubjectService from "../../service/SubjectService";
 import {GroupHasSubject, Subject} from "../../model/SubjectState";
-import {useEffect} from "react";
+import {useEffect, useReducer} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './Journal.css';
@@ -147,6 +147,7 @@ const TeacherJournalPage = () => {
         setJournal(journalBuffer);
         await lessonService.saveLesson(journalBuffer.id, selectedSubjectId, lessonTitle, currentTimestamp);
         setOpen(false);
+        grid();
     };
 
     const handleLessonTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
