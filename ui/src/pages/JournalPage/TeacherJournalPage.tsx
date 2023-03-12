@@ -143,8 +143,9 @@ const TeacherJournalPage = () => {
         if (lessonTitle === "") return;
 
         const currentTimestamp = Math.floor(Date.now() / 1000);
-        setJournal(await journalService.getJournalByGroupId(selectedGroupId));
-        await lessonService.saveLesson(journal?.id, selectedSubjectId, lessonTitle, currentTimestamp);
+        const journalBuffer = await journalService.getJournalByGroupId(selectedGroupId);
+        setJournal(journalBuffer);
+        await lessonService.saveLesson(journalBuffer.id, selectedSubjectId, lessonTitle, currentTimestamp);
         setOpen(false);
     };
 
