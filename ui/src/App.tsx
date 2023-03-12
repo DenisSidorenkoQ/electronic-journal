@@ -7,6 +7,7 @@ import MenuPage from "./pages/MenuPage/MenuPage";
 import {useSessionStore} from "./store";
 import LoadingScreen from "./components/LoadingScreen";
 import StudentJournalPage from "./pages/JournalPage/StudentJournalPage";
+import TeacherJournalPage from "./pages/JournalPage/TeacherJournalPage";
 
 function App() {
     const user = useSessionStore(state => state.user);
@@ -29,6 +30,19 @@ function App() {
                     <Route path={'/login'} element={<LoginPage />} />
                     <Route path={'/menu'} element={<MenuPage />} />
                     <Route path={'/journal'} element={<StudentJournalPage />} />
+                    <Route path={'*'} element={<Navigate to="/menu" replace />} />
+                </Routes>
+            </JournalLayout>
+        );
+    }
+
+    if (user?.roleName === 'TEACHER') {
+        return (
+            <JournalLayout>
+                <Routes>
+                    <Route path={'/login'} element={<LoginPage />} />
+                    <Route path={'/menu'} element={<MenuPage />} />
+                    <Route path={'/journal'} element={<TeacherJournalPage />} />
                     <Route path={'*'} element={<Navigate to="/menu" replace />} />
                 </Routes>
             </JournalLayout>
