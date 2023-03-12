@@ -1,7 +1,7 @@
 package com.example.user.controller;
 
 import com.example.user.converter.GroupConverter;
-import com.example.user.dto.group.GroupRequest;
+import com.example.user.dto.group.GroupResponse;
 import com.example.user.dto.group.SaveGroupRequest;
 import com.example.user.facade.GroupFacade;
 import com.example.user.model.Group;
@@ -19,7 +19,7 @@ public class GroupController {
     private final GroupConverter converter;
 
     @PostMapping("/group")
-    GroupRequest saveOrGet(@RequestBody SaveGroupRequest request) {
+    GroupResponse saveOrGet(@RequestBody SaveGroupRequest request) {
         Group group = converter.fromDto(request);
 
         return converter.toDto(groupFacade.saveOrGet(group));

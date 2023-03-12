@@ -37,4 +37,15 @@ public class SubjectController {
     List<SubjectResponse> getGroupSubjects(@PathVariable("groupId") Long groupId) {
         return journalClient.getGroupSubjects(groupId);
     }
+
+    @GetMapping("teacher/{teacherId}/subjects")
+    List<GroupHasSubjectResponse> getTeacherSubjects(@PathVariable("teacherId") Long teacherId) {
+        return journalClient.getTeacherSubjects(teacherId);
+    }
+
+    @GetMapping("teacher/{teacherId}/group/{groupId}/subjects")
+    List<SubjectResponse> getSubjectsByTeacherIdAndGroupId(@PathVariable("teacherId") Long teacherId,
+                                                           @PathVariable("groupId") Long groupId) {
+        return journalClient.getSubjectsByTeacherIdAndGroupId(teacherId, groupId);
+    }
 }

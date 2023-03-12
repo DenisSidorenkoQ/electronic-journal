@@ -25,6 +25,13 @@ public interface JournalClient {
     @GetMapping("subject")
     ResponseEntity<SubjectResponse> getSubjectByName(@RequestBody final GetSubjectByNameRequest request);
 
+    @GetMapping("teacher/{teacherId}/subjects")
+    List<GroupHasSubjectResponse> getTeacherSubjects(@PathVariable("teacherId") Long teacherId);
+
+    @GetMapping("teacher/{teacherId}/group/{groupId}/subjects")
+    List<SubjectResponse> getSubjectsByTeacherIdAndGroupId(@PathVariable("teacherId") Long teacherId,
+                                                           @PathVariable("groupId") Long groupId);
+
     //groupController
     @PostMapping("group/subject")
     GroupHasSubjectResponse addSubjectToTheGroup(@RequestBody AddSubjectToTheGroupRequest request);

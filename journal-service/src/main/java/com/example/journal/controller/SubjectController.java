@@ -59,6 +59,20 @@ public class SubjectController {
     List<SubjectResponse> getGroupSubjects(@PathVariable("groupId") Long groupId) {
         List<Subject> subjectByGroupInfos = subjectFacade.getGroupSubjects(groupId);
 
-        return subjectByGroupInfos.stream().map(subject -> subjectConverter.toDto(subject)).collect(Collectors.toList());
+        return subjectByGroupInfos.stream().map(subjectConverter::toDto).collect(Collectors.toList());
+    }
+
+    @GetMapping("teacher/{teacherId}/subjects")
+    List<GroupHasSubjectResponse> getTeacherSubjects(@PathVariable("teacherId") Long teacherId) {
+        List<GroupHasSubject> subjectByTeacherInfos = subjectFacade.getTeacherSubjects(teacherId);
+
+        return subjectByTeacherInfos.stream().map(subjectConverter::toDto).collect(Collectors.toList());
+    }
+
+    @GetMapping("teacher/{teacherId}/group/{groupId}/subjects")
+    List<SubjectResponse> getSubjectsByTeacherIdAndGroupId(@PathVariable Long teacherId, @PathVariable Long groupId) {
+        List<Subject> foundSubjects = subjectFacade.getSubjectsByTeacherIdAndGroupId(teacherId, groupId);
+
+        return foundSubjects.stream().map(subjectConverter::toDto).collect(Collectors.toList());
     }
 }
