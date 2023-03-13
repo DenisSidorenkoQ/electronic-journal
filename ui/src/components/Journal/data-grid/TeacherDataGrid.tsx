@@ -143,7 +143,8 @@ const TeacherDataGrid = (reRenderTableCount: number, selectedGroupId: number, se
                 </tr>
                 </thead>
                 <tbody>
-                {studentList.map(student => {
+                {
+                    studentList.map(student => {
                     return (
                         <tr>
                             <td>{student.fio}</td>
@@ -197,8 +198,9 @@ const TeacherDataGrid = (reRenderTableCount: number, selectedGroupId: number, se
                                 }
                             })}
                         </tr>
-                    );
-                })}
+                        );
+                    })
+                }
                 </tbody>
             </Table>
             {CustomAlert(alertState, alertType, alertTitle, alertText)}
