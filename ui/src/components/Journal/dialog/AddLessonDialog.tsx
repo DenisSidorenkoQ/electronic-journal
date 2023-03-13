@@ -6,7 +6,7 @@ import * as React from "react";
 import journalService from "../../../service/JournalService";
 import lessonService from "../../../service/LessonService";
 
-const AddLessonDialog = (theme: Theme, selectedGroupId: number, selectedSubjectId: number) => {
+const AddLessonDialog = (reRenderTableCount: number, setReRenderTableCount: any, theme: Theme, selectedGroupId: number, selectedSubjectId: number) => {
     const [lessonTitle, setLessonTitle] = React.useState("");
     const [open, setOpen] = React.useState(false);
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -27,6 +27,7 @@ const AddLessonDialog = (theme: Theme, selectedGroupId: number, selectedSubjectI
         await lessonService.saveLesson(journalBuffer.id, selectedSubjectId, lessonTitle, currentTimestamp);
 
         setLessonTitle("");
+        setReRenderTableCount(reRenderTableCount + 1);
         setOpen(false);
     };
 

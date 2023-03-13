@@ -27,6 +27,7 @@ const TeacherJournalPage = () => {
     const [groupIdSet, setGroupIdSet] = React.useState(() => new Set());
     const [groupList, setGroupList] = React.useState<Group[]>([]);
     const [subjectList, setSubjectList] = React.useState<Subject[]>([]);
+    const [reRenderTableCount, setReRenderTableCount] = React.useState(0);
 
     let user = useSessionStore(state => state.user);
 
@@ -68,8 +69,8 @@ const TeacherJournalPage = () => {
                 {GroupSelect(groupList, selectedGroupId, setSelectedGroupId)}
                 {SubjectSelect(subjectList, selectedSubjectId, setSelectedSubjectId)}
             </Container>
-            {AddLessonDialog(theme, selectedGroupId, selectedSubjectId)}
-            {TeacherDataGrid(selectedGroupId, selectedSubjectId)}
+            {AddLessonDialog(reRenderTableCount, setReRenderTableCount, theme, selectedGroupId, selectedSubjectId)}
+            {TeacherDataGrid(reRenderTableCount, selectedGroupId, selectedSubjectId)}
         </ThemeProvider>
     );
 };

@@ -2,7 +2,6 @@ import * as React from "react";
 import Table from "react-bootstrap/Table";
 import {Mark} from "../../../model/MarkState";
 import {StudyPass} from "../../../model/StudyPassState";
-import AddLessonDialog from "../dialog/AddLessonDialog";
 import {useEffect} from "react";
 import lessonService from "../../../service/LessonService";
 import studentService from "../../../service/StudentService";
@@ -16,7 +15,7 @@ import {AlertColor} from "@mui/material";
 import CustomAlert from "../alert/CustomAlert";
 
 
-const TeacherDataGrid = (selectedGroupId: number, selectedSubjectId: number) => {
+const TeacherDataGrid = (reRenderTableCount: number, selectedGroupId: number, selectedSubjectId: number) => {
     const ALERT_TEXT = [
         "The number must be greater than 0 and less than 10",
         "Н - student did not come to lesson\nX - student came to lesson",
@@ -38,7 +37,8 @@ const TeacherDataGrid = (selectedGroupId: number, selectedSubjectId: number) => 
 
     useEffect(() => {
         lessonService.getAllLessonsByGroupIdAndSubjectId(selectedGroupId, selectedSubjectId).then(lessons => setLessonList(lessons));
-    }, [selectedSubjectId]);
+        console.log(reRenderTableCount);
+    }, [selectedSubjectId, reRenderTableCount]);
 
     useEffect(() => {
         studentService.getStudentsByGroupId(selectedGroupId).then(students => setStudentList(students));
