@@ -14,21 +14,15 @@ import org.springframework.stereotype.Component;
 public class StudyPassFacade {
     private final StudyPassService studyPassService;
 
-    public StudyPass saveOrUpdate(StudyPass studyPass) {
-        Optional<Mark> foundStudyPass =
-                studyPassService.getByLessonIdAndStudentId(studyPass.getLessonId(), studyPass.getStudentId());
-
-        if (foundStudyPass.isPresent()) {
-            return studyPassService.update(studyPass.getLessonId(), studyPass.getStudentId(), studyPass.getPass());
-        }
-        return studyPassService.save(studyPass);
-    }
-
     public List<StudyPass> getAllPassByLessonId(final Long lessonId) {
         return studyPassService.getAllPassByLessonId(lessonId);
     }
 
     public List<StudyPass> getBySubjectIdAndGroupId(Long groupId, Long subjectId) {
         return studyPassService.getBySubjectIdAndGroupId(groupId, subjectId);
+    }
+
+    public StudyPass upsert(StudyPass studyPass) {
+        return studyPassService.upsert(studyPass);
     }
 }

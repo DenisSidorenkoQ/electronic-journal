@@ -9,6 +9,5 @@ import org.mapstruct.Mapper;
 public interface MarkConverter {
     Mark fromDto(SaveOrUpdateMarkRequest request);
 
-
     MarkResponse toDto(Mark mark);
 }

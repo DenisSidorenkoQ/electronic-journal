@@ -9,4 +9,7 @@ create table student
     FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO student (user_id, group_id, fio, sex) VALUES (1, 1, 'Денис Студент', 'М')
+INSERT INTO student (user_id, group_id, fio, sex) VALUES (1, 1, 'Денис Студент', 'М'),
+                                                         (4, 1, 'Денис Студент1', 'М'),
+                                                         (5, 1, 'Денис Студент2', 'М'),
+                                                         (6, 1, 'Денис Студент3', 'М')

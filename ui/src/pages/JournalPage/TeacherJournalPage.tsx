@@ -14,7 +14,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {useSessionStore} from "../../store";
 import SubjectService from "../../service/SubjectService";
 import {GroupHasSubject, Subject} from "../../model/SubjectState";
-import {useEffect, useReducer} from "react";
+import {useEffect, useReducer, useRef} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './Journal.css';
@@ -35,6 +35,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import journalService from "../../service/JournalService";
 import {Journal} from "../../model/JournalState";
+import passService from "../../service/PassService";
 
 const theme = createTheme();
 
@@ -139,6 +140,32 @@ const TeacherJournalPage = () => {
         setOpen(false);
     };
 
+    const handleChangeMark = (event: any) => {
+        const number: number = event.target.textContent;
+        const studentId: number = event.currentTarget.dataset.studentid;
+        const lessonId: number = event.currentTarget.dataset.lessonid;
+
+        if (number > 0 && number < 11 ) {
+            markService.upsertMark(lessonId, studentId, number);
+        } else {
+            alert("The number must be greater than 0 and less than 10");
+        }
+    };
+
+    const handleChangePass = (event: any) => {
+        const pass: string = event.target.textContent;
+        const studentId: number = event.currentTarget.dataset.studentid;
+        const lessonId: number = event.currentTarget.dataset.lessonid;
+
+        if(pass === "Н" || pass === "н") {
+            passService.upsertPass(lessonId, studentId, true);
+        } else if (pass === "" || pass === " ") {
+            passService.upsertPass(lessonId, studentId, false);
+        } else {
+            alert("Н - student did not come to lesson\nX - student came to lesson");
+        }
+    };
+
     const handleSaveLessonButton = async () => {
         if (lessonTitle === "") return;
 
@@ -147,7 +174,6 @@ const TeacherJournalPage = () => {
         setJournal(journalBuffer);
         await lessonService.saveLesson(journalBuffer.id, selectedSubjectId, lessonTitle, currentTimestamp);
         setOpen(false);
-        grid();
     };
 
     const handleLessonTitleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
@@ -270,24 +296,26 @@ const TeacherJournalPage = () => {
                                     if (lessonMark !== undefined && lessonPass !== undefined) {
                                         return (
                                             <React.Fragment>
-                                                <td contentEditable={true}>{lessonMark.number}</td>
-                                                <td contentEditable={true}>{studyPassConverter(lessonPass.pass)}</td>
+                                                <td id={lessonMark.id.toString()} data-studentId={student.id} data-lessonId={lesson.id} contentEditable onBlur={handleChangeMark}>
+                                                    {lessonMark.number}
+                                                </td>
+                                                <td id={lessonPass.id.toString()} data-studentId={student.id} data-lessonId={lesson.id} contentEditable onBlur={handleChangePass}>{studyPassConverter(lessonPass.pass)}</td>
                                             </React.Fragment>
                                         );
                                     }
                                     if (lessonMark !== undefined && lessonPass === undefined) {
                                         return (
                                             <React.Fragment>
-                                                <td contentEditable={true}>{lessonMark.number}</td>
-                                                <td contentEditable={true}></td>
+                                                <td id={lessonMark.id.toString()} data-studentId={student.id} data-lessonId={lesson.id} contentEditable onBlur={handleChangeMark}>{lessonMark.number}</td>
+                                                <td data-studentId={student.id} data-lessonId={lesson.id} contentEditable onBlur={handleChangePass}></td>
                                             </React.Fragment>
                                         );
                                     }
                                     if (lessonPass !== undefined && lessonMark === undefined) {
                                         return (
                                             <React.Fragment>
-                                                <td contentEditable={true}></td>
-                                                <td contentEditable={true}>
+                                                <td data-studentId={student.id} data-lessonId={lesson.id} contentEditable onBlur={handleChangeMark}/>
+                                                <td id={lessonPass.id.toString()} data-studentId={student.id} data-lessonId={lesson.id} contentEditable onBlur={handleChangePass}>
                                                     {studyPassConverter(lessonPass.pass)}
                                                 </td>
                                             </React.Fragment>
@@ -296,8 +324,8 @@ const TeacherJournalPage = () => {
                                     if (lessonPass === undefined && lessonMark === undefined) {
                                         return (
                                             <React.Fragment>
-                                                <td contentEditable={true}></td>
-                                                <td contentEditable={true}></td>
+                                                <td data-studentId={student.id} data-lessonId={lesson.id} contentEditable onBlur={handleChangeMark}/>
+                                                <td data-studentId={student.id} data-lessonId={lesson.id} contentEditable onBlur={handleChangePass}></td>
                                             </React.Fragment>
                                         );
                                     }

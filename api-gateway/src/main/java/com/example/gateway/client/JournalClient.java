@@ -5,11 +5,14 @@ import com.example.gateway.dto.lesson.GetLessonByGroupIdAndSubjectIdResponse;
 import com.example.gateway.dto.lesson.LessonResponse;
 import com.example.gateway.dto.lesson.SaveLessonRequest;
 import com.example.gateway.dto.mark.MarkResponse;
+import com.example.gateway.dto.mark.SaveOrUpdateMarkRequest;
+import com.example.gateway.dto.study_pass.SaveStudyPassRequest;
 import com.example.gateway.dto.study_pass.StudyPassResponse;
 import com.example.gateway.dto.subject.*;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -53,6 +56,9 @@ public interface JournalClient {
     );
 
     //MarkController
+    @PostMapping("mark")
+    MarkResponse upsertMark(@RequestBody @Validated SaveOrUpdateMarkRequest request);
+
     @GetMapping("lesson/{lessonId}/marks")
     List<MarkResponse> getMarkByLessonId(@PathVariable("lessonId") Long lessonId);
 
@@ -60,6 +66,9 @@ public interface JournalClient {
     List<MarkResponse> getMarksBySubjectIdAndGroupId(@PathVariable("groupId") Long groupId, @PathVariable("subjectId") Long subjectId);
 
     //PassController
+
+    @PostMapping("study-pass")
+    StudyPassResponse upsertStudyPass(@RequestBody SaveStudyPassRequest request);
 
     @GetMapping("group/{groupId}/subject/{subjectId}/pass")
     List<StudyPassResponse> getBySubjectIdAndGroupId(@PathVariable("groupId") Long groupId, @PathVariable("subjectId") Long subjectId);
