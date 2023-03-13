@@ -58,15 +58,15 @@ const TeacherDataGrid = (reRenderTableCount: number, selectedGroupId: number, se
         const lessonId: number = event.currentTarget.dataset.lessonid;
 
         if (number > 0 && number < 11 ) {
-            markService.upsertMark(lessonId, studentId, number).catch(exception => {
-                setAlertType(ALERT_TYPE[2]);
-                setAlertTitle("Error");
-                setAlertText(ALERT_TEXT[3]);
-                setAlertState(true);
-            }).then(() => {
+            markService.upsertMark(lessonId, studentId, number).then(() => {
                 setAlertType(ALERT_TYPE[0]);
                 setAlertTitle("OK");
                 setAlertText(ALERT_TEXT[2]);
+                setAlertState(true);
+            }).catch(error => {
+                setAlertType(ALERT_TYPE[2]);
+                setAlertTitle("Error");
+                setAlertText(ALERT_TEXT[3]);
                 setAlertState(true);
             });
         } else {
@@ -83,29 +83,29 @@ const TeacherDataGrid = (reRenderTableCount: number, selectedGroupId: number, se
         const lessonId: number = event.currentTarget.dataset.lessonid;
 
         if(pass === "Н" || pass === "н") {
-            passService.upsertPass(lessonId, studentId, true).catch(exception => {
-                setAlertType(ALERT_TYPE[2]);
-                setAlertTitle("Error");
-                setAlertText(ALERT_TEXT[3]);
-                setAlertState(true);
-            }).then(() => {
+            passService.upsertPass(lessonId, studentId, true).then(() => {
                 setAlertType(ALERT_TYPE[0]);
                 setAlertTitle("OK");
                 setAlertText(ALERT_TEXT[2]);
                 setAlertState(true);
-            })
+            }).catch(error => {
+                setAlertType(ALERT_TYPE[2]);
+                setAlertTitle("Error");
+                setAlertText(ALERT_TEXT[3]);
+                setAlertState(true);
+            });
         } else if (pass === "" || pass === " ") {
-            passService.upsertPass(lessonId, studentId, false).catch(exception => {
-                setAlertType(ALERT_TYPE[2]);
-                setAlertTitle("Error");
-                setAlertText(ALERT_TEXT[3]);
-                setAlertState(true);
-            }).then(() => {
+            passService.upsertPass(lessonId, studentId, false).then(() => {
                 setAlertType(ALERT_TYPE[0]);
                 setAlertTitle("OK");
                 setAlertText(ALERT_TEXT[2]);
                 setAlertState(true);
-            })
+            }).catch(error => {
+                setAlertType(ALERT_TYPE[2]);
+                setAlertTitle("Error");
+                setAlertText(ALERT_TEXT[3]);
+                setAlertState(true);
+            });
         } else {
             setAlertType(ALERT_TYPE[1]);
             setAlertTitle("Info");
@@ -203,7 +203,9 @@ const TeacherDataGrid = (reRenderTableCount: number, selectedGroupId: number, se
                 }
                 </tbody>
             </Table>
-            {CustomAlert(alertState, alertType, alertTitle, alertText)}
+            <div style={{width: "20%"}}>
+                {CustomAlert(alertState, alertType, alertTitle, alertText)}
+            </div>
         </>
     )
 };

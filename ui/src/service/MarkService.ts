@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {Mark} from "../model/MarkState";
 
 class MarkService {
@@ -9,12 +9,12 @@ class MarkService {
         ).then(response => response.data);
     }
 
-    async upsertMark(lessonId: number, studentId: number, number: number): Promise<Mark> {
+    async upsertMark(lessonId: number, studentId: number, number: number): Promise<AxiosResponse<Mark>> {
         return await axios.post<Mark>(
             `http://localhost:8080/api/v1/mark`,
             { lessonId: lessonId, number: number, studentId: studentId },
             { withCredentials: true }
-        ).then(response => response.data);
+        );
     }
 }
 
