@@ -1,15 +1,18 @@
 package com.example.gateway.client;
 
+import com.example.gateway.dto.journal.JournalResponse;
 import com.example.gateway.dto.lesson.GetLessonByGroupIdAndSubjectIdResponse;
 import com.example.gateway.dto.lesson.LessonResponse;
 import com.example.gateway.dto.lesson.SaveLessonRequest;
 import com.example.gateway.dto.mark.MarkResponse;
+import com.example.gateway.dto.mark.SaveOrUpdateMarkRequest;
+import com.example.gateway.dto.study_pass.SaveStudyPassRequest;
 import com.example.gateway.dto.study_pass.StudyPassResponse;
 import com.example.gateway.dto.subject.*;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -25,6 +28,13 @@ public interface JournalClient {
     @GetMapping("subject")
     ResponseEntity<SubjectResponse> getSubjectByName(@RequestBody final GetSubjectByNameRequest request);
 
+    @GetMapping("teacher/{teacherId}/subjects")
+    List<GroupHasSubjectResponse> getTeacherSubjects(@PathVariable("teacherId") Long teacherId);
+
+    @GetMapping("teacher/{teacherId}/group/{groupId}/subjects")
+    List<SubjectResponse> getSubjectsByTeacherIdAndGroupId(@PathVariable("teacherId") Long teacherId,
+                                                           @PathVariable("groupId") Long groupId);
+
     //groupController
     @PostMapping("group/subject")
     GroupHasSubjectResponse addSubjectToTheGroup(@RequestBody AddSubjectToTheGroupRequest request);
@@ -34,7 +44,7 @@ public interface JournalClient {
 
     //lessonController
     @PostMapping("lesson")
-    LessonResponse saveOrGetLesson(@RequestBody SaveLessonRequest request);
+    LessonResponse saveLesson(@RequestBody SaveLessonRequest request);
 
     @GetMapping("lesson/{lessonId}")
     ResponseEntity getLessonById(@PathVariable("lessonId") final Long lessonId);
@@ -46,6 +56,9 @@ public interface JournalClient {
     );
 
     //MarkController
+    @PostMapping("mark")
+    MarkResponse upsertMark(@RequestBody @Validated SaveOrUpdateMarkRequest request);
+
     @GetMapping("lesson/{lessonId}/marks")
     List<MarkResponse> getMarkByLessonId(@PathVariable("lessonId") Long lessonId);
 
@@ -54,6 +67,14 @@ public interface JournalClient {
 
     //PassController
 
+    @PostMapping("study-pass")
+    StudyPassResponse upsertStudyPass(@RequestBody SaveStudyPassRequest request);
+
     @GetMapping("group/{groupId}/subject/{subjectId}/pass")
     List<StudyPassResponse> getBySubjectIdAndGroupId(@PathVariable("groupId") Long groupId, @PathVariable("subjectId") Long subjectId);
+
+    //JournalController
+    @GetMapping("group/{groupId}/journal")
+    ResponseEntity<JournalResponse> getJournalByGroupId(@PathVariable("groupId") final Long groupId);
+
 }

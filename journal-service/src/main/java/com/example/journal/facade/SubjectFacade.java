@@ -1,5 +1,6 @@
 package com.example.journal.facade;
 
+import com.example.journal.dto.subject.SubjectResponse;
 import com.example.journal.model.GroupHasSubject;
 import com.example.journal.model.Subject;
 import com.example.journal.service.SubjectService;
@@ -32,5 +33,13 @@ public class SubjectFacade {
 
     public List<Subject> getGroupSubjects(final Long groupId) {
         return subjectService.getGroupSubjects(groupId);
+    }
+
+    public List<GroupHasSubject> getTeacherSubjects(final Long teacherId) {
+        return subjectService.getTeacherSubjects(teacherId);
+    }
+
+    public List<Subject> getSubjectsByTeacherIdAndGroupId(Long teacherId, Long groupId) {
+        return subjectService.getSubjectsByTeacherIdAndGroupId(teacherId, groupId);
     }
 }

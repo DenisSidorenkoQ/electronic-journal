@@ -21,10 +21,10 @@ public class StudyPassController {
     private final StudyPassFacade studyPassFacade;
 
     @PostMapping("study-pass")
-    StudyPassResponse saveOrUpdate(@RequestBody SaveStudyPassRequest request) {
+    StudyPassResponse upsert(@RequestBody SaveStudyPassRequest request) {
         StudyPass studyPass = converter.fromDto(request);
 
-        return converter.toDto(studyPassFacade.saveOrUpdate(studyPass));
+        return converter.toDto(studyPassFacade.upsert(studyPass));
     }
 
     @GetMapping("lesson/{lessonId}/study-pass")

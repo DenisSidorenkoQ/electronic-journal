@@ -1,6 +1,6 @@
 package com.example.user.converter;
 
-import com.example.user.dto.group.GroupRequest;
+import com.example.user.dto.group.GroupResponse;
 import com.example.user.dto.group.SaveGroupRequest;
 import com.example.user.model.Group;
 import org.mapstruct.Mapper;
@@ -9,5 +9,5 @@ import org.mapstruct.Mapper;
 public interface GroupConverter {
     Group fromDto(final SaveGroupRequest request);
 
-    GroupRequest toDto(final Group group);
+    GroupResponse toDto(final Group group);
 }

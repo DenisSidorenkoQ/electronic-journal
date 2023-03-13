@@ -7,7 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Value
 @Jacksonized
-public class GroupRequest {
+public class GroupResponse {
     Long id;
     String name;
 }

@@ -1,5 +1,6 @@
 package com.example.journal.repository;
 
+import com.example.journal.dto.subject.SubjectResponse;
 import com.example.journal.model.Subject;
 import java.util.List;
 import java.util.Optional;
@@ -23,4 +24,10 @@ public interface SubjectRepository extends Repository<Subject, Long> {
             "JOIN teacher t on ghs.teacher_id = t.id " +
             "WHERE ghs.group_id=:groupId")
     List<Subject> getGroupListSubject(@Param("groupId") final Long groupId);
+
+    @Query("SELECT * FROM subject " +
+            "JOIN group_has_subject ghs ON subject.id = ghs.subject_id " +
+            "WHERE ghs.teacher_id=:teacherId AND ghs.group_id=:groupId")
+    List<Subject> getSubjectsByTeacherIdAndGroupId(@Param("teacherId") Long teacherId,
+                                                           @Param("groupId") Long groupId);
 }

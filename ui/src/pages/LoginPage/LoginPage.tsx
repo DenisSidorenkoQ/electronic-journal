@@ -8,7 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Alert, AlertColor, AlertTitle, FormHelperText} from "@mui/material";
+import {Alert, AlertColor, AlertTitle} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useSessionStore} from "../../store";
 import authorizationService from "../../service/AuthorizationService";

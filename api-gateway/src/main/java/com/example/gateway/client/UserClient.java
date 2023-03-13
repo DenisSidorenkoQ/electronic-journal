@@ -1,7 +1,9 @@
 package com.example.gateway.client;
 
+import com.example.gateway.dto.group.GroupResponse;
 import com.example.gateway.dto.student.SaveStudentRequest;
 import com.example.gateway.dto.student.StudentResponse;
+import com.example.gateway.dto.teacher.TeacherResponse;
 import com.example.gateway.dto.user.GetUserByCredentialsRequest;
 import com.example.gateway.dto.user.SaveUserRequest;
 import com.example.gateway.dto.user.SaveUserResponse;
@@ -40,4 +42,13 @@ public interface UserClient {
 
     @GetMapping("/group/{groupId}/students")
     List<StudentResponse> getAllStudentsByGroup(@PathVariable("groupId") Long groupId);
+
+
+//Teacher
+    @GetMapping("/user/{userId}/teacher")
+    ResponseEntity<TeacherResponse> getTeacherByUserId(@PathVariable("userId") final Long userId);
+
+//Group
+    @GetMapping("/group/{groupId}")
+    ResponseEntity<GroupResponse> getGroupById(@PathVariable("groupId") Long groupId);
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Subject} from "../model/SubjectState";
+import {GroupHasSubject, Subject} from "../model/SubjectState";
 
 class SubjectService {
     getGroupSubjects = (id: number): Promise<Subject[]> => {
@@ -14,6 +14,20 @@ class SubjectService {
             }
         });
 
+    }
+
+    getTeacherSubjects = (id: number): Promise<GroupHasSubject[]> => {
+        return axios.get<GroupHasSubject[]>(
+            `http://localhost:8080/api/v1/teacher/${id}/subjects`,
+            {withCredentials: true}
+        ).then(request => request.data);
+    }
+
+    getSubjectsByTeacherIdAndGroupId = (teacherId: number, groupId: number): Promise<Subject[]> => {
+        return axios.get<Subject[]>(
+            `http://localhost:8080/api/v1/teacher/${teacherId}/group/${groupId}/subjects`,
+            {withCredentials: true}
+        ).then(request => request.data);
     }
 }
 

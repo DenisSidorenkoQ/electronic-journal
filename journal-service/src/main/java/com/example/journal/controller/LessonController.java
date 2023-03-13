@@ -23,7 +23,7 @@ public class LessonController {
     private final LessonConverter converter;
 
     @PostMapping("lesson")
-    LessonResponse saveOrGet(@RequestBody SaveLessonRequest request) {
+    LessonResponse save(@RequestBody SaveLessonRequest request) {
         Lesson lesson = converter.fromDto(request);
 
         return converter.toDto(lessonFacade.save(lesson));

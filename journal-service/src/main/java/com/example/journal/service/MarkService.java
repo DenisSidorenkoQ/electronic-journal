@@ -12,18 +12,6 @@ import org.springframework.stereotype.Service;
 public class MarkService {
     private final MarkRepository markRepository;
 
-    public Mark save(final Mark mark) {
-        return markRepository.save(mark);
-    }
-
-    public Mark update(final Long lessonId, final Long studentId, final Integer number) {
-        return markRepository.update(lessonId, studentId, number);
-    }
-
-    public Optional<Mark> getByLessonIdAndStudentId(final Long lessonId, final Long studentId) {
-        return markRepository.getByLessonIdAndStudentId(lessonId, studentId);
-    }
-
     public List<Mark> getMarksByLessonId(final Long lessonId) {
         return markRepository.getMarksByLessonId(lessonId);
     }
@@ -34,5 +22,9 @@ public class MarkService {
 
     public List<Mark> getMarksBySubjectIdAndGroupId(Long groupId, Long subjectId) {
         return markRepository.getMarksBySubjectIdAndGroupId(groupId, subjectId);
+    }
+
+    public Mark upsert(Mark mark) {
+        return markRepository.upsert(mark.getLessonId(), mark.getStudentId(), mark.getNumber());
     }
 }

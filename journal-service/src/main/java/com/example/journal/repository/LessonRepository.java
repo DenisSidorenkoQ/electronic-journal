@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface LessonRepository extends Repository<Lesson, Long> {
 
-    Lesson save(final Lesson lesson);
+    Lesson save(Lesson lesson);
 
     @Query("SELECT * FROM lesson WHERE id=:lessonId")
     Optional<Lesson> getById(@Param("lessonId") final Long lessonId);
