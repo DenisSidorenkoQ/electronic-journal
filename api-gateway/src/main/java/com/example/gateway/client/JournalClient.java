@@ -6,6 +6,7 @@ import com.example.gateway.dto.lesson.LessonResponse;
 import com.example.gateway.dto.lesson.SaveLessonRequest;
 import com.example.gateway.dto.mark.MarkResponse;
 import com.example.gateway.dto.mark.SaveOrUpdateMarkRequest;
+import com.example.gateway.dto.mark.SubjectAvgMarkResponse;
 import com.example.gateway.dto.study_pass.SaveStudyPassRequest;
 import com.example.gateway.dto.study_pass.StudyPassResponse;
 import com.example.gateway.dto.subject.*;
@@ -64,6 +65,9 @@ public interface JournalClient {
 
     @GetMapping("group/{groupId}/subject/{subjectId}/marks")
     List<MarkResponse> getMarksBySubjectIdAndGroupId(@PathVariable("groupId") Long groupId, @PathVariable("subjectId") Long subjectId);
+
+    @GetMapping("student/{studentId}/subjects/marks/avg")
+    List<SubjectAvgMarkResponse> getAvgStudentMarks(@PathVariable("studentId") Long studentId);
 
     //PassController
 

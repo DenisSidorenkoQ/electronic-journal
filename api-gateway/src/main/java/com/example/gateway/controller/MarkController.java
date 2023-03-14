@@ -3,6 +3,7 @@ package com.example.gateway.controller;
 import com.example.gateway.client.JournalClient;
 import com.example.gateway.dto.mark.MarkResponse;
 import com.example.gateway.dto.mark.SaveOrUpdateMarkRequest;
+import com.example.gateway.dto.mark.SubjectAvgMarkResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -27,5 +28,10 @@ public class MarkController {
     @GetMapping("group/{groupId}/subject/{subjectId}/marks")
     List<MarkResponse> getMarksBySubjectIdAndGroupId(@PathVariable Long groupId, @PathVariable Long subjectId) {
         return journalClient.getMarksBySubjectIdAndGroupId(groupId, subjectId);
+    }
+
+    @GetMapping("student/{studentId}/subjects/marks/avg")
+    List<SubjectAvgMarkResponse> getAvgStudentMarks(@PathVariable("studentId") Long studentId) {
+        return journalClient.getAvgStudentMarks(studentId);
     }
 }

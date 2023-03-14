@@ -4,3 +4,11 @@ export interface Mark {
     studentId: number;
     number: number;
 }
+
+export interface SubjectAvgMark {
+    subjectId: number;
+    subjectName: string;
+    timeToStudy: number;
+    knowledgeTestType: string;
+    avgMark: number;
+}

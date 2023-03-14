@@ -1,9 +1,9 @@
 package com.example.journal.service;
 
 import com.example.journal.model.Mark;
+import com.example.journal.model.SubjectAvgMark;
 import com.example.journal.repository.MarkRepository;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +26,9 @@ public class MarkService {
 
     public Mark upsert(Mark mark) {
         return markRepository.upsert(mark.getLessonId(), mark.getStudentId(), mark.getNumber());
+    }
+
+    public List<SubjectAvgMark> getAvgMarksByStudentIdAndSubjectId(Long studentId) {
+        return markRepository.getAvgMarksByStudentIdAndSubjectId(studentId);
     }
 }
