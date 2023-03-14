@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class MarkController {
     private final JournalClient journalClient;
 
-    @PostMapping("mark")
+    @PostMapping("marks")
     MarkResponse upsert(@RequestBody @Validated SaveOrUpdateMarkRequest request) {
         return journalClient.upsertMark(request);
     }

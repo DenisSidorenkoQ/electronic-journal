@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class LessonController {
     private final JournalClient journalClient;
 
-    @PostMapping("lesson")
+    @PostMapping("lessons")
     LessonResponse save(@RequestBody SaveLessonRequest request) {
         return journalClient.saveLesson(request);
     }

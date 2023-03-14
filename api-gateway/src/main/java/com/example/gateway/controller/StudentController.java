@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
     private final UserClient userClient;
 
-    @PostMapping("/student")
+    @PostMapping("/students")
     StudentResponse saveOrGet(@RequestBody SaveStudentRequest request) {
         return userClient.saveOrGetStudent(request);
     }
 
-    @GetMapping("/user/{userId}/student")
+    @GetMapping("/user/{userId}/students")
     ResponseEntity<StudentResponse> getByUserId(@PathVariable final Long userId) {
         return userClient.getStudentByUserId(userId);
     }

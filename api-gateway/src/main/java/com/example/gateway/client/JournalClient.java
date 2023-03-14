@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "journal", url = "${services.journal.url}/api/v1")
 public interface JournalClient {
 //SubjectController
-    @PostMapping("subject")
+    @PostMapping("subjects")
     SubjectResponse saveOrGetSubject(@RequestBody SaveSubjectRequest request);
 
     @GetMapping("subject/{subjectId}")
     ResponseEntity<SubjectResponse> getSubjectById(@PathVariable("subjectId") final Long subjectId);
 
-    @GetMapping("subject")
+    @GetMapping("subjects")
     ResponseEntity<SubjectResponse> getSubjectByName(@RequestBody final GetSubjectByNameRequest request);
 
     @GetMapping("teacher/{teacherId}/subjects")
@@ -36,14 +36,14 @@ public interface JournalClient {
                                                            @PathVariable("groupId") Long groupId);
 
     //groupController
-    @PostMapping("group/subject")
+    @PostMapping("group/subjects")
     GroupHasSubjectResponse addSubjectToTheGroup(@RequestBody AddSubjectToTheGroupRequest request);
 
     @GetMapping("group/{groupId}/subjects")
     List<SubjectResponse> getGroupSubjects(@PathVariable("groupId") Long groupId);
 
     //lessonController
-    @PostMapping("lesson")
+    @PostMapping("lessons")
     LessonResponse saveLesson(@RequestBody SaveLessonRequest request);
 
     @GetMapping("lesson/{lessonId}")
@@ -56,7 +56,7 @@ public interface JournalClient {
     );
 
     //MarkController
-    @PostMapping("mark")
+    @PostMapping("marks")
     MarkResponse upsertMark(@RequestBody @Validated SaveOrUpdateMarkRequest request);
 
     @GetMapping("lesson/{lessonId}/marks")
@@ -74,7 +74,7 @@ public interface JournalClient {
     List<StudyPassResponse> getBySubjectIdAndGroupId(@PathVariable("groupId") Long groupId, @PathVariable("subjectId") Long subjectId);
 
     //JournalController
-    @GetMapping("group/{groupId}/journal")
+    @GetMapping("group/{groupId}/journals")
     ResponseEntity<JournalResponse> getJournalByGroupId(@PathVariable("groupId") final Long groupId);
 
 }

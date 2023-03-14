@@ -18,14 +18,14 @@ public class AdminController {
     private final AdminFacade adminFacade;
     private final AdminConverter converter;
 
-    @PostMapping("/admin")
+    @PostMapping("/admins")
     AdminResponse saveOrGet(@RequestBody SaveAdminRequest request) {
         Admin admin = converter.fromDto(request);
 
         return converter.toDto(adminFacade.saveOrGet(admin));
     }
 
-    @GetMapping("/user/{userId}/admin")
+    @GetMapping("/user/{userId}/admins")
     ResponseEntity getByUserId(@PathVariable final Long userId) {
         Optional<Admin> admin = adminFacade.getByUserId(userId);
 

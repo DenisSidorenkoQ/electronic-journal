@@ -11,7 +11,7 @@ class MarkService {
 
     async upsertMark(lessonId: number, studentId: number, number: number): Promise<AxiosResponse<Mark>> {
         return await axios.post<Mark>(
-            `http://localhost:8080/api/v1/mark`,
+            `http://localhost:8080/api/v1/marks`,
             { lessonId: lessonId, number: number, studentId: studentId },
             { withCredentials: true }
         );

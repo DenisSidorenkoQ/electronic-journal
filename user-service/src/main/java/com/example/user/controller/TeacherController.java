@@ -20,7 +20,7 @@ public class TeacherController {
     private final TeacherFacade teacherFacade;
     private final TeacherConverter converter;
 
-    @PostMapping("/teacher")
+    @PostMapping("/teachers")
     TeacherResponse saveOrGet(@RequestBody SaveTeacherRequest request) {
         Teacher teacher = converter.fromDto(request);
 
@@ -36,7 +36,7 @@ public class TeacherController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @GetMapping("/user/{userId}/teacher")
+    @GetMapping("/user/{userId}/teachers")
     ResponseEntity getByUserId(@PathVariable final Long userId) {
         Optional<Teacher> teacher = teacherFacade.getByUserId(userId);
 

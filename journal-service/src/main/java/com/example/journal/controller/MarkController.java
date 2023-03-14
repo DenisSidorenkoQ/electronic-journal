@@ -17,7 +17,7 @@ public class MarkController {
     private final MarkConverter converter;
     private final MarkFacade markFacade;
 
-    @PostMapping("mark")
+    @PostMapping("marks")
     MarkResponse upsert(@RequestBody @Validated SaveOrUpdateMarkRequest request) {
         Mark mark = converter.fromDto(request);
 
@@ -34,7 +34,7 @@ public class MarkController {
         return markFacade.getMarksBySubjectIdAndGroupId(groupId, subjectId);
     }
 
-    @GetMapping("student/{studentId}/lesson/{lessonId}/mark")
+    @GetMapping("student/{studentId}/lesson/{lessonId}/marks")
     MarkResponse getMarkByStudentIdAndLessonId(@PathVariable Long studentId, @PathVariable Long lessonId) {
         return converter.toDto(markFacade.getMarkByStudentIdAndLessonId(studentId, lessonId));
     }

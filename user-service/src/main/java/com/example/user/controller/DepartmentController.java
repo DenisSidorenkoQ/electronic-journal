@@ -18,7 +18,7 @@ public class DepartmentController {
     private final DepartmentFacade departmentFacade;
     private final DepartmentConverter converter;
 
-    @PostMapping("/department")
+    @PostMapping("/departments")
     DepartmentResponse saveOrGet(@RequestBody SaveDepartmentRequest request) {
         Department department = converter.fromDto(request);
 
@@ -34,7 +34,7 @@ public class DepartmentController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @GetMapping("/department")
+    @GetMapping("/departments")
     ResponseEntity getByName(@RequestParam String departmentName) {
         Optional<Department> department = departmentFacade.getByName(departmentName);
 

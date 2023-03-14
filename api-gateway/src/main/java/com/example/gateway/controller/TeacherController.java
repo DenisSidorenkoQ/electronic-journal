@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TeacherController {
     private final UserClient userClient;
 
-    @GetMapping("/user/{userId}/teacher")
+    @GetMapping("/user/{userId}/teachers")
     ResponseEntity getByUserId(@PathVariable final Long userId) {
         return userClient.getTeacherByUserId(userId);
     }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class SubjectController {
     private final JournalClient journalClient;
 
-    @PostMapping("subject")
+    @PostMapping("subjects")
     SubjectResponse saveOrGet(@RequestBody SaveSubjectRequest request) {
         return journalClient.saveOrGetSubject(request);
     }
@@ -23,12 +23,12 @@ public class SubjectController {
         return journalClient.getSubjectById(subjectId);
     }
 
-    @GetMapping("subject")
+    @GetMapping("subjects")
     ResponseEntity getByName(@RequestBody final GetSubjectByNameRequest request) {
         return journalClient.getSubjectByName(request);
     }
 
-    @PostMapping("group/subject")
+    @PostMapping("group/subjects")
     GroupHasSubjectResponse addSubjectToTheGroup(@RequestBody AddSubjectToTheGroupRequest request) {
         return journalClient.addSubjectToTheGroup(request);
     }
