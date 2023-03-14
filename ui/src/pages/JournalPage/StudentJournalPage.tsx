@@ -34,6 +34,7 @@ const StudentJournalPage = () => {
                 {SubjectSelect(subjectList, selectedSubjectId, setSelectedSubjectId)}
             </Container>
             {StudentDataGrid(groupId, selectedSubjectId)}
+
         </ThemeProvider>
     );
 };

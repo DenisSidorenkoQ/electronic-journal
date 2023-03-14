@@ -35,8 +35,8 @@ const JournalLayout = ({ children }: Props) => {
     return (
         <>
             <Tabs value={value} onChange={handleChange} aria-label="Header">
-                <Tab value="0" icon={navigationItems[0].icon} label={navigationItems[0].title} component={Link} to={navigationItems[0].path} />
-                <Tab value="1" icon={navigationItems[1].icon} label={navigationItems[1].title} component={Link} to={navigationItems[1].path} />
+                <Tab style={{height: '100px', width: '200px'}} value="0" icon={navigationItems[0].icon} label={navigationItems[0].title} component={Link} to={navigationItems[0].path} />
+                <Tab style={{height: '100px', width: '200px'}} value="1" icon={navigationItems[1].icon} label={navigationItems[1].title} component={Link} to={navigationItems[1].path} />
             </Tabs>
             <Box
                 component="main"

@@ -16,6 +16,7 @@ import SubjectSelect from "../../components/Journal/select/SubjectSelect";
 import GroupSelect from "../../components/Journal/select/GroupSelect";
 import TeacherDataGrid from "../../components/Journal/data-grid/TeacherDataGrid";
 import AddLessonDialog from "../../components/Journal/dialog/AddLessonDialog";
+import Box from "@mui/material/Box";
 
 const theme = createTheme();
 
