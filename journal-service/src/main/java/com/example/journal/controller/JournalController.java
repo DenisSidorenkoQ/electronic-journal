@@ -34,7 +34,7 @@ public class JournalController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @GetMapping("group/{groupId}/journal")
+    @GetMapping("group/{groupId}/journals")
     ResponseEntity getByGroupId(@PathVariable final Long groupId) {
         Optional<Journal> journal = journalFacade.getByGroupId(groupId);
 

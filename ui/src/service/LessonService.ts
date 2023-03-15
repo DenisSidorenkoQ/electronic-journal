@@ -11,7 +11,7 @@ class LessonService {
 
     async saveLesson(journalId: number | undefined, subjectId: number, themeName: string, dateTimestamp: number): Promise<Lesson> {
         return await axios.post<Lesson>(
-            `http://localhost:8080/api/v1/lesson`,
+            `http://localhost:8080/api/v1/lessons`,
             {journalId: journalId, subjectId: subjectId, themeName: themeName, dateTimestamp: dateTimestamp},
             {withCredentials: true}).then(request => request.data);
     }

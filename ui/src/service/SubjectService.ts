@@ -2,7 +2,7 @@ import axios from "axios";
 import {GroupHasSubject, Subject} from "../model/SubjectState";
 
 class SubjectService {
-    getGroupSubjects = (id: number): Promise<Subject[]> => {
+    getGroupSubjects = (id: number | undefined): Promise<Subject[]> => {
         return axios.get<Subject[]>(
             `http://localhost:8080/api/v1/group/${id}/subjects`,
             {withCredentials: true}

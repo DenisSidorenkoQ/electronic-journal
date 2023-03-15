@@ -23,7 +23,7 @@ public class SubjectController {
     private final GroupHasSubjectConverter groupHasSubjectConverter;
     private final SubjectFacade subjectFacade;
 
-    @PostMapping("subject")
+    @PostMapping("subjects")
     SubjectResponse saveOrGet(@RequestBody SaveSubjectRequest request) {
         Subject subject = subjectConverter.fromDto(request);
 
@@ -39,7 +39,7 @@ public class SubjectController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @GetMapping("subject")
+    @GetMapping("subjects")
     ResponseEntity getByName(@RequestBody final GetSubjectByNameRequest request) {
         Optional<Subject> subject = subjectFacade.getByName(request.getName());
 
@@ -48,7 +48,7 @@ public class SubjectController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @PostMapping("group/subject")
+    @PostMapping("group/subjects")
     GroupHasSubjectResponse addSubjectToTheGroup(@RequestBody AddSubjectToTheGroupRequest request) {
         GroupHasSubject groupHasSubject = groupHasSubjectConverter.fromDto(request);
 

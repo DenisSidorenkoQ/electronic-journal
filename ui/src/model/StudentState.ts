@@ -3,5 +3,5 @@ export interface Student {
     userId: number;
     groupId: number;
     fio: string;
-    sex: symbol;
+    sex: string;
 }

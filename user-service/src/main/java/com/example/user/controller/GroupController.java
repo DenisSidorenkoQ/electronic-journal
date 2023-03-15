@@ -18,7 +18,7 @@ public class GroupController {
     private final GroupFacade groupFacade;
     private final GroupConverter converter;
 
-    @PostMapping("/group")
+    @PostMapping("/groups")
     GroupResponse saveOrGet(@RequestBody SaveGroupRequest request) {
         Group group = converter.fromDto(request);
 
@@ -34,7 +34,7 @@ public class GroupController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @GetMapping("/group")
+    @GetMapping("/groups")
     ResponseEntity getByName(@RequestParam String groupName) {
         Optional<Group> findGroup = groupFacade.getByName(groupName);
 

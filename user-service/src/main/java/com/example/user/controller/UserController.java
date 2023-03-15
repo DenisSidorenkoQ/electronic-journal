@@ -20,7 +20,7 @@ public class UserController {
     private final UserFacade userFacade;
     private final UserConverter converter;
 
-    @PostMapping("/user")
+    @PostMapping("/users")
     ResponseEntity save(@RequestBody SaveUserRequest request) {
         User userFromRequest = converter.fromDto(request);
         Optional<User> savedUser = userFacade.save(userFromRequest);

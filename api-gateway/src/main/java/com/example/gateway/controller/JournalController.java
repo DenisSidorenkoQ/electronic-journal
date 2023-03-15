@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class JournalController {
     private final JournalClient journalClient;
 
-    @GetMapping("group/{groupId}/journal")
+    @GetMapping("group/{groupId}/journals")
     ResponseEntity<JournalResponse> getByGroupId(@PathVariable("groupId") final Long groupId) {
         return journalClient.getJournalByGroupId(groupId);
     }

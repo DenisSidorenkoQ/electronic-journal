@@ -35,8 +35,8 @@ const StudentDataGrid = (groupId: number, selectedSubjectId: number) => {
 
     if (lessonList.length === 0) return;
     return (
-        <Table className="table w-auto text-xsmall" bordered size="sm">
-            <thead>
+        <Table className="table w-50" bordered size="sm" style={{border: '1px solid'}}>
+            <thead style={{backgroundColor: "#2B3A70",  color: "white", textAlign: "center"}}>
             <tr>
                 <th rowSpan={2} colSpan={1}>
                     Students

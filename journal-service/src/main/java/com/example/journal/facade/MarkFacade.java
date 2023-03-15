@@ -1,9 +1,9 @@
 package com.example.journal.facade;
 
 import com.example.journal.model.Mark;
+import com.example.journal.model.SubjectAvgMark;
 import com.example.journal.service.MarkService;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -27,5 +27,9 @@ public class MarkFacade {
 
     public Mark upsert(Mark mark) {
         return markService.upsert(mark);
+    }
+
+    public List<SubjectAvgMark> getAvgMarksByStudentIdAndSubjectId(Long studentId) {
+        return markService.getAvgMarksByStudentIdAndSubjectId(studentId);
     }
 }

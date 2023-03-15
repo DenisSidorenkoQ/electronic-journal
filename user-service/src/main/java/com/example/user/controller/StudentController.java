@@ -21,14 +21,14 @@ public class StudentController {
     private final StudentConverter converter;
     private final StudentFacade studentFacade;
 
-    @PostMapping("/student")
+    @PostMapping("/students")
     StudentResponse saveOrGet(@RequestBody SaveStudentRequest request) {
         Student student = converter.fromDto(request);
 
         return converter.toDto(studentFacade.saveOrGet(student));
     }
 
-    @GetMapping("/user/{userId}/student")
+    @GetMapping("/user/{userId}/students")
     ResponseEntity getByUserId(@PathVariable final Long userId) {
         Optional<Student> student = studentFacade.getByUserId(userId);
 

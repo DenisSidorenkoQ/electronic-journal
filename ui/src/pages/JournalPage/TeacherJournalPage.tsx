@@ -37,7 +37,6 @@ const TeacherJournalPage = () => {
 
     useEffect(() => {
         SubjectService.getTeacherSubjects(teacherId).then(subjects => setGroupHasSubjectList(subjects));
-
     }, [teacherId]);
 
     useEffect(() => {

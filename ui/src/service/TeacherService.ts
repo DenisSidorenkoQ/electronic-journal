@@ -4,7 +4,7 @@ import {Teacher} from "../model/TeacherState";
 class TeacherService {
     getTeacherByUserId = (id: number | undefined): Promise<Teacher> => {
         return axios.get<Teacher>(
-            `http://localhost:8080/api/v1/user/${id}/teacher`,
+            `http://localhost:8080/api/v1/user/${id}/teachers`,
             {withCredentials: true}
         ).then(response => response.data);
     }

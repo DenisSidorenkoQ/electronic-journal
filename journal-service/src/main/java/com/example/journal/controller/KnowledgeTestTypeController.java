@@ -13,20 +13,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/knowledge-test")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class KnowledgeTestTypeController {
     private final KnowledgeTestTypeConverter converter;
     private final KnowledgeTestTypeFacade knowledgeTestTypeFacade;
 
-    @PostMapping
+    @PostMapping("knowledge-test")
     KnowledgeTestTypeResponse saveOrGet(@RequestBody SaveKnowledgeTestTypeRequest request) {
         KnowledgeTestType knowledgeTestType = converter.fromDto(request);
 
         return converter.toDto(knowledgeTestTypeFacade.saveOrGet(knowledgeTestType));
     }
 
-    @GetMapping("{testId}")
+    @GetMapping("knowledge-test/{testId}")
     ResponseEntity getById(@PathVariable("testId") final Long testId) {
         Optional<KnowledgeTestType> knowledgeTestType = knowledgeTestTypeFacade.getById(testId);
 
@@ -35,7 +35,7 @@ public class KnowledgeTestTypeController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @GetMapping
+    @GetMapping("knowledge-tests")
     ResponseEntity getByName(@RequestBody final GetKnowledgeTestTypeByNameRequest request) {
         Optional<KnowledgeTestType> knowledgeTestType = knowledgeTestTypeFacade.getByName(request.getName());
 

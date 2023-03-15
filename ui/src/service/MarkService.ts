@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {Mark} from "../model/MarkState";
+import {Mark, SubjectAvgMark} from "../model/MarkState";
 
 class MarkService {
     async getMarkBySubjectIdAndGroupId(subjectId: number, groupId: number): Promise<Mark[]> {
@@ -11,10 +11,16 @@ class MarkService {
 
     async upsertMark(lessonId: number, studentId: number, number: number): Promise<AxiosResponse<Mark>> {
         return await axios.post<Mark>(
-            `http://localhost:8080/api/v1/mark`,
+            `http://localhost:8080/api/v1/marks`,
             { lessonId: lessonId, number: number, studentId: studentId },
             { withCredentials: true }
         );
+    }
+
+    async getAvgMarksByStudentId(studentId: number | undefined): Promise<SubjectAvgMark[]> {
+        return await axios.get<SubjectAvgMark[]>(
+            `http://localhost:8080/api/v1/student/${studentId}/subjects/marks/avg`,
+            { withCredentials: true }).then(resource => resource.data);
     }
 }
 

@@ -27,14 +27,14 @@ public interface UserClient {
     @GetMapping("/user/{userId}")
     ResponseEntity<UserResponse> getById(@PathVariable("userId") final Long userId);
 
-    @PostMapping("/user")
+    @PostMapping("/users")
     ResponseEntity<SaveUserResponse> save(@RequestBody SaveUserRequest request);
 
 //StudentController
-    @PostMapping("/student")
+    @PostMapping("/students")
     StudentResponse saveOrGetStudent(@RequestBody SaveStudentRequest request);
 
-    @GetMapping("/user/{userId}/student")
+    @GetMapping("/user/{userId}/students")
     ResponseEntity<StudentResponse> getStudentByUserId(@PathVariable("userId") final Long userId);
 
     @GetMapping("/student/{studentId}")
@@ -45,7 +45,7 @@ public interface UserClient {
 
 
 //Teacher
-    @GetMapping("/user/{userId}/teacher")
+    @GetMapping("/user/{userId}/teachers")
     ResponseEntity<TeacherResponse> getTeacherByUserId(@PathVariable("userId") final Long userId);
 
 //Group
