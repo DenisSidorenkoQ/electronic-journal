@@ -10,6 +10,15 @@ class GroupService {
             return response.data;
         });
     }
+
+    async getGroupList(): Promise<Group[]> {
+        return await axios.get<Group[]>(
+            `http://localhost:8080/api/v1/groups`,
+            { withCredentials: true }
+        ).then(response => {
+            return response.data;
+        });
+    }
 }
 
 export default new GroupService();

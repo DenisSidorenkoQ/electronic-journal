@@ -1,4 +1,4 @@
-package com.example.gateway.dto.user;
+package com.example.user.dto.role;
 
 import lombok.Builder;
 import lombok.Value;
@@ -7,8 +7,7 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Value
 @Jacksonized
-public class SaveUserResponse {
+public class RoleResponse {
     Long id;
-    String login;
-    Integer roleId;
+    String name;
 }

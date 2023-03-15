@@ -10,6 +10,8 @@ import StudentJournalPage from "./pages/JournalPage/StudentJournalPage";
 import TeacherJournalPage from "./pages/JournalPage/TeacherJournalPage";
 import StudentMenuPage from "./pages/MenuPage/StudentMenuPage";
 import StudentProfilePage from "./pages/ProfilePage/StudentProfilePage";
+import AdminMenuPage from "./pages/MenuPage/AdminMenuPage";
+import CreateUserPage from "./pages/AdminPage/CreateUserPage";
 
 function App() {
     const user = useSessionStore(state => state.user);
@@ -23,6 +25,19 @@ function App() {
 
     if (loading) {
         return <LoadingScreen />;
+    }
+
+    if (user?.roleName === 'ADMIN') {
+        return (
+            <JournalLayout>
+                <Routes>
+                    <Route path={'/login'} element={<LoginPage />} />
+                    <Route path={'/menu'} element={<AdminMenuPage />} />
+                    <Route path={'/admin-panel/create/user'} element={<CreateUserPage />} />
+                    <Route path={'*'} element={<Navigate to="/menu" replace />} />
+                </Routes>
+            </JournalLayout>
+        );
     }
 
     if (user?.roleName === 'STUDENT') {

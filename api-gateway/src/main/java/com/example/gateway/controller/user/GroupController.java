@@ -1,7 +1,9 @@
-package com.example.gateway.controller;
+package com.example.gateway.controller.user;
 
 import com.example.gateway.client.UserClient;
 import com.example.gateway.dto.group.GroupResponse;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,5 +20,10 @@ public class GroupController {
     @GetMapping("/group/{groupId}")
     ResponseEntity<GroupResponse> getById(@PathVariable Long groupId) {
         return userClient.getGroupById(groupId);
+    }
+
+    @GetMapping("/groups")
+    List<GroupResponse> getGroupList() {
+        return userClient.getGroupList();
     }
 }

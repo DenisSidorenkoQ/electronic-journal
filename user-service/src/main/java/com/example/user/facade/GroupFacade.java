@@ -2,6 +2,7 @@ package com.example.user.facade;
 
 import com.example.user.model.Group;
 import com.example.user.service.GroupService;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,5 +24,9 @@ public class GroupFacade {
 
     public Optional<Group> getByName(String name) {
         return groupService.getByName(name);
+    }
+
+    public List<Group> getGroupList() {
+        return groupService.getGroupList();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.gateway.client;
 
 import com.example.gateway.dto.group.GroupResponse;
+import com.example.gateway.dto.role.RoleResponse;
 import com.example.gateway.dto.student.SaveStudentRequest;
 import com.example.gateway.dto.student.StudentResponse;
 import com.example.gateway.dto.teacher.TeacherResponse;
@@ -28,7 +29,7 @@ public interface UserClient {
     ResponseEntity<UserResponse> getById(@PathVariable("userId") final Long userId);
 
     @PostMapping("/users")
-    ResponseEntity<SaveUserResponse> save(@RequestBody SaveUserRequest request);
+    ResponseEntity<SaveUserResponse> saveUser(@RequestBody SaveUserRequest request);
 
 //StudentController
     @PostMapping("/students")
@@ -51,4 +52,14 @@ public interface UserClient {
 //Group
     @GetMapping("/group/{groupId}")
     ResponseEntity<GroupResponse> getGroupById(@PathVariable("groupId") Long groupId);
+
+    @GetMapping("/groups")
+    List<GroupResponse> getGroupList();
+
+//Role
+    @GetMapping("/roles")
+    List<RoleResponse> getRoleList();
+
+    @GetMapping("/role/{roleId}")
+    RoleResponse getRoleById(@PathVariable("roleId") Long roleId);
 }

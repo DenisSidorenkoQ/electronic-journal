@@ -11,17 +11,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class UserController {
     private final UserClient userClient;
 
-    @PostMapping
+    @PostMapping("users")
     ResponseEntity<SaveUserResponse> save(@RequestBody SaveUserRequest request) {
-        return userClient.save(request);
+        return userClient.saveUser(request);
     }
 
-    @GetMapping(value = "{userId}")
+    @GetMapping("/user/{userId}")
     ResponseEntity<UserResponse> getById(@PathVariable("userId") final Long userId) {
         return userClient.getById(userId);
     }

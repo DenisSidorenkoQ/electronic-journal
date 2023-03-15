@@ -1,4 +1,4 @@
-package com.example.gateway.controller;
+package com.example.gateway.controller.user;
 
 import com.example.gateway.client.UserClient;
 import java.util.Optional;
