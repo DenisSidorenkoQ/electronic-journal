@@ -5,7 +5,9 @@ import com.example.user.dto.department.DepartmentResponse;
 import com.example.user.dto.department.SaveDepartmentRequest;
 import com.example.user.facade.DepartmentFacade;
 import com.example.user.model.Department;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +37,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments")
-    ResponseEntity getByName(@RequestParam String departmentName) {
-        Optional<Department> department = departmentFacade.getByName(departmentName);
-
-        return department
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
+    List<DepartmentResponse> getDepartmentList() {
+        return departmentFacade.getDepartmentList().stream().map(converter::toDto).collect(Collectors.toList());
     }
 }

@@ -27,6 +27,19 @@ function App() {
         return <LoadingScreen />;
     }
 
+    if (user?.roleName === 'ADMIN') {
+        return (
+            <JournalLayout>
+                <Routes>
+                    <Route path={'/login'} element={<LoginPage />} />
+                    <Route path={'/menu'} element={<AdminMenuPage />} />
+                    <Route path={'/admin-panel/create/user'} element={<CreateUserPage />} />
+                    <Route path={'*'} element={<Navigate to="/menu" replace />} />
+                </Routes>
+            </JournalLayout>
+        );
+    }
+
     if (user?.roleName === 'STUDENT') {
         return (
             <JournalLayout>

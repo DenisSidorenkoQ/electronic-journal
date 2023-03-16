@@ -8,6 +8,14 @@ class TeacherService {
             {withCredentials: true}
         ).then(response => response.data);
     }
+
+    saveTeacher = (userId: number, departmentId: number, fio: string): Promise<Teacher> => {
+        return axios.post<Teacher>(
+            `http://localhost:8080/api/v1/teachers`,
+            {userId: userId, departmentId: departmentId, fio: fio},
+            {withCredentials: true}
+        ).then(response => response.data);
+    }
 }
 
 export default new TeacherService();

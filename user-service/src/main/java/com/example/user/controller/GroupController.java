@@ -5,7 +5,9 @@ import com.example.user.dto.group.GroupResponse;
 import com.example.user.dto.group.SaveGroupRequest;
 import com.example.user.facade.GroupFacade;
 import com.example.user.model.Group;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +37,10 @@ public class GroupController {
     }
 
     @GetMapping("/groups")
-    ResponseEntity getByName(@RequestParam String groupName) {
-        Optional<Group> findGroup = groupFacade.getByName(groupName);
+    List<GroupResponse> getGroupList() {
 
-        return findGroup
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
+        List<Group> groupList = groupFacade.getGroupList();
+
+        return groupList.stream().map(converter::toDto).collect(Collectors.toList());
     }
 }

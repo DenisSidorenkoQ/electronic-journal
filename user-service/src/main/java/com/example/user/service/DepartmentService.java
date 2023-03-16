@@ -3,6 +3,7 @@ package com.example.user.service;
 import com.example.user.model.Admin;
 import com.example.user.model.Department;
 import com.example.user.repository.DepartmentRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,9 @@ public class DepartmentService {
 
     public Optional<Department> getById(final Long departmentId) {
         return departmentRepository.getById(departmentId);
+    }
+
+    public List<Department> getDepartmentList() {
+        return departmentRepository.getDepartmentList();
     }
 }
