@@ -15,6 +15,10 @@ import userService from "../../service/UserService";
 import {Group} from "../../model/GroupState";
 import groupService from "../../service/GroupService";
 import studentService from "../../service/StudentService";
+import {Department} from "../../model/DepartmentState";
+import departmentService from "../../service/DepartmentService";
+import teacherService from "../../service/TeacherService";
+import adminService from "../../service/AdminService";
 
 const theme = createTheme();
 
@@ -31,6 +35,8 @@ const CreateUserPage = () => {
     const [createdUserId, setCreatedUserId] = React.useState(0);
     const [groupList, setGroupList] = React.useState<Group[]>([]);
     const [selectedGroupId, setSelectedGroupId] = React.useState(0);
+    const [departmentList, setDepartmentList] = React.useState<Department[]>([])
+    const [selectedDepartmentId, setSelectedDepartmentId] = React.useState(0);
 
 
     useEffect(() => {
@@ -43,7 +49,7 @@ const CreateUserPage = () => {
 
     useEffect(() => {
         studentService.saveStudent(createdUserId, selectedGroupId, selectedFio, selectedSex);
-    }, [createdUserId]);
+    }, [createdUserId, selectedRoleName === "STUDENT"]);
 
 
     const handleRoleChange = (event: any) => {
@@ -69,6 +75,12 @@ const CreateUserPage = () => {
     const selectionInputInformationByRoleId = (selectedRoleName: string) => {
         if (selectedRoleName === 'STUDENT') {
             return inputStudentInformation();
+        }
+        if (selectedRoleName === 'TEACHER') {
+            return inputTeacherInformation();
+        }
+        if (selectedRoleName === 'ADMIN') {
+            return inputAdminInformation();
         }
     }
 
@@ -113,6 +125,71 @@ const CreateUserPage = () => {
                             }
                         </Select>
                     </FormControl>
+                </div>
+            </>
+        )
+    }
+
+    const handleDepartmentChange = (event: any) => {
+        const departmentId = parseInt(event.target.value);
+
+        setSelectedDepartmentId(departmentId);
+    }
+
+    useEffect(() => {
+        departmentService.getDepartmentList().then(departments => setDepartmentList(departments));
+    }, [selectedRoleName === "TEACHER"]);
+
+    useEffect(() => {
+        teacherService.saveTeacher(createdUserId, selectedDepartmentId, selectedFio);
+    }, [createdUserId, selectedRoleName === "TEACHER"]);
+
+    const inputTeacherInformation = () => {
+        const handleFioChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+            setSelectedFio(event.target.value);
+        }
+
+        return (
+            <>
+                <div className="gridElement">
+                    <TextField onChange={handleFioChange} id="fio" label="fio" variant="outlined" />
+                </div>
+                <div className="gridElement">
+                    <FormControl>
+                        <InputLabel id="Departments">Departments</InputLabel>
+                        <Select
+                            labelId="Departments"
+                            id="Departments"
+                            value={selectedDepartmentId.toString()}
+                            onChange={handleDepartmentChange}
+                            label="Departments"
+                            sx={{width: 300}}
+                        >
+                            {
+                                departmentList.map((department) => (
+                                    <MenuItem value={department.id}>{department.name}</MenuItem>
+                                ))
+                            }
+                        </Select>
+                    </FormControl>
+                </div>
+            </>
+        )
+    }
+
+    useEffect(() => {
+        adminService.saveAdmin(createdUserId, selectedFio);
+    }, [createdUserId, selectedRoleName === "ADMIN"]);
+
+    const inputAdminInformation = () => {
+        const handleFioChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+            setSelectedFio(event.target.value);
+        }
+
+        return (
+            <>
+                <div className="gridElement">
+                    <TextField onChange={handleFioChange} id="fio" label="fio" variant="outlined" />
                 </div>
             </>
         )

@@ -2,6 +2,7 @@ package com.example.user.facade;
 
 import com.example.user.model.Department;
 import com.example.user.service.DepartmentService;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ public class DepartmentFacade {
         return departmentService.getById(departmentId);
     }
 
-    public Optional<Department> getByName(final String name) {
-        return departmentService.getByName(name);
+    public List<Department> getDepartmentList() {
+        return departmentService.getDepartmentList();
     }
 }
