@@ -56,6 +56,9 @@ public interface UserClient {
     @PostMapping("/teachers")
     TeacherResponse saveOrGetTeacher(@RequestBody SaveTeacherRequest request);
 
+    @GetMapping("/teachers")
+    List<TeacherResponse> getTeacherList();
+
     @GetMapping("/user/{userId}/teachers")
     ResponseEntity<TeacherResponse> getTeacherByUserId(@PathVariable("userId") final Long userId);
 

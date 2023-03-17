@@ -8,8 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface GroupHasSubjectRepository extends Repository<GroupHasSubject, Long> {
 
-    GroupHasSubject save(final GroupHasSubject groupHasSubject);
-
     @Query("SELECT * FROM group_has_subject WHERE teacher_id=:teacherId")
     List<GroupHasSubject> getByTeacherId(@Param("teacherId") Long teacherId);
+
+    @Query("INSERT INTO group_has_subject(group_id, teacher_id, subject_id) " +
+            "VALUES(:groupId, :teacherId, :subjectId) " +
+            "RETURNING group_id, teacher_id, subject_id")
+    GroupHasSubject save(@Param("groupId") Long groupId, @Param("teacherId") Long teacherId, @Param("subjectId") Long subjectId);
 }

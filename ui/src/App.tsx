@@ -13,6 +13,8 @@ import StudentProfilePage from "./pages/ProfilePage/StudentProfilePage";
 import AdminMenuPage from "./pages/MenuPage/AdminMenuPage";
 import CreateUserPage from "./pages/AdminPage/CreateUserPage";
 import CreateAdditionalEntitiesPage from "./pages/AdminPage/CreateAdditionalEntitiesPage";
+import AddNewSubjectForGroupButton from "./components/Menu/button/AddNewSubjectForGroupButton";
+import AddGroupSubjectPage from "./pages/AdminPage/AddGroupSubjectPage";
 
 function App() {
     const user = useSessionStore(state => state.user);
@@ -36,6 +38,7 @@ function App() {
                     <Route path={'/menu'} element={<AdminMenuPage />} />
                     <Route path={'/admin-panel/create/user'} element={<CreateUserPage />} />
                     <Route path={'/admin-panel/create/entities'} element={<CreateAdditionalEntitiesPage />} />
+                    <Route path={'/admin-panel/connection/group-subject-teacher'} element={<AddGroupSubjectPage />} />
                     <Route path={'*'} element={<Navigate to="/menu" replace />} />
                 </Routes>
             </JournalLayout>

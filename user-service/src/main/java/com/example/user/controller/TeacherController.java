@@ -7,7 +7,9 @@ import com.example.user.dto.teacher.TeacherResponse;
 import com.example.user.facade.TeacherFacade;
 import com.example.user.model.Student;
 import com.example.user.model.Teacher;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,11 @@ public class TeacherController {
         Teacher teacher = converter.fromDto(request);
 
         return converter.toDto(teacherFacade.saveOrGet(teacher));
+    }
+
+    @GetMapping("/teachers")
+    List<TeacherResponse> getTeacherList() {
+        return teacherFacade.getTeacherList().stream().map(converter::toDto).collect(Collectors.toList());
     }
 
     @GetMapping("/teacher/{teacherId}")

@@ -23,10 +23,6 @@ public class SubjectFacade {
         return subjectService.getById(subjectId);
     }
 
-    public Optional<Subject> getByName(final String name) {
-        return subjectService.getByName(name);
-    }
-
     public GroupHasSubject addSubjectToTheGroup(final GroupHasSubject groupHasSubject) {
         return subjectService.addSubjectToTheGroup(groupHasSubject);
     }
@@ -41,5 +37,9 @@ public class SubjectFacade {
 
     public List<Subject> getSubjectsByTeacherIdAndGroupId(Long teacherId, Long groupId) {
         return subjectService.getSubjectsByTeacherIdAndGroupId(teacherId, groupId);
+    }
+
+    public List<Subject> getSubjectList() {
+        return subjectService.getSubjectList();
     }
 }

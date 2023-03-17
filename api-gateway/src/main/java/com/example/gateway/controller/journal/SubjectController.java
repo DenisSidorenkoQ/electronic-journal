@@ -1,4 +1,4 @@
-package com.example.gateway.controller;
+package com.example.gateway.controller.journal;
 
 import com.example.gateway.client.JournalClient;
 import com.example.gateway.dto.subject.*;
@@ -24,8 +24,8 @@ public class SubjectController {
     }
 
     @GetMapping("subjects")
-    ResponseEntity getByName(@RequestBody final GetSubjectByNameRequest request) {
-        return journalClient.getSubjectByName(request);
+    List<SubjectResponse> getSubjectList() {
+        return journalClient.getSubjectList();
     }
 
     @PostMapping("group/subjects")

@@ -18,7 +18,7 @@ public class JournalController {
     private final JournalConverter converter;
     private final JournalFacade journalFacade;
 
-    @PostMapping
+    @PostMapping("journals")
     JournalResponse saveOrGet(@RequestBody SaveJournalRequest request) {
         Journal journal = converter.fromDto(request);
 

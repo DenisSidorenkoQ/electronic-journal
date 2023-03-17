@@ -1,6 +1,7 @@
 package com.example.gateway.client;
 
 import com.example.gateway.dto.journal.JournalResponse;
+import com.example.gateway.dto.journal.SaveJournalRequest;
 import com.example.gateway.dto.lesson.GetLessonByGroupIdAndSubjectIdResponse;
 import com.example.gateway.dto.lesson.LessonResponse;
 import com.example.gateway.dto.lesson.SaveLessonRequest;
@@ -27,7 +28,7 @@ public interface JournalClient {
     ResponseEntity<SubjectResponse> getSubjectById(@PathVariable("subjectId") final Long subjectId);
 
     @GetMapping("subjects")
-    ResponseEntity<SubjectResponse> getSubjectByName(@RequestBody final GetSubjectByNameRequest request);
+    List<SubjectResponse> getSubjectList();
 
     @GetMapping("teacher/{teacherId}/subjects")
     List<GroupHasSubjectResponse> getTeacherSubjects(@PathVariable("teacherId") Long teacherId);
@@ -37,7 +38,7 @@ public interface JournalClient {
                                                            @PathVariable("groupId") Long groupId);
 
     //groupController
-    @PostMapping("group/subjects")
+    @PostMapping("/group/subjects")
     GroupHasSubjectResponse addSubjectToTheGroup(@RequestBody AddSubjectToTheGroupRequest request);
 
     @GetMapping("group/{groupId}/subjects")
@@ -78,7 +79,9 @@ public interface JournalClient {
     List<StudyPassResponse> getBySubjectIdAndGroupId(@PathVariable("groupId") Long groupId, @PathVariable("subjectId") Long subjectId);
 
     //JournalController
+    @PostMapping("journals")
+    JournalResponse saveOrGetJournal(@RequestBody SaveJournalRequest request);
+
     @GetMapping("group/{groupId}/journals")
     ResponseEntity<JournalResponse> getJournalByGroupId(@PathVariable("groupId") final Long groupId);
-
 }

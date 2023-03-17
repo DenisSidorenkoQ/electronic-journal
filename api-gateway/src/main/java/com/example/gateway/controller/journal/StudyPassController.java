@@ -1,4 +1,4 @@
-package com.example.gateway.controller;
+package com.example.gateway.controller.journal;
 
 import com.example.gateway.client.JournalClient;
 import com.example.gateway.dto.study_pass.SaveStudyPassRequest;

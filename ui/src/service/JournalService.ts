@@ -10,6 +10,16 @@ class JournalService {
             return response.data;
         });
     }
+
+    saveJournal(savedGroupId: number) {
+        return axios.post<Journal>(
+            `http://localhost:8080/api/v1/journals`,
+            {groupId: savedGroupId},
+            { withCredentials: true }
+        ).then(response => {
+            return response.data;
+        });
+    }
 }
 
 export default new JournalService();
