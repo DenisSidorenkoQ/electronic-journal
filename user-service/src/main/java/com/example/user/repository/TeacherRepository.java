@@ -1,6 +1,7 @@
 package com.example.user.repository;
 
 import com.example.user.model.Teacher;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.Repository;
@@ -15,4 +16,7 @@ public interface TeacherRepository extends Repository<Teacher, Long> {
 
     @Query("SELECT * FROM teacher WHERE id=:teacherId")
     Optional<Teacher> getById(@Param("teacherId") Long teacherId);
+
+    @Query("SELECT * FROM teacher")
+    List<Teacher> getTeacherList();
 }

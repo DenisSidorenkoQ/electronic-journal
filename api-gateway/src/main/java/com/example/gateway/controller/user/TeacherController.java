@@ -3,7 +3,9 @@ package com.example.gateway.controller.user;
 import com.example.gateway.client.UserClient;
 import com.example.gateway.dto.teacher.SaveTeacherRequest;
 import com.example.gateway.dto.teacher.TeacherResponse;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,11 @@ public class TeacherController {
     @PostMapping("/teachers")
     TeacherResponse saveOrGet(@RequestBody SaveTeacherRequest request) {
         return userClient.saveOrGetTeacher(request);
+    }
+
+    @GetMapping("/teachers")
+    List<TeacherResponse> getTeacherList() {
+        return userClient.getTeacherList();
     }
 
     @GetMapping("/user/{userId}/teachers")

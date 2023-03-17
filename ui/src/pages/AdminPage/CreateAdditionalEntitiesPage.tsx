@@ -9,12 +9,12 @@ import {useEffect} from "react";
 import groupService from "../../service/GroupService";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import userService from "../../service/UserService";
 import departmentService from "../../service/DepartmentService";
 import {KnowledgeTestType} from "../../model/KnowledgeTestTypeState";
-import teacherService from "../../service/TeacherService";
 import knowledgeTestTypeService from "../../service/KnowledgeTestTypeService";
 import subjectService from "../../service/SubjectService";
+import studentService from "../../service/StudentService";
+import journalService from "../../service/JournalService";
 
 const theme = createTheme();
 
@@ -28,6 +28,7 @@ const CreateAdditionalEntitiesPage = () => {
     const [knowledgeTestTypeList, setKnowledgeTestTypeList] = React.useState<KnowledgeTestType[]>([]);
     const [selectedTestTypeId, setSelectedTestTypeId] = React.useState(0);
     const [selectedTimeToStudy, setSelectedTimeToStudy] = React.useState(0);
+    const [savedGroupId, setSavedGroupId] = React.useState(0);
 
     const handleEntityChange = (event: any) => {
         const selectedEntityId = parseInt(event.target.value);
@@ -36,7 +37,7 @@ const CreateAdditionalEntitiesPage = () => {
     }
 
     const handleSaveGroupButton = () => {
-        groupService.saveGroup(selectedGroupName);
+        groupService.saveGroup(selectedGroupName).then(group => setSavedGroupId(group.id));
     };
 
     const handleSaveDepartmentButton = () => {
@@ -46,6 +47,10 @@ const CreateAdditionalEntitiesPage = () => {
     useEffect(() => {
         knowledgeTestTypeService.getKnowledgeTestTypeList().then(testTypeList => setKnowledgeTestTypeList(testTypeList));
     }, [selectedEntityId === 2]);
+
+    useEffect(() => {
+        journalService.saveJournal(savedGroupId);
+    }, [savedGroupId]);
 
     const inputGroupInformation = () => {
         const handleGroupNameChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {

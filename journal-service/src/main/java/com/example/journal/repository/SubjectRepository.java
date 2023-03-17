@@ -30,4 +30,7 @@ public interface SubjectRepository extends Repository<Subject, Long> {
             "WHERE ghs.teacher_id=:teacherId AND ghs.group_id=:groupId")
     List<Subject> getSubjectsByTeacherIdAndGroupId(@Param("teacherId") Long teacherId,
                                                            @Param("groupId") Long groupId);
+
+    @Query("SELECT * FROM subject")
+    List<Subject> getSubjectList();
 }

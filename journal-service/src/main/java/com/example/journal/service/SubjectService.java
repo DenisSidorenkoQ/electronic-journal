@@ -29,7 +29,11 @@ public class SubjectService {
     }
 
     public GroupHasSubject addSubjectToTheGroup(final GroupHasSubject groupHasSubject) {
-        return groupHasSubjectRepository.save(groupHasSubject);
+        return groupHasSubjectRepository.save(
+                groupHasSubject.getGroupId(),
+                groupHasSubject.getTeacherId(),
+                groupHasSubject.getSubjectId()
+        );
     }
 
     public List<Subject> getGroupSubjects(final Long groupId) {
@@ -42,5 +46,9 @@ public class SubjectService {
 
     public List<Subject> getSubjectsByTeacherIdAndGroupId(Long teacherId, Long groupId) {
         return subjectRepository.getSubjectsByTeacherIdAndGroupId(teacherId, groupId);
+    }
+
+    public List<Subject> getSubjectList() {
+        return subjectRepository.getSubjectList();
     }
 }
