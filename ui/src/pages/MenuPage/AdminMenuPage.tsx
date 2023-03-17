@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from "@mui/material/Box";
 import './Menu.css';
 import CreateNewUserButton from "../../components/Menu/button/CreateNewUserButton";
+import CreateAdditionalEntitiesButton from "../../components/Menu/button/CreateAdditionalEntitiesButton";
 
 const theme = createTheme();
 
@@ -16,6 +17,9 @@ const AdminMenuPage = () => {
                 <div className="gridContainer">
                     <div className="gridElement">
                         {CreateNewUserButton()}
+                    </div>
+                    <div className="gridElement">
+                        {CreateAdditionalEntitiesButton()}
                     </div>
                 </div>
             </Box>

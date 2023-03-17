@@ -12,6 +12,7 @@ import StudentMenuPage from "./pages/MenuPage/StudentMenuPage";
 import StudentProfilePage from "./pages/ProfilePage/StudentProfilePage";
 import AdminMenuPage from "./pages/MenuPage/AdminMenuPage";
 import CreateUserPage from "./pages/AdminPage/CreateUserPage";
+import CreateAdditionalEntitiesPage from "./pages/AdminPage/CreateAdditionalEntitiesPage";
 
 function App() {
     const user = useSessionStore(state => state.user);
@@ -34,6 +35,7 @@ function App() {
                     <Route path={'/login'} element={<LoginPage />} />
                     <Route path={'/menu'} element={<AdminMenuPage />} />
                     <Route path={'/admin-panel/create/user'} element={<CreateUserPage />} />
+                    <Route path={'/admin-panel/create/entities'} element={<CreateAdditionalEntitiesPage />} />
                     <Route path={'*'} element={<Navigate to="/menu" replace />} />
                 </Routes>
             </JournalLayout>

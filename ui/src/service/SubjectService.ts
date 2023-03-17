@@ -2,6 +2,14 @@ import axios from "axios";
 import {GroupHasSubject, Subject} from "../model/SubjectState";
 
 class SubjectService {
+    saveSubject = (name: string, testTypeId: number, timeToStudy: number): Promise<Subject> => {
+        return axios.post<Subject>(
+            `http://localhost:8080/api/v1/subjects`,
+            {name: name, timeToStudy: timeToStudy, knowledgeTestTypeId: testTypeId},
+            {withCredentials: true}
+        ).then(request => request.data);
+    }
+
     getGroupSubjects = (id: number | undefined): Promise<Subject[]> => {
         return axios.get<Subject[]>(
             `http://localhost:8080/api/v1/group/${id}/subjects`,
