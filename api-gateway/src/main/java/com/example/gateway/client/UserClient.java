@@ -3,8 +3,10 @@ package com.example.gateway.client;
 import com.example.gateway.dto.admin.AdminResponse;
 import com.example.gateway.dto.admin.SaveAdminRequest;
 import com.example.gateway.dto.department.DepartmentResponse;
+import com.example.gateway.dto.department.SaveDepartmentRequest;
 import com.example.gateway.dto.group.GroupResponse;
 import com.example.gateway.dto.group.SaveGroupRequest;
+import com.example.gateway.dto.knowledge_test_type.KnowledgeTestTypeResponse;
 import com.example.gateway.dto.role.RoleResponse;
 import com.example.gateway.dto.student.SaveStudentRequest;
 import com.example.gateway.dto.student.StudentResponse;
@@ -76,10 +78,17 @@ public interface UserClient {
 
 
 //Department
+    @PostMapping("/departments")
+    DepartmentResponse saveOrGetDepartment(@RequestBody SaveDepartmentRequest request);
+
     @GetMapping("/departments")
     List<DepartmentResponse> getDepartmentList();
 
 //Admin
     @PostMapping("/admins")
     AdminResponse saveOrGetAdmin(@RequestBody SaveAdminRequest request);
+
+//KnowledgeTestType
+    @GetMapping("/test-type")
+    List<KnowledgeTestTypeResponse> getKnowledgeTestTypeList();
 }

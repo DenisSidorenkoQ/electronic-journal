@@ -11,6 +11,16 @@ class DepartmentService {
             return response.data;
         });
     }
+
+    saveDepartment(name: string): Promise<Department> {
+        return axios.post<Department>(
+            `http://localhost:8080/api/v1/departments`,
+            {name: name},
+            { withCredentials: true }
+        ).then(response => {
+            return response.data;
+        })
+    }
 }
 
 export default new DepartmentService();

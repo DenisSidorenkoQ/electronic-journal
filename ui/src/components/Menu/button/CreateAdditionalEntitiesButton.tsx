@@ -7,7 +7,7 @@ import * as React from "react";
 const CreateAdditionalEntitiesButton = () => {
     let navigate = useNavigate();
 
-    const handleJournalButton = () => {
+    const handleCreateEntitiesButton = () => {
         navigate('/admin-panel/create/entities');
     };
 
@@ -17,7 +17,7 @@ const CreateAdditionalEntitiesButton = () => {
             variant="outlined"
             sx={{bgcolor: blue[500], color: grey[900]}}
             size={"large"}
-            onClick={handleJournalButton}
+            onClick={handleCreateEntitiesButton}
         >
             <NoteAddIcon style={{width: '100%', height: '100%'}}/>
         </Button>
