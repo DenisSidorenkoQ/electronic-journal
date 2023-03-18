@@ -17,10 +17,6 @@ public class DepartmentFacade {
                 .orElseGet(() -> departmentService.save(department));
     }
 
-    public Optional<Department> getById(final Long departmentId) {
-        return departmentService.getById(departmentId);
-    }
-
     public List<Department> getDepartmentList() {
         return departmentService.getDepartmentList();
     }

@@ -22,10 +22,6 @@ public class GroupFacade {
         return groupService.getById(groupId);
     }
 
-    public Optional<Group> getByName(String name) {
-        return groupService.getByName(name);
-    }
-
     public List<Group> getGroupList() {
         return groupService.getGroupList();
     }

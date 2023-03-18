@@ -24,22 +24,4 @@ public class AdminController {
 
         return converter.toDto(adminFacade.saveOrGet(admin));
     }
-
-    @GetMapping("/user/{userId}/admins")
-    ResponseEntity getByUserId(@PathVariable final Long userId) {
-        Optional<Admin> admin = adminFacade.getByUserId(userId);
-
-        return admin
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
-    }
-
-    @GetMapping("/user/admin/{adminId}")
-    ResponseEntity getById(@PathVariable("adminId") final Long adminId) {
-        Optional<Admin> admin = adminFacade.getById(adminId);
-
-        return admin
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
-    }
 }

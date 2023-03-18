@@ -12,10 +12,6 @@ import org.springframework.stereotype.Service;
 public class RoleService {
     private final RoleRepository repository;
 
-    public Optional<Role> getByRoleName(String name) {
-        return repository.getRoleByName(name);
-    }
-
     public Role save(Role role) {
         return repository.save(role);
     }

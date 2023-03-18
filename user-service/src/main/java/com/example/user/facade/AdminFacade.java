@@ -15,13 +15,4 @@ public class AdminFacade {
         return adminService.getAdminByUserId(admin.getUserId())
                 .orElseGet(() -> adminService.save(admin));
     }
-
-
-    public Optional<Admin> getByUserId(final Long userId) {
-        return adminService.getAdminByUserId(userId);
-    }
-
-    public Optional<Admin> getById(final Long adminId) {
-        return adminService.getAdminById(adminId);
-    }
 }

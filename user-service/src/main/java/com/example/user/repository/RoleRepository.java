@@ -10,9 +10,6 @@ import org.springframework.data.repository.query.Param;
 public interface RoleRepository extends Repository<Role, Long> {
     Role save(final Role role);
 
-    @Query("SELECT * FROM role WHERE name=:roleName")
-    Optional<Role> getRoleByName(@Param("roleName") final String roleName);
-
     @Query("SELECT * FROM role")
     List<Role> getRoleList();
 

@@ -18,8 +18,4 @@ public class AdminService {
     public Optional<Admin> getAdminByUserId(final Long userId) {
         return adminRepository.getAdminByUserId(userId);
     }
-
-    public Optional<Admin> getAdminById(final Long adminId) {
-        return adminRepository.getAdminById(adminId);
-    }
 }

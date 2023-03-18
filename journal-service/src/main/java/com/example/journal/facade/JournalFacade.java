@@ -17,10 +17,6 @@ public class JournalFacade {
                 .orElseGet(() -> journalService.save(journal));
     }
 
-    public Optional<Journal> getById(final Long journalId) {
-        return journalService.getById(journalId);
-    }
-
     public Optional<Journal> getByGroupId(final Long groupId) {
         return journalService.getByGroupId(groupId);
     }

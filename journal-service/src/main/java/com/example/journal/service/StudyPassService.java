@@ -11,10 +11,6 @@ import org.springframework.stereotype.Service;
 public class StudyPassService {
     private final StudyPassRepository studyPassRepository;
 
-    public List<StudyPass> getAllPassByLessonId(final Long lessonId) {
-        return studyPassRepository.getAllPassByLessonId(lessonId);
-    }
-
     public List<StudyPass> getBySubjectIdAndGroupId(Long groupId, Long subjectId) {
         return studyPassRepository.getBySubjectIdAndGroupId(groupId, subjectId);
     }

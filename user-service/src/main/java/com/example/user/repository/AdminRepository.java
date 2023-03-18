@@ -13,6 +13,4 @@ public interface AdminRepository extends Repository<Admin, Long> {
     @Query("SELECT * FROM admin where user_id=:userId")
     Optional<Admin> getAdminByUserId(@Param("userId") final Long userId);
 
-    @Query("SELECT * FROM admin where id=:adminId")
-    Optional<Admin> getAdminById(@Param("adminId") final Long adminId);
 }

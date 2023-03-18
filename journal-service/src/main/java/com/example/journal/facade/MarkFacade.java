@@ -17,10 +17,6 @@ public class MarkFacade {
         return markService.getMarksByLessonId(lessonId);
     }
 
-    public Mark getMarkByStudentIdAndLessonId(Long studentId, Long lessonId) {
-        return markService.getMarkByStudentIdAndLessonId(studentId, lessonId);
-    }
-
     public List<Mark> getMarksBySubjectIdAndGroupId(Long groupId, Long subjectId) {
         return markService.getMarksBySubjectIdAndGroupId(groupId, subjectId);
     }
@@ -29,7 +25,7 @@ public class MarkFacade {
         return markService.upsert(mark);
     }
 
-    public List<SubjectAvgMark> getAvgMarksByStudentIdAndSubjectId(Long studentId) {
-        return markService.getAvgMarksByStudentIdAndSubjectId(studentId);
+    public List<SubjectAvgMark> getAvgMarksByStudentId(Long studentId) {
+        return markService.getAvgMarksByStudentId(studentId);
     }
 }
