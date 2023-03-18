@@ -25,15 +25,6 @@ public class JournalController {
         return converter.toDto(journalFacade.saveOrGet(journal));
     }
 
-    @GetMapping("journal/{journalId}")
-    ResponseEntity getById(@PathVariable final Long journalId) {
-        Optional<Journal> journal = journalFacade.getById(journalId);
-
-        return journal
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
-    }
-
     @GetMapping("group/{groupId}/journals")
     ResponseEntity getByGroupId(@PathVariable final Long groupId) {
         Optional<Journal> journal = journalFacade.getByGroupId(groupId);

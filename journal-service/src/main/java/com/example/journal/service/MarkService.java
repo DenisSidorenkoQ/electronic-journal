@@ -16,10 +16,6 @@ public class MarkService {
         return markRepository.getMarksByLessonId(lessonId);
     }
 
-    public Mark getMarkByStudentIdAndLessonId(Long studentId, Long lessonId) {
-        return markRepository.getMarkByStudentIdAndLessonId(studentId, lessonId);
-    }
-
     public List<Mark> getMarksBySubjectIdAndGroupId(Long groupId, Long subjectId) {
         return markRepository.getMarksBySubjectIdAndGroupId(groupId, subjectId);
     }
@@ -28,7 +24,7 @@ public class MarkService {
         return markRepository.upsert(mark.getLessonId(), mark.getStudentId(), mark.getNumber());
     }
 
-    public List<SubjectAvgMark> getAvgMarksByStudentIdAndSubjectId(Long studentId) {
-        return markRepository.getAvgMarksByStudentIdAndSubjectId(studentId);
+    public List<SubjectAvgMark> getAvgMarksByStudentId(Long studentId) {
+        return markRepository.getAvgMarksByStudentId(studentId);
     }
 }

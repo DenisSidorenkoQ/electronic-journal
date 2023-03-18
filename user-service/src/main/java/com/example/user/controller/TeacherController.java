@@ -34,15 +34,6 @@ public class TeacherController {
         return teacherFacade.getTeacherList().stream().map(converter::toDto).collect(Collectors.toList());
     }
 
-    @GetMapping("/teacher/{teacherId}")
-    ResponseEntity getById(@PathVariable Long teacherId) {
-        Optional<Teacher> findTeacher = teacherFacade.getById(teacherId);
-
-        return findTeacher
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
-    }
-
     @GetMapping("/user/{userId}/teachers")
     ResponseEntity getByUserId(@PathVariable final Long userId) {
         Optional<Teacher> teacher = teacherFacade.getByUserId(userId);

@@ -27,13 +27,6 @@ public class StudyPassController {
         return converter.toDto(studyPassFacade.upsert(studyPass));
     }
 
-    @GetMapping("lesson/{lessonId}/study-pass")
-    List<StudyPassResponse> getAllPassByLessonId(@PathVariable Long lessonId) {
-        List<StudyPass> studyPasses = studyPassFacade.getAllPassByLessonId(lessonId);
-
-        return studyPasses.stream().map(converter::toDto).collect(Collectors.toList());
-    }
-
     @GetMapping("group/{groupId}/subject/{subjectId}/pass")
     List<StudyPassResponse> getBySubjectIdAndGroupId(@PathVariable Long groupId, @PathVariable Long subjectId) {
         List<StudyPass> passList = studyPassFacade.getBySubjectIdAndGroupId(groupId, subjectId);

@@ -37,14 +37,9 @@ public class MarkController {
         return markFacade.getMarksBySubjectIdAndGroupId(groupId, subjectId);
     }
 
-    @GetMapping("student/{studentId}/lesson/{lessonId}/marks")
-    MarkResponse getMarkByStudentIdAndLessonId(@PathVariable Long studentId, @PathVariable Long lessonId) {
-        return converter.toDto(markFacade.getMarkByStudentIdAndLessonId(studentId, lessonId));
-    }
-
     @GetMapping("student/{studentId}/subjects/marks/avg")
     List<SubjectAvgMarkResponse> getAvgStudentMarks(@PathVariable Long studentId) {
-        List<SubjectAvgMark> subjectAvgMarkList = markFacade.getAvgMarksByStudentIdAndSubjectId(studentId);
+        List<SubjectAvgMark> subjectAvgMarkList = markFacade.getAvgMarksByStudentId(studentId);
         return subjectAvgMarkList.stream().map(converter::toDto).collect(Collectors.toList());
     }
 }

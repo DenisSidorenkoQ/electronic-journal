@@ -18,10 +18,6 @@ public class TeacherFacade {
                 .orElseGet(() -> teacherService.save(teacher));
     }
 
-    public Optional<Teacher> getById(final Long teacherId) {
-        return teacherService.getById(teacherId);
-    }
-
     public Optional<Teacher> getByUserId(final Long userId) {
         return teacherService.getByUserId(userId);
     }

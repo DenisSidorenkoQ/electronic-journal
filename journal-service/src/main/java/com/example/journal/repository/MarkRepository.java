@@ -18,9 +18,6 @@ public interface MarkRepository extends Repository<Mark, Long> {
     @Query("SELECT * FROM mark WHERE lesson_id=:lessonId")
     List<Mark> getMarksByLessonId(@Param("lessonId") Long lessonId);
 
-    @Query("SELECT * FROM mark WHERE student_id=:studentId AND lesson_id=:lessonId")
-    Mark getMarkByStudentIdAndLessonId(@Param("studentId") Long studentId, @Param("lessonId") Long lessonId);
-
     @Query("SELECT mark.id, mark.student_id, mark.lesson_id, mark.number FROM mark " +
             "JOIN student s on s.id = mark.student_id " +
             "JOIN groups g on g.id = s.group_id " +
@@ -34,5 +31,5 @@ public interface MarkRepository extends Repository<Mark, Long> {
             "JOIN student stud on stud.id = mark.student_id " +
             "JOIN knowledge_test_type ktt on ktt.id = sub.knowledge_test_type_id " +
             "WHERE stud.id=:studentId GROUP BY (subject_id, subject_name, time_to_study, knowledge_test_type_name)")
-    List<SubjectAvgMark> getAvgMarksByStudentIdAndSubjectId(@Param("studentId") Long studentId);
+    List<SubjectAvgMark> getAvgMarksByStudentId(@Param("studentId") Long studentId);
 }

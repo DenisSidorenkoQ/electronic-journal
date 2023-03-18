@@ -11,11 +11,6 @@ import org.springframework.stereotype.Component;
 public class RoleFacade {
     private final RoleService roleService;
 
-    public Role saveOrGet(Role role) {
-        return roleService.getByRoleName(role.getName())
-                .orElseGet(() -> roleService.save(role));
-    }
-
     public List<Role> getRoleList() {
         return roleService.getRoleList();
     }

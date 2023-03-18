@@ -12,7 +12,7 @@ const StudentMenuPage = () => {
     return (
         <ThemeProvider theme={theme}>
             <Box style={{
-                position: 'absolute', left: '40%', top: '40%', display: 'flex'
+                position: 'absolute', left: '30%', top: '40%', display: 'flex'
             }}>
                 <div className="gridContainer">
                     <div className="gridElement">

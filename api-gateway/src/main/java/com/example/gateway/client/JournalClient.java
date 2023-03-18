@@ -37,7 +37,6 @@ public interface JournalClient {
     List<SubjectResponse> getSubjectsByTeacherIdAndGroupId(@PathVariable("teacherId") Long teacherId,
                                                            @PathVariable("groupId") Long groupId);
 
-    //groupController
     @PostMapping("/group/subjects")
     GroupHasSubjectResponse addSubjectToTheGroup(@RequestBody AddSubjectToTheGroupRequest request);
 

@@ -14,9 +14,6 @@ public interface StudyPassRepository extends Repository<StudyPass, Long> {
             "RETURNING id, lesson_id, student_id, pass")
     StudyPass upsert(@Param("lessonId") Long lessonId, @Param("studentId") Long studentId, @Param("pass") Boolean pass);
 
-    @Query("SELECT * FROM study_pass WHERE lesson_id=:lessonId")
-    List<StudyPass> getAllPassByLessonId(@Param("lessonId") Long lessonId);
-
     @Query("SELECT study_pass.id, study_pass.lesson_id, study_pass.student_id, study_pass.pass FROM study_pass " +
             "JOIN lesson l on l.id = study_pass.lesson_id " +
             "JOIN group_has_subject ghs on l.subject_id = ghs.subject_id " +

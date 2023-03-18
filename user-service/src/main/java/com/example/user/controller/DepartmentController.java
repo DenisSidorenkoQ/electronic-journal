@@ -27,15 +27,6 @@ public class DepartmentController {
         return converter.toDto(departmentFacade.save(department));
     }
 
-    @GetMapping("/department/{departmentId}")
-    ResponseEntity getById(@PathVariable("departmentId") final Long departmentId) {
-        Optional<Department> department = departmentFacade.getById(departmentId);
-
-        return department
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
-    }
-
     @GetMapping("/departments")
     List<DepartmentResponse> getDepartmentList() {
         return departmentFacade.getDepartmentList().stream().map(converter::toDto).collect(Collectors.toList());

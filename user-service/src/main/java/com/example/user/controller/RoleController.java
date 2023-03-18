@@ -17,13 +17,6 @@ public class RoleController {
     private final RoleConverter converter;
     private final RoleFacade roleFacade;
 
-    @PostMapping("/roles")
-    RoleResponse saveOrGet(@RequestBody SaveRoleRequest request) {
-        Role role = converter.fromDto(request);
-
-        return converter.toDto(roleFacade.saveOrGet(role));
-    }
-
     @GetMapping("/roles")
     List<RoleResponse> getRoleList() {
         List<Role> roleList = roleFacade.getRoleList();

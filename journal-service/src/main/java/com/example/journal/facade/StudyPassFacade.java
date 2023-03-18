@@ -14,10 +14,6 @@ import org.springframework.stereotype.Component;
 public class StudyPassFacade {
     private final StudyPassService studyPassService;
 
-    public List<StudyPass> getAllPassByLessonId(final Long lessonId) {
-        return studyPassService.getAllPassByLessonId(lessonId);
-    }
-
     public List<StudyPass> getBySubjectIdAndGroupId(Long groupId, Long subjectId) {
         return studyPassService.getBySubjectIdAndGroupId(groupId, subjectId);
     }
