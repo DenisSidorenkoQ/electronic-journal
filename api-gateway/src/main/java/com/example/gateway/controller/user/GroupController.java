@@ -4,7 +4,6 @@ import com.example.gateway.client.UserClient;
 import com.example.gateway.dto.group.GroupResponse;
 import com.example.gateway.dto.group.SaveGroupRequest;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
