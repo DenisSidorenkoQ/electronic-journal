@@ -11,9 +11,6 @@ public interface StudentRepository extends Repository<Student, Long> {
 
     Student save(final Student student);
 
-    @Query("SELECT * FROM student WHERE id=:studentId")
-    Optional<Student> getById(@Param("studentId") final Long studentId);
-
     @Query("SELECT * FROM student WHERE user_id=:userId")
     Optional<Student> getByUserId(@Param("userId") final Long userId);
 

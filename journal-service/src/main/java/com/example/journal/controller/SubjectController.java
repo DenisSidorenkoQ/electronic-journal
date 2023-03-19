@@ -30,24 +30,6 @@ public class SubjectController {
         return subjectConverter.toDto(subjectFacade.saveOrGetSubject(subject));
     }
 
-    @GetMapping("subject/{subjectId}")
-    ResponseEntity getById(@PathVariable("subjectId") final Long subjectId) {
-        Optional<Subject> subject = subjectFacade.getById(subjectId);
-
-        return subject
-                .map(value -> new ResponseEntity(subjectConverter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
-    }
-
-    @GetMapping("subjects")
-    ResponseEntity getByName(@RequestBody final GetSubjectByNameRequest request) {
-        Optional<Subject> subject = subjectFacade.getByName(request.getName());
-
-        return subject
-                .map(value -> new ResponseEntity(subjectConverter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
-    }
-
     @PostMapping("group/subjects")
     GroupHasSubjectResponse addSubjectToTheGroup(@RequestBody AddSubjectToTheGroupRequest request) {
         GroupHasSubject groupHasSubject = groupHasSubjectConverter.fromDto(request);

@@ -12,10 +12,6 @@ import org.springframework.stereotype.Service;
 public class MarkService {
     private final MarkRepository markRepository;
 
-    public List<Mark> getMarksByLessonId(final Long lessonId) {
-        return markRepository.getMarksByLessonId(lessonId);
-    }
-
     public Mark getMarkByStudentIdAndLessonId(Long studentId, Long lessonId) {
         return markRepository.getMarkByStudentIdAndLessonId(studentId, lessonId);
     }

@@ -12,10 +12,6 @@ import org.springframework.stereotype.Service;
 public class LessonService {
     private final LessonRepository lessonRepository;
 
-    public Optional<Lesson> getById(final Long lessonId) {
-        return lessonRepository.getById(lessonId);
-    }
-
     public List<Lesson> getAllLessonsByGroupIdAndSubjectId(final Long groupId, final Long subjectId) {
         return lessonRepository.getAllLessonsByGroupIdAndSubjectId(groupId, subjectId);
     }

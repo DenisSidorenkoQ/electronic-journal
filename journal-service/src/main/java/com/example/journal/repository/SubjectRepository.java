@@ -15,9 +15,6 @@ public interface SubjectRepository extends Repository<Subject, Long> {
 
     Subject save(final Subject subject);
 
-    @Query("SELECT * FROM subject WHERE id=:subjectId")
-    Optional<Subject> getById(@Param("subjectId") final Long subjectId);
-
     @Query("SELECT subject.id as id, subject.name as name, knowledge_test_type_id, time_to_study FROM subject " +
             "JOIN knowledge_test_type ktt on ktt.id = subject.knowledge_test_type_id " +
             "JOIN group_has_subject ghs on subject.id = ghs.subject_id " +

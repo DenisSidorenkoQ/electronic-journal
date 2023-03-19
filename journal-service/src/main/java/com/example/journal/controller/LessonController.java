@@ -29,15 +29,6 @@ public class LessonController {
         return converter.toDto(lessonFacade.save(lesson));
     }
 
-    @GetMapping("lesson/{lessonId}")
-    ResponseEntity getById(@PathVariable final Long lessonId) {
-        Optional<Lesson> lesson = lessonFacade.getById(lessonId);
-
-        return lesson
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
-    }
-
     @GetMapping("lessons")
     List<GetLessonByGroupIdAndSubjectIdResponse> getAllLessonsByGroupIdAndSubjectId(
             @RequestParam final Long groupId,

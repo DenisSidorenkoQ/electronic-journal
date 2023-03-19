@@ -24,10 +24,6 @@ public class SubjectService {
         return subjectRepository.save(subject);
     }
 
-    public Optional<Subject> getById(final Long subjectId) {
-        return subjectRepository.getById(subjectId);
-    }
-
     public GroupHasSubject addSubjectToTheGroup(final GroupHasSubject groupHasSubject) {
         return groupHasSubjectRepository.save(groupHasSubject);
     }

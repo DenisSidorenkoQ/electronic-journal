@@ -10,7 +10,6 @@ import studyPassService from "../../../service/StudyPassService";
 import {Student} from "../../../model/StudentState";
 import {Lesson} from "../../../model/LessonState";
 import { Util } from "../../../util/Util";
-import passService from "../../../service/PassService";
 import {AlertColor} from "@mui/material";
 import CustomAlert from "../alert/CustomAlert";
 
@@ -83,7 +82,7 @@ const TeacherDataGrid = (reRenderTableCount: number, selectedGroupId: number, se
         const lessonId: number = event.currentTarget.dataset.lessonid;
 
         if(pass === "Н" || pass === "н") {
-            passService.upsertPass(lessonId, studentId, true).then(() => {
+            studyPassService.upsertPass(lessonId, studentId, true).then(() => {
                 setAlertType(ALERT_TYPE[0]);
                 setAlertTitle("OK");
                 setAlertText(ALERT_TEXT[2]);
@@ -95,7 +94,7 @@ const TeacherDataGrid = (reRenderTableCount: number, selectedGroupId: number, se
                 setAlertState(true);
             });
         } else if (pass === "" || pass === " ") {
-            passService.upsertPass(lessonId, studentId, false).then(() => {
+            studyPassService.upsertPass(lessonId, studentId, false).then(() => {
                 setAlertType(ALERT_TYPE[0]);
                 setAlertTitle("OK");
                 setAlertText(ALERT_TEXT[2]);

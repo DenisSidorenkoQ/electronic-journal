@@ -13,10 +13,6 @@ public class MarkFacade {
     private final MarkService markService;
 
 
-    public List<Mark> getMarksByLessonId(final Long lessonId) {
-        return markService.getMarksByLessonId(lessonId);
-    }
-
     public Mark getMarkByStudentIdAndLessonId(Long studentId, Long lessonId) {
         return markService.getMarkByStudentIdAndLessonId(studentId, lessonId);
     }

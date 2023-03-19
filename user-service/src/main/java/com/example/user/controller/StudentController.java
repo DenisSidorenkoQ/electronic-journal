@@ -37,15 +37,6 @@ public class StudentController {
                 .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
     }
 
-    @GetMapping("/student/{studentId}")
-    ResponseEntity getById(@PathVariable Long studentId) {
-        Optional<Student> findStudent = studentFacade.getById(studentId);
-
-        return findStudent
-                .map(value -> new ResponseEntity(converter.toDto(value), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity(HttpStatus.CONFLICT));
-    }
-
     @GetMapping("/group/{groupId}/students")
     List<StudentResponse> getAllStudentsByGroup(@PathVariable Long groupId) {
         List<Student> studentList = studentFacade.getAllStudentsByGroup(groupId);

@@ -12,9 +12,6 @@ public interface LessonRepository extends Repository<Lesson, Long> {
 
     Lesson save(Lesson lesson);
 
-    @Query("SELECT * FROM lesson WHERE id=:lessonId")
-    Optional<Lesson> getById(@Param("lessonId") final Long lessonId);
-
     @Query("SELECT lesson.id, lesson.theme_name, lesson.date FROM lesson " +
             "JOIN journal j ON j.id = lesson.journal_id " +
             "WHERE j.group_id=:groupId AND lesson.subject_id=:subjectId")

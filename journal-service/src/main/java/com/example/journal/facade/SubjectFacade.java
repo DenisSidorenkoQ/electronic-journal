@@ -19,14 +19,6 @@ public class SubjectFacade {
                 .orElseGet(() -> subjectService.save(subject));
     }
 
-    public Optional<Subject> getById(final Long subjectId) {
-        return subjectService.getById(subjectId);
-    }
-
-    public Optional<Subject> getByName(final String name) {
-        return subjectService.getByName(name);
-    }
-
     public GroupHasSubject addSubjectToTheGroup(final GroupHasSubject groupHasSubject) {
         return subjectService.addSubjectToTheGroup(groupHasSubject);
     }

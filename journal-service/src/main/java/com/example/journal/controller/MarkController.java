@@ -27,11 +27,6 @@ public class MarkController {
         return converter.toDto(markFacade.upsert(mark));
     }
 
-    @GetMapping("lesson/{lessonId}/marks")
-    List<Mark> getMarksByLessonId(@PathVariable Long lessonId) {
-        return markFacade.getMarksByLessonId(lessonId);
-    }
-
     @GetMapping("group/{groupId}/subject/{subjectId}/marks")
     List<Mark> getMarksBySubjectIdAndGroupId(@PathVariable Long groupId, @PathVariable Long subjectId) {
         return markFacade.getMarksBySubjectIdAndGroupId(groupId, subjectId);

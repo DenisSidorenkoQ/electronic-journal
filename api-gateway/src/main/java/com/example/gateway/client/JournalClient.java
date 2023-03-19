@@ -23,12 +23,6 @@ public interface JournalClient {
     @PostMapping("subjects")
     SubjectResponse saveOrGetSubject(@RequestBody SaveSubjectRequest request);
 
-    @GetMapping("subject/{subjectId}")
-    ResponseEntity<SubjectResponse> getSubjectById(@PathVariable("subjectId") final Long subjectId);
-
-    @GetMapping("subjects")
-    ResponseEntity<SubjectResponse> getSubjectByName(@RequestBody final GetSubjectByNameRequest request);
-
     @GetMapping("teacher/{teacherId}/subjects")
     List<GroupHasSubjectResponse> getTeacherSubjects(@PathVariable("teacherId") Long teacherId);
 
@@ -47,9 +41,6 @@ public interface JournalClient {
     @PostMapping("lessons")
     LessonResponse saveLesson(@RequestBody SaveLessonRequest request);
 
-    @GetMapping("lesson/{lessonId}")
-    ResponseEntity getLessonById(@PathVariable("lessonId") final Long lessonId);
-
     @GetMapping("lessons")
     List<GetLessonByGroupIdAndSubjectIdResponse> getAllLessonsByGroupIdAndSubjectId(
             @RequestParam("groupId") final Long groupId,
@@ -59,9 +50,6 @@ public interface JournalClient {
     //MarkController
     @PostMapping("marks")
     MarkResponse upsertMark(@RequestBody @Validated SaveOrUpdateMarkRequest request);
-
-    @GetMapping("lesson/{lessonId}/marks")
-    List<MarkResponse> getMarkByLessonId(@PathVariable("lessonId") Long lessonId);
 
     @GetMapping("group/{groupId}/subject/{subjectId}/marks")
     List<MarkResponse> getMarksBySubjectIdAndGroupId(@PathVariable("groupId") Long groupId, @PathVariable("subjectId") Long subjectId);

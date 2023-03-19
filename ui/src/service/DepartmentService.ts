@@ -1,4 +1,3 @@
-import {Group} from "../model/GroupState";
 import axios from "axios";
 import {Department} from "../model/DepartmentState";
 

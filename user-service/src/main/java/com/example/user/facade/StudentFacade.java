@@ -18,10 +18,6 @@ public class StudentFacade {
                 .orElseGet(() -> studentService.save(student));
     }
 
-    public Optional<Student> getById(Long studentId) {
-        return studentService.getById(studentId);
-    }
-
     public Optional<Student> getByUserId(Long userId) {
         return studentService.getByUserId(userId);
     }

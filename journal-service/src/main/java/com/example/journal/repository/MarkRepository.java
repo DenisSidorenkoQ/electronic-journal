@@ -15,9 +15,6 @@ public interface MarkRepository extends Repository<Mark, Long> {
             "RETURNING id, lesson_id, student_id, number")
     Mark upsert(@Param("lessonId") final Long lessonId, @Param("studentId") final Long studentId, @Param("number") final Integer number);
 
-    @Query("SELECT * FROM mark WHERE lesson_id=:lessonId")
-    List<Mark> getMarksByLessonId(@Param("lessonId") Long lessonId);
-
     @Query("SELECT * FROM mark WHERE student_id=:studentId AND lesson_id=:lessonId")
     Mark getMarkByStudentIdAndLessonId(@Param("studentId") Long studentId, @Param("lessonId") Long lessonId);
 

@@ -16,10 +16,6 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Optional<Student> getById(final Long studentId) {
-        return studentRepository.getById(studentId);
-    }
-
     public Optional<Student> getByUserId(final Long userId) {
         return studentRepository.getByUserId(userId);
     }
