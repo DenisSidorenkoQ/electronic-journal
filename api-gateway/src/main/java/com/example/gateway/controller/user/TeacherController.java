@@ -9,24 +9,30 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class TeacherController {
     private final UserClient userClient;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/teachers")
     TeacherResponse saveOrGet(@RequestBody SaveTeacherRequest request) {
         return userClient.saveOrGetTeacher(request);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/teachers")
     List<TeacherResponse> getTeacherList() {
         return userClient.getTeacherList();
     }
 
+    @PreAuthorize("hasRole('TEACHER')")
     @GetMapping("/user/{userId}/teachers")
     ResponseEntity getByUserId(@PathVariable final Long userId) {
         return userClient.getTeacherByUserId(userId);

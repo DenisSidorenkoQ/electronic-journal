@@ -23,15 +23,15 @@ const AddGroupSubjectPage = () => {
 
     useEffect(() => {
         groupService.getGroupList().then(groups => setGroupList(groups));
-    });
+    }, []);
 
     useEffect(() => {
         teacherService.getTeacherList().then(teachers => setTeacherList(teachers));
-    });
+    }, []);
 
     useEffect(() => {
         subjectService.getSubjectList().then(subjects => setSubjectList(subjects));
-    });
+    }, []);
 
     const handleGroupChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
         setSelectedGroupId(parseInt(event.target.value.toString()));
