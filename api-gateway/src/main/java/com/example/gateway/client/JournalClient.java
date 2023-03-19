@@ -1,6 +1,7 @@
 package com.example.gateway.client;
 
 import com.example.gateway.dto.journal.JournalResponse;
+import com.example.gateway.dto.journal.SaveJournalRequest;
 import com.example.gateway.dto.lesson.GetLessonByGroupIdAndSubjectIdResponse;
 import com.example.gateway.dto.lesson.LessonResponse;
 import com.example.gateway.dto.lesson.SaveLessonRequest;
@@ -13,6 +14,7 @@ import com.example.gateway.dto.subject.*;
 import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,6 +68,9 @@ public interface JournalClient {
     List<StudyPassResponse> getBySubjectIdAndGroupId(@PathVariable("groupId") Long groupId, @PathVariable("subjectId") Long subjectId);
 
     //JournalController
+    @PostMapping("journals")
+    JournalResponse saveOrGetJournal(@RequestBody SaveJournalRequest request);
+
     @GetMapping("group/{groupId}/journals")
     ResponseEntity<JournalResponse> getJournalByGroupId(@PathVariable("groupId") final Long groupId);
 
