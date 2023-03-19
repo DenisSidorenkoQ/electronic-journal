@@ -8,14 +8,18 @@ import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
+@EnableMethodSecurity
 public class UserController {
     private final UserClient userClient;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("users")
     ResponseEntity<SaveUserResponse> save(@RequestBody SaveUserRequest request) {
         return userClient.saveUser(request);

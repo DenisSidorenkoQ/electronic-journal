@@ -23,7 +23,6 @@ public class SecurityConfig {
                 .authorizeRequests(a -> a
                         .antMatchers("/", "/error", "/authorization/login").permitAll()
                         .antMatchers("/api/v1/sessions/*").authenticated()
-//                        .antMatchers("/api/v1/user/*").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
