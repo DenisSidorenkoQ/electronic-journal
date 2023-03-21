@@ -5,7 +5,7 @@ import {Department} from "../model/DepartmentState";
 class DepartmentService {
     async getDepartmentList(): Promise<Department[]> {
         return await axios.get<Department[]>(
-            `http://localhost:8080/api/v1/departments`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/departments`,
             { withCredentials: true }
         ).then(response => {
             return response.data;
@@ -14,7 +14,7 @@ class DepartmentService {
 
     saveDepartment(name: string): Promise<Department> {
         return axios.post<Department>(
-            `http://localhost:8080/api/v1/departments`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/departments`,
             {name: name},
             { withCredentials: true }
         ).then(response => {

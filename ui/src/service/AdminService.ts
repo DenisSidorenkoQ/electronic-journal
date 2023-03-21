@@ -4,7 +4,7 @@ import {Admin} from "../model/AdminState";
 class AdminService {
     saveAdmin = (userId: number, fio: string): Promise<Admin> => {
         return axios.post<Admin>(
-            `http://localhost:8080/api/v1/admins`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/admins`,
             {userId: userId, fio: fio},
             {withCredentials: true}
         ).then(response => response.data);
