@@ -1,6 +1,5 @@
 package com.example.journal.service;
 
-import com.example.journal.dto.subject.SubjectResponse;
 import com.example.journal.model.GroupHasSubject;
 import com.example.journal.model.Subject;
 import com.example.journal.repository.GroupHasSubjectRepository;
