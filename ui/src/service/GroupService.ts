@@ -4,7 +4,7 @@ import {Group} from "../model/GroupState";
 class GroupService {
     async saveGroup(name: string): Promise<Group> {
         return await axios.post<Group>(
-            `http://localhost:8080/api/v1/groups`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/groups`,
             {name: name},
             { withCredentials: true }
         ).then(response => {
@@ -14,7 +14,7 @@ class GroupService {
 
     async getGroupById(groupId: number | undefined): Promise<Group> {
         return await axios.get<Group>(
-            `http://localhost:8080/api/v1/group/${groupId}`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/group/${groupId}`,
             { withCredentials: true }
         ).then(response => {
             return response.data;
@@ -23,7 +23,7 @@ class GroupService {
 
     async addGroupSubject(groupId: number, teacherId: number, subjectId: number) {
         return await axios.post(
-            `http://localhost:8080/api/v1/group/subjects`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/group/subjects`,
             {groupId: groupId, teacherId: teacherId, subjectId: subjectId},
             { withCredentials: true }
         ).then(response => {
@@ -33,7 +33,7 @@ class GroupService {
 
     async getGroupList(): Promise<Group[]> {
         return await axios.get<Group[]>(
-            `http://localhost:8080/api/v1/groups`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/groups`,
             { withCredentials: true }
         ).then(response => {
             return response.data;

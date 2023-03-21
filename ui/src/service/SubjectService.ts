@@ -4,7 +4,7 @@ import {GroupHasSubject, Subject} from "../model/SubjectState";
 class SubjectService {
     saveSubject = (name: string, testTypeId: number, timeToStudy: number): Promise<Subject> => {
         return axios.post<Subject>(
-            `http://localhost:8080/api/v1/subjects`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/subjects`,
             {name: name, timeToStudy: timeToStudy, knowledgeTestTypeId: testTypeId},
             {withCredentials: true}
         ).then(request => request.data);
@@ -12,7 +12,7 @@ class SubjectService {
 
     getGroupSubjects = (id: number | undefined): Promise<Subject[]> => {
         return axios.get<Subject[]>(
-            `http://localhost:8080/api/v1/group/${id}/subjects`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/group/${id}/subjects`,
             {withCredentials: true}
         ).then(subjects => {
             if (subjects.data.length != null) {
@@ -26,21 +26,21 @@ class SubjectService {
 
     getTeacherSubjects = (id: number): Promise<GroupHasSubject[]> => {
         return axios.get<GroupHasSubject[]>(
-            `http://localhost:8080/api/v1/teacher/${id}/subjects`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/teacher/${id}/subjects`,
             {withCredentials: true}
         ).then(request => request.data);
     }
 
     getSubjectList = (): Promise<Subject[]> => {
         return axios.get<Subject[]>(
-            `http://localhost:8080/api/v1/subjects`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/subjects`,
             {withCredentials: true}
         ).then(request => request.data);
     }
 
     getSubjectsByTeacherIdAndGroupId = (teacherId: number, groupId: number): Promise<Subject[]> => {
         return axios.get<Subject[]>(
-            `http://localhost:8080/api/v1/teacher/${teacherId}/group/${groupId}/subjects`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/teacher/${teacherId}/group/${groupId}/subjects`,
             {withCredentials: true}
         ).then(request => request.data);
     }

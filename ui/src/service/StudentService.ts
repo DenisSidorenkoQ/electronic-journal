@@ -4,7 +4,7 @@ import {Student} from "../model/StudentState";
 class StudentService {
      getStudentByUserId = async (id: number | undefined) => {
          const resp = await axios.get<Student>(
-             `http://localhost:8080/api/v1/user/${id}/students`,
+             process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/user/${id}/students`,
              {withCredentials: true}
          );
          return resp.data;
@@ -12,7 +12,7 @@ class StudentService {
 
     getStudentsByGroupId = async (id: number | undefined) => {
         const resp = await axios.get<Student[]>(
-            `http://localhost:8080/api/v1/group/${id}/students`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/group/${id}/students`,
             {withCredentials: true}
         );
         return resp.data;
@@ -20,7 +20,7 @@ class StudentService {
 
     saveStudent = async (userId: number, groupId: number, fio: string, sex: string): Promise<Student> => {
         const resp = await axios.post<Student>(
-            `http://localhost:8080/api/v1/students`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/students`,
             {userId: userId, groupId: groupId, fio: fio, sex: sex},
             {withCredentials: true}
         );

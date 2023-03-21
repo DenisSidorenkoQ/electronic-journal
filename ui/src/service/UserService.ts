@@ -4,7 +4,7 @@ import {SaveUserResponse, User} from "../model/UserState";
 class UserService {
     saveUser = (login: String, password: String, roleId: number): Promise<SaveUserResponse> => {
         return axios.post<SaveUserResponse>(
-            `http://localhost:8080/api/v1/users`,
+            process.env.REACT_APP_API_GATEWAY_URL + `/api/v1/users`,
             {login: login, password: password, roleId: roleId},
             {withCredentials: true}
         ).then(response => response.data);
