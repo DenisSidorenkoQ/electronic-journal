@@ -1,6 +1,5 @@
 package com.example.journal.repository;
 
-import com.example.journal.dto.subject.SubjectResponse;
 import com.example.journal.model.Subject;
 import java.util.List;
 import java.util.Optional;
